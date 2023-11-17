@@ -1,0 +1,135 @@
+@use '../abstracts' as *;
+
+.hero {
+  height: 100vh;
+  width: 100vw;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  @function font-lerp($min-font, $max-font, $min-width, $max-width) {
+    $gradient: calc(
+      (#{$max-font} - #{$min-font}) / (#{$max-width} - #{$min-width})
+    );
+    $intercept: calc(#{$min-font} - (#{$gradient} * #{$min-width}));
+    $lerp: calc(#{$intercept} * 1rem + (#{$gradient} * 100vw));
+
+    @return clamp(#{$min-font}rem, #{$lerp}, #{$max-font}rem);
+  }
+
+  // TODO: add menu of 9 boxes that expands to a menu screen
+  &__menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: transparent;
+    z-index: 3;
+  }
+
+  &__menu-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(3px);
+    z-index: 2;
+  }
+
+  &__menu-button {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    z-index: 3;
+    transform: translateX(-50%);
+    cursor: pointer;
+  }
+
+  &__title-1,
+  &__title-2 {
+    user-select: none;
+    position: absolute;
+    font-size: font-lerp(2.827, 33.918, 10, 215);
+
+    // font-size: font-lerp(2, 39.571, 10, 240);
+    font-weight: 900;
+    margin: 0;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  &__title-letter {
+    display: inline-block;
+    transition:
+      scale 0.35s ease-in-out,
+      color 0.35s ease-in-out;
+
+    &:hover {
+      scale: 1.1;
+
+      & + span {
+        scale: 1.025;
+      }
+    }
+
+    &:has(+ span:hover) {
+      scale: 1.025;
+    }
+  }
+
+  &__title-1 {
+    bottom: 52%;
+    left: 0;
+    right: 0;
+  }
+
+  &__title-2 {
+    top: 52%;
+    left: 0;
+    right: 0;
+  }
+
+  &__subtitle {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    font-size: font-lerp(0.5, 2, 10, 215);
+    font-weight: 100;
+    margin: 0;
+    line-height: normal;
+    letter-spacing: font-lerp(0.166, 3, 10, 215);
+    user-select: none;
+    padding: 0 1rem;
+
+    & strong {
+      font-weight: 900;
+    }
+  }
+
+  &__video {
+    user-select: none;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    object-fit: contain;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+  }
+
+  &__overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    top: 0;
+    left: 0;
+    mix-blend-mode: multiply;
+  }
+}

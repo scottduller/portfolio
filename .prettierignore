@@ -1,0 +1,11 @@
+node_modules
+.next
+.husky
+coverage
+.prettierignore
+.stylelintignore
+.eslintignore
+app/styles/style.css
+app/fonts
+public
+yarn.lock

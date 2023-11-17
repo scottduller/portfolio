@@ -1,11 +1,16 @@
+/* eslint-env node */
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const path = require('path')
+
+const eslintCommand = (filenames) =>
+  `next lint --file ${filenames
+    .map((f) => path.relative(process.cwd(), f))
+    .join(' --file ')}`
+
+const formatCommand = 'prettier --write'
+const stylelintCommand = 'stylelint --allow-empty-input "**/*.{css,scss}"'
 module.exports = {
-  "**/*.(ts|tsx)": () => "yarn tsc --noEmit",
-
-  "**/*.(ts|tsx|js)": (filenames) => [
-    `yarn eslint --fix ${filenames.join(" ")}`,
-    `yarn prettier --write ${filenames.join(" ")}`,
-  ],
-
-  "**/*.(md|json)": (filenames) =>
-    `yarn prettier --write ${filenames.join(" ")}`,
-};
+  '*.{js,jsx,ts,tsx}': [formatCommand, eslintCommand],
+  '*.{css,scss}': [formatCommand, stylelintCommand],
+  '!*.{js,jsx,ts,tsx,css,scss}': [formatCommand],
+}

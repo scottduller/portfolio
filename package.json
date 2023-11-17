@@ -3,29 +3,61 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "prepare": "husky install",
+    "lint": "prettier --check . && stylelint --allow-empty-input \"**/*.{css,scss}\" && next lint",
+    "format": "prettier --write .",
+    "watch:next": "next dev",
+    "watch:sass": "sass  --no-source-map --watch app/sass:app/styles",
+    "build:sass": "sass  --no-source-map app/sass:app/styles",
+    "build:local": "prettier --write . && next build",
+    "build": "prettier --check . && stylelint --allow-empty-input \"**/*.{css,scss}\" && next build",
+    "postbuild": "postcss app/styles/*.css -u autoprefixer cssnano -r --no-map",
     "start": "next start",
-    "lint": "next lint"
+    "dev": "concurrently \"yarn watch:next\" \"yarn watch:sass\""
   },
+  "browserslist": [
+    "defaults"
+  ],
   "dependencies": {
+    "@react-three/drei": "^9.83.9",
+    "@react-three/fiber": "^8.14.1",
+    "@react-three/postprocessing": "^2.15.8",
+    "@react-three/rapier": "^1.1.1",
+    "@stdlib/array-linspace": "^0.1.0",
     "@types/node": "20.4.0",
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
-    "@vercel/edge-config": "^0.4.1",
+    "@types/three": "^0.156.0",
     "eslint": "8.44.0",
     "eslint-config-next": "13.4.9",
+    "lodash.random": "^3.2.0",
+    "maath": "^0.10.4",
     "next": "13.4.9",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "typescript": "5.1.6"
+    "react-icons": "^4.10.1",
+    "simplex-noise": "^4.0.1",
+    "three": "^0.156.1",
+    "typescript": "5.1.6",
+    "@vercel/edge-config": "^0.4.1"
   },
   "devDependencies": {
+    "@types/lodash.random": "^3.2.8",
     "@typescript-eslint/eslint-plugin": "^5.61.0",
+    "autoprefixer": "^10.4.14",
+    "concurrently": "^8.2.0",
+    "cssnano": "^6.0.1",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
-    "prettier": "^3.0.0"
+    "postcss": "^8.4.27",
+    "postcss-cli": "^10.1.0",
+    "prettier": "^3.0.0",
+    "sass": "^1.65.1",
+    "stylelint": "^15.10.2",
+    "stylelint-config-prettier-scss": "^1.0.0",
+    "stylelint-config-standard": "^34.0.0",
+    "stylelint-config-standard-scss": "^10.0.0"
   }
 }

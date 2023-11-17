@@ -1,0 +1,17 @@
+@use '../abstracts' as *;
+
+:root {
+  --section-spacing: 8rem;
+
+  @each $colour, $shade in $colours {
+    @each $prop, $value in $shade {
+      --clr-#{$colour}-#{$prop}: #{$value};
+    }
+  }
+
+  @each $screen-size, $property in $type-scale {
+    @each $prop, $value in $property {
+      --fs-#{$prop}: #{$value};
+    }
+  }
+}
