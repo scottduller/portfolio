@@ -63,12 +63,13 @@ yarn start
 3. **Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.**
 
 ## Linting and Formatting
+
 This project uses ESLint, Prettier, Stylelint, and Husky with Lint-Staged to ensure consistent code quality. Before committing, the pre-commit hooks will run linting and formatting checks. Thanks!
 
 ## License
 
-If you would like to use this project for your own portfolio, feel free to fork this repository and modify it to your liking. 
+If you would like to use this project for your own portfolio, feel free to fork this repository and modify it to your liking.
 
-***If you do use this project, please provide attribution by linking to [scottduller.com](https://www.scottduller.com/).***
+**_If you do use this project, please provide attribution by linking to [scottduller.com](https://www.scottduller.com/)._**
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
