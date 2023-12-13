@@ -19,7 +19,7 @@ const Metaball = ({
 
   const points = useMemo(() => {
     const path = []
-    const numPoints = 1000
+    const numPoints = 3000
 
     const invertedX = Math.random() > 0.5 ? 1 : -1
     const invertedY = Math.random() > 0.5 ? 1 : -1
@@ -48,11 +48,11 @@ const Metaball = ({
   }, [])
 
   const path = useMemo(() => {
-    const curve = new CatmullRomCurve3(points, true, 'catmullrom', 0.9)
-    return curve.getPoints(500)
+    const curve = new CatmullRomCurve3(points, true, 'catmullrom', 0.1)
+    return curve.getPoints(3000)
   }, [points])
 
-  const pathIndex = useRef(0)
+  const pathIndex = useRef(random(path.length - 1))
   const offsetVec = useMemo(() => new Vector3(xOffset, 0, 0), [xOffset])
   const speedOffset = useRef(random(0.9, 1.1, true))
 
@@ -78,6 +78,17 @@ const Metaball = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  // const line = React.useMemo(
+  //   () =>
+  //     new LineLoop(
+  //       new BufferGeometry().setFromPoints(
+  //         path.map((p) => p.clone().add(offsetVec)),
+  //       ),
+  //       new LineBasicMaterial({ color: 0x00ff00 }),
+  //     ),
+  //   [offsetVec, path],
+  // )
+
   return (
     <>
       <MarchingCube
@@ -86,6 +97,7 @@ const Metaball = ({
         strength={0.35}
         subtract={12}
       />
+      {/* <primitive object={line} /> */}
     </>
   )
 }
