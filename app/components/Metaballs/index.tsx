@@ -7,25 +7,32 @@ import { Vector2 } from 'three'
 import linspace from '@stdlib/array-linspace'
 import { useThree } from '@react-three/fiber'
 
-export type MetaballProps = {
-  xRadius: number
-  yRadius: number
-  zRadius: number
-  noiseIntensity: number
-  speed: number
-  numBalls?: number
-  margin?: number
+export type MetaballsProps = {
+  spacingMultiplier: number
+  fixedNumBalls?: number
 }
 
-const Metaballs = (props: MetaballProps) => {
+export type MetaballProps = {
+  radiusRatio: number
+  radiusMultiplier: number
+  noiseIntensity: number
+  speed: number
+  xOffset: number
+}
+
+const Metaballs = ({
+  spacingMultiplier = 0.2,
+  fixedNumBalls,
+  ...props
+}: MetaballsProps & Omit<MetaballProps, 'xOffset'>) => {
   const [spacing, setSpacing] = useState<number[]>([])
-  const [numBalls, setNumBalls] = useState<number>(props.numBalls || 5)
+  const [numBalls, setNumBalls] = useState<number>(fixedNumBalls || 5)
 
   const { viewport } = useThree()
   const numBallsAtWidth = linspace(320, 3440, 16, { dtype: 'generic' })
 
   useEffect(() => {
-    const handleResize = () => {
+    const handleWindowResize = () => {
       const width = window.innerWidth
       const calculatedNumBalls = numBallsAtWidth.reduce((prev, curr, i) => {
         if (width > curr) {
@@ -40,27 +47,32 @@ const Metaballs = (props: MetaballProps) => {
       }
     }
 
-    if (!props.numBalls) {
-      handleResize()
-      window.addEventListener('resize', handleResize)
+    if (!fixedNumBalls) {
+      handleWindowResize()
+      window.addEventListener('resize', handleWindowResize)
     }
 
     return () => {
-      window.removeEventListener('resize', handleResize)
+      window.removeEventListener('resize', handleWindowResize)
     }
-  }, [numBallsAtWidth, props.numBalls])
+  }, [fixedNumBalls, numBallsAtWidth])
 
   useEffect(() => {
     if (numBalls === 1) {
       setSpacing([0])
     } else {
       setSpacing(
-        linspace(-viewport.width * 0.2, viewport.width * 0.2, numBalls, {
-          dtype: 'generic',
-        }),
+        linspace(
+          -viewport.width * spacingMultiplier,
+          viewport.width * spacingMultiplier,
+          numBalls,
+          {
+            dtype: 'generic',
+          },
+        ),
       )
     }
-  }, [numBalls, viewport.width])
+  }, [numBalls, spacingMultiplier, viewport.width])
 
   return (
     <>
@@ -74,7 +86,7 @@ const Metaballs = (props: MetaballProps) => {
           />
         </meshStandardMaterial>
         {spacing.map((x, i) => (
-          <Metaball key={i} initPos={[0, 0, 0]} xOffset={x} {...props} />
+          <Metaball key={i} xOffset={x} {...props} />
         ))}
       </MarchingCubes>
     </>

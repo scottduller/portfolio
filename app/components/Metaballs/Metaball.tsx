@@ -8,12 +8,13 @@ import { CatmullRomCurve3, Group, Vector3 } from 'three'
 import { MetaballProps } from '.'
 import random from 'lodash.random'
 
-const Metaball = (
-  props: MetaballProps & { initPos: [number, number, number]; xOffset: number },
-) => {
-  const { xRadius, yRadius, zRadius, noiseIntensity, speed, initPos, xOffset } =
-    props
-
+const Metaball = ({
+  radiusRatio = 16 / 9,
+  radiusMultiplier = 1,
+  noiseIntensity = 0.1,
+  speed = 1,
+  xOffset = 0,
+}: MetaballProps) => {
   const cubeRef = useRef<Group>(null!)
 
   const points = useMemo(() => {
@@ -31,13 +32,13 @@ const Metaball = (
 
       const noiseVal = noise(Math.cos(t), Math.sin(t))
 
-      const xr = xRadius + noiseVal * noiseIntensity
-      const yr = yRadius + noiseVal * noiseIntensity
-      const zr = zRadius * noiseVal
+      const xr = radiusRatio * radiusMultiplier + noiseVal * noiseIntensity
+      const yr = radiusMultiplier + noiseVal * noiseIntensity
+      const zr = 0.2 * noiseVal
 
-      const x = initPos[0] + invertedX * xr * Math.cos(t)
-      const y = initPos[1] + invertedY * yr * Math.sin(t)
-      const z = initPos[2] + invertedZ * zr
+      const x = invertedX * xr * Math.cos(t)
+      const y = invertedY * yr * Math.sin(t)
+      const z = invertedZ * zr
 
       path.push(new Vector3(x, y, z))
     }
@@ -68,16 +69,11 @@ const Metaball = (
 
   const flyInPos = useMemo(() => {
     return new Vector3(
-      initPos[0] + xOffset + (Math.random() * (3 - 1.5) + 1.5) * Math.random() >
-      0.5
+      xOffset + (Math.random() * (3 - 1.5) + 1.5) * Math.random() > 0.5
         ? 1
         : -1,
-      initPos[1] + (Math.random() * (3 - 1.5) + 1.5) * Math.random() > 0.5
-        ? 1
-        : -1,
-      initPos[2] + (Math.random() * (3 - 1.5) + 1.5) * Math.random() > 0.5
-        ? 1
-        : -1,
+      (Math.random() * (3 - 1.5) + 1.5) * Math.random() > 0.5 ? 1 : -1,
+      (Math.random() * (3 - 1.5) + 1.5) * Math.random() > 0.5 ? 1 : -1,
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

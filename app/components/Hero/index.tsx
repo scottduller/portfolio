@@ -43,11 +43,11 @@ const Hero = () => {
 
             <Suspense fallback={null}>
               <Metaballs
-                speed={0.8}
-                yRadius={0.3}
-                xRadius={0.35}
-                zRadius={0.2}
-                noiseIntensity={0.125}
+                spacingMultiplier={0.2}
+                radiusRatio={16 / 8}
+                radiusMultiplier={0.2}
+                noiseIntensity={0.3}
+                speed={1.2}
               />
             </Suspense>
 
