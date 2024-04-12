@@ -12,18 +12,30 @@
   }
 }
 
-.primary {
-  --clr: var(--clr-primary-400);
+.red {
+  --clr: var(--clr-red-500);
 }
 
-.secondary {
-  --clr: var(--clr-secondary-400);
+.blue {
+  --clr: var(--clr-blue-500);
 }
 
-.accent {
-  --clr: var(--clr-accent-400);
+.purple {
+  --clr: var(--clr-purple-500);
 }
 
-.neutral {
-  --clr: var(--clr-neutral-400);
+.light {
+  --clr: var(--clr-neutral-100);
+}
+
+.dark {
+  --clr: var(--clr-neutral-900);
+}
+
+.white {
+  --clr: #fff;
+}
+
+.black {
+  --clr: #000;
 }

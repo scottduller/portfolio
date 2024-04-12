@@ -9,11 +9,12 @@ import { MetaballProps } from '.'
 import random from 'lodash.random'
 
 const Metaball = ({
-  radiusRatio = 16 / 9,
-  radiusMultiplier = 1,
+  xRadius,
+  yRadius,
   noiseIntensity = 0.1,
   speed = 1,
   xOffset = 0,
+  rotation = 0,
 }: MetaballProps) => {
   const cubeRef = useRef<Group>(null!)
 
@@ -32,8 +33,8 @@ const Metaball = ({
 
       const noiseVal = noise(Math.cos(t), Math.sin(t))
 
-      const xr = radiusRatio * radiusMultiplier + noiseVal * noiseIntensity
-      const yr = radiusMultiplier + noiseVal * noiseIntensity
+      const xr = xRadius + noiseVal * noiseIntensity
+      const yr = yRadius + noiseVal * noiseIntensity
       const zr = 0.2 * noiseVal
 
       const x = invertedX * xr * Math.cos(t)
@@ -53,17 +54,24 @@ const Metaball = ({
   }, [points])
 
   const pathIndex = useRef(random(path.length - 1))
+  const rotationAxis = useMemo(() => new Vector3(0, 0, 1), [])
   const offsetVec = useMemo(() => new Vector3(xOffset, 0, 0), [xOffset])
   const speedOffset = useRef(random(0.9, 1.1, true))
 
-  let nextPoint = path[pathIndex.current].clone().add(offsetVec)
+  let nextPoint = path[pathIndex.current]
+    .clone()
+    .add(offsetVec)
+    .applyAxisAngle(rotationAxis, rotation)
 
   useFrame((state, dt) => {
     cubeRef.current.position.lerp(nextPoint, speed * speedOffset.current * dt)
 
     if (cubeRef.current.position.distanceTo(nextPoint) < 0.1) {
       pathIndex.current = (pathIndex.current + 1) % path.length
-      nextPoint = path[pathIndex.current].clone().add(offsetVec)
+      nextPoint = path[pathIndex.current]
+        .clone()
+        .add(offsetVec)
+        .applyAxisAngle(rotationAxis, rotation)
     }
   })
 
@@ -82,11 +90,13 @@ const Metaball = ({
   //   () =>
   //     new LineLoop(
   //       new BufferGeometry().setFromPoints(
-  //         path.map((p) => p.clone().add(offsetVec)),
+  //         path.map((p) =>
+  //           p.clone().add(offsetVec).applyAxisAngle(rotationAxis, rotation),
+  //         ),
   //       ),
   //       new LineBasicMaterial({ color: 0x00ff00 }),
   //     ),
-  //   [offsetVec, path],
+  //   [path, rotationAxis, rotation, offsetVec],
   // )
 
   return (

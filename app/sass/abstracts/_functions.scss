@@ -1,0 +1,9 @@
+@function font-lerp($min-font, $max-font, $min-width, $max-width) {
+  $gradient: calc(
+    (#{$max-font} - #{$min-font}) / (#{$max-width} - #{$min-width})
+  );
+  $intercept: calc(#{$min-font} - (#{$gradient} * #{$min-width}));
+  $lerp: calc(#{$intercept} * 1rem + (#{$gradient} * 100vw));
+
+  @return clamp(#{$min-font}rem, #{$lerp}, #{$max-font}rem);
+}

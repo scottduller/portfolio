@@ -1,5 +1,6 @@
 .cursor {
-  position: fixed;
+  z-index: 1000;
+  position: absolute;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -22,7 +23,8 @@
 }
 
 .cursor-dot {
-  position: fixed;
+  z-index: 1000;
+  position: absolute;
   width: 10px;
   height: 10px;
   background-color: var(--clr-neutral-100);

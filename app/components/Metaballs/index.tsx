@@ -10,19 +10,24 @@ import { useThree } from '@react-three/fiber'
 export type MetaballsProps = {
   spacingMultiplier: number
   fixedNumBalls?: number
+  rotation?: number
+  numBallsMultiplier?: number
 }
 
 export type MetaballProps = {
-  radiusRatio: number
-  radiusMultiplier: number
+  xRadius: number
+  yRadius: number
   noiseIntensity: number
   speed: number
   xOffset: number
+  rotation?: number
 }
 
 const Metaballs = ({
+  numBallsMultiplier = 1,
   spacingMultiplier = 0.2,
   fixedNumBalls,
+  rotation,
   ...props
 }: MetaballsProps & Omit<MetaballProps, 'xOffset'>) => {
   const [spacing, setSpacing] = useState<number[]>([])
@@ -43,7 +48,7 @@ const Metaballs = ({
       }, 0)
 
       if (calculatedNumBalls > 5) {
-        setNumBalls(calculatedNumBalls)
+        setNumBalls(Math.floor(calculatedNumBalls * numBallsMultiplier))
       }
     }
 
@@ -55,7 +60,7 @@ const Metaballs = ({
     return () => {
       window.removeEventListener('resize', handleWindowResize)
     }
-  }, [fixedNumBalls, numBallsAtWidth])
+  }, [fixedNumBalls, numBallsAtWidth, numBallsMultiplier])
 
   useEffect(() => {
     if (numBalls === 1) {
@@ -76,7 +81,12 @@ const Metaballs = ({
 
   return (
     <>
-      <MarchingCubes resolution={80} maxPolyCount={20000} enableUvs={true}>
+      <MarchingCubes
+        resolution={75}
+        maxPolyCount={20000}
+        enableUvs={true}
+        enableColors={true}
+      >
         <meshStandardMaterial>
           <GradientTexture
             stops={[0, 1]}
@@ -86,7 +96,7 @@ const Metaballs = ({
           />
         </meshStandardMaterial>
         {spacing.map((x, i) => (
-          <Metaball key={i} xOffset={x} {...props} />
+          <Metaball key={i} xOffset={x} rotation={rotation} {...props} />
         ))}
       </MarchingCubes>
     </>
