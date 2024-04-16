@@ -3,7 +3,6 @@ import * as THREE from 'three'
 import Metaballs from './Metaballs'
 import { lerp, lerpVelocityFactor } from './utils'
 import { useScroll } from '@react-three/drei'
-import { useFrame } from '@react-three/fiber'
 import { Bloom, EffectComposer } from '@react-three/postprocessing'
 import { BlendFunction } from 'postprocessing'
 import useWindowDimensions from '@/hooks/useWindowDimensions'
@@ -33,14 +32,30 @@ const MetaballsScene = ({
   const initialVelocity = useRef(velocity)
 
   const meshRef = useRef<THREE.Mesh>(null!)
-  const balls = useRef<Ball[]>([])
 
   const scroll = useScroll()
 
   const { width, height } = useWindowDimensions()
+  const oldSize = useRef({ width, height })
+
+  const balls = useRef<Ball[]>([])
 
   const { aspect, aspectX, aspectY, aspectZ } = useMemo(() => {
     const aspect = width / height
+
+    if (balls.current.length !== 0) {
+      balls.current = balls.current.map((ball) => {
+        return {
+          x: ball.x * (width / oldSize.current.width),
+          y: ball.y * (height / oldSize.current.height),
+          z: ball.z,
+          vx: ball.vx,
+          vy: ball.vy,
+          vz: ball.vz,
+        }
+      })
+      oldSize.current = { width, height }
+    }
 
     if (width > height) {
       return {
@@ -60,6 +75,10 @@ const MetaballsScene = ({
     }
     return { aspect, aspectX: 1, aspectY: 1, aspectZ: 1 }
   }, [width, height])
+
+  const adjVelocity = useMemo(() => {
+    return velocity * Math.max(aspectX, aspectY)
+  }, [velocity, aspectX, aspectY])
 
   const subtract = 21
   const strength = useMemo(
@@ -127,35 +146,24 @@ const MetaballsScene = ({
       return currentBalls
     }
 
-    if (initialVelocity.current !== velocity) {
-      if (initialVelocity.current === 0) {
-        balls.current.forEach((ball) => {
-          ball.vx =
-            Math.random() < 0.5
-              ? THREE.MathUtils.randFloat(-velocity, -velocity * 0.75)
-              : THREE.MathUtils.randFloat(velocity * 0.75, velocity)
-          ball.vy =
-            Math.random() < 0.5
-              ? THREE.MathUtils.randFloat(-velocity, -velocity * 0.75)
-              : THREE.MathUtils.randFloat(velocity * 0.75, velocity)
-          ball.vz = 0
-        })
-      } else {
-        const factor = velocity / initialVelocity.current
-        balls.current.forEach((ball) => {
-          ball.vx *= factor
-          ball.vy *= factor
-          ball.vz *= factor
-        })
-      }
+    if (initialVelocity.current !== adjVelocity) {
+      balls.current.forEach((ball) => {
+        ball.vx =
+          THREE.MathUtils.randFloat(adjVelocity * 0.75, adjVelocity) *
+          Math.sign(ball.vx)
+        ball.vy =
+          THREE.MathUtils.randFloat(adjVelocity * 0.75, adjVelocity) *
+          Math.sign(ball.vy)
+        ball.vz = 0
+      })
 
-      initialVelocity.current = velocity
+      initialVelocity.current = adjVelocity
     }
 
     if (numBalls !== balls.current.length) {
-      if (balls.current.length < numBalls) {
+      if (balls.current.length < adjVelocity) {
         balls.current.push(
-          ...generateBalls(numBalls - balls.current.length, velocity),
+          ...generateBalls(numBalls - balls.current.length, adjVelocity),
         )
       }
 
@@ -195,8 +203,8 @@ const MetaballsScene = ({
         ball.x = maxX
         ball.vx = -vx
       }
-      if (y < minY * 1.3) {
-        ball.y = minY * 1.3
+      if (y < minY) {
+        ball.y = minY
         ball.vy = -vy
       }
       if (y > maxY) {
@@ -216,14 +224,10 @@ const MetaballsScene = ({
     return balls.current
   }
 
-  useFrame(() => {
-    // const { pages } = scroll;
-    // if (scroll.visible(0.5 / pages, 1 / pages)) {
-    // }
-  })
-
   return (
     <>
+      {/* <pointLight intensity={10} position={[aspectX, aspectY, aspectZ * 2]} /> */}
+      <pointLight intensity={10} position={[0, aspectY * 2, aspectZ * 4]} />
       <Metaballs
         meshRef={meshRef}
         position={[0, 0, 0]}

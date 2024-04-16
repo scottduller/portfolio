@@ -24,15 +24,15 @@ const Scene = () => {
         position={[0, 0, 5.5]}
       />
 
-      <ambientLight intensity={0.5} />
-      <directionalLight intensity={2} position={[10, 10, 10]} />
+      <ambientLight intensity={0.75} />
+      {/* <directionalLight intensity={2} position={[0, 0, 10]} /> */}
 
       <color attach="background" args={['#191716']} />
 
       <ScrollControls pages={2}>
         <MetaballsScene
           numBalls={8}
-          velocity={0.75}
+          velocity={0.5}
           maxPolyCount={100000}
           enableColors={true}
         />

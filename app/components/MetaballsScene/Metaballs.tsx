@@ -4,9 +4,9 @@ import * as THREE from 'three'
 import { normBetween } from './utils'
 import { polygonise } from './polygonise'
 import { addBall } from './metaball'
-import { PerformanceMonitor } from '@react-three/drei'
 import { Ball } from './MetaballsScene'
-import useWindowDimensions from '@/hooks/useWindowDimensions'
+import { PerformanceMonitor, StatsGl } from '@react-three/drei'
+import useResizeDebounce from '@/hooks/useResizeDebouce'
 
 export type MetaballsProps = {
   meshRef: React.MutableRefObject<THREE.Mesh>
@@ -89,17 +89,10 @@ const Metaballs = ({
   enableColors: enableColorsProp,
   maxPolyCount,
 }: MetaballsProps) => {
-  const { width, height } = useWindowDimensions()
-
-  const [oldResolution, setOldResolution] = useState(40)
-  const [resolution, setResolution] = useState(40)
+  const [resolution, setResolution] = useState(50)
+  const [oldResolution, setOldResolution] = useState(50)
 
   const [perfMonitorKey, setPerfMonitorKey] = useState(0)
-
-  useEffect(() => {
-    setPerfMonitorKey(perfMonitorKey + 1)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [width, height, numBalls])
 
   const geometryRef = useRef<THREE.BufferGeometry>(new THREE.BufferGeometry())
 
@@ -280,6 +273,7 @@ const Metaballs = ({
 
     // Check if the generated mesh exceeds the maximum polygon count
     if (vertexCount.current / 3 > maxPolyCount) {
+      // eslint-disable-next-line no-console
       console.warn(
         'Metaballs: Generated mesh exceeded maxPolyCount. Please increase maxPolyCount.',
       )
@@ -291,7 +285,7 @@ const Metaballs = ({
     isGeometryInitialised.current = false
   }, [maxPolyCount, enableColorsProp])
 
-  useFrame((_state, dt) => {
+  useFrame((state, dt) => {
     initialiseParameters()
     if (!isGeometryInitialised.current) {
       initialiseGeometry()
@@ -316,39 +310,31 @@ const Metaballs = ({
     update()
   }, -1)
 
+  useResizeDebounce(() => {
+    setResolution(50)
+    setPerfMonitorKey((prev) => prev + 1)
+  }, 1000)
+
   return (
     <>
       <PerformanceMonitor
         key={perfMonitorKey}
-        factor={resolution / 100}
+        factor={0.5}
         step={0.1}
         bounds={() => [60, 60]}
         onChange={({ factor }) => {
           setOldResolution(resolution)
           setResolution(() => {
-            return 20 + 80 * factor
+            return 100 * factor
           })
-          console.log(
-            'factor',
-            factor,
-            'resolution',
-            resolution,
-            'oldResolution',
-            oldResolution,
-          )
         }}
         flipflops={5}
         onFallback={() => {
-          setResolution(Math.ceil(oldResolution * 0.9))
-          console.log(
-            'fallback',
-            'resolution',
-            resolution,
-            'oldResolution',
-            oldResolution,
-          )
+          setResolution(resolution > oldResolution ? oldResolution : resolution)
         }}
       />
+
+      <StatsGl />
 
       <mesh
         geometry={geometryRef.current}
