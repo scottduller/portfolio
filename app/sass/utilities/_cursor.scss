@@ -1,8 +1,8 @@
 .cursor {
   z-index: 1000;
   position: absolute;
-  width: 40px;
-  height: 40px;
+  width: 54px;
+  height: 54px;
   border-radius: 50%;
   border: 2px solid var(--clr-neutral-100);
   left: 0;
@@ -11,13 +11,13 @@
   background-color: transparent;
   mix-blend-mode: hard-light;
   transition:
-    width 500ms,
-    height 500ms,
-    background-color 500ms;
+    width 500ms ease-out,
+    height 500ms ease-out,
+    background-color 500ms ease-out;
 
   &.active {
-    height: 70px;
-    width: 70px;
+    height: 76px;
+    width: 76px;
     background-color: var(--clr-neutral-400);
   }
 }

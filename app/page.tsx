@@ -1,11 +1,20 @@
-import Hero from './components/Landing/Hero'
+import Navbar from '@components/Navbar'
+import Hero from '@/components/home/Hero'
+import MetaballsScene from './components/MetaballsScene'
 
-const Landing = () => {
+const Home = () => {
   return (
-    <main className="home">
-      <Hero />
-    </main>
+    <>
+      <header>
+        <Navbar />
+      </header>
+      <main>
+        <MetaballsScene />
+        <div className="background-blur" />
+        <Hero />
+      </main>
+    </>
   )
 }
 
-export default Landing
+export default Home

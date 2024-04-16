@@ -9,3 +9,6 @@ app/styles/style.css
 app/fonts
 public
 yarn.lock
+*.png
+*.svg
+*.ico
