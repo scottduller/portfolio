@@ -32,7 +32,7 @@ const Scene = () => {
       <ScrollControls pages={2}>
         <MetaballsScene
           numBalls={8}
-          velocity={0.5}
+          velocity={0.2}
           maxPolyCount={100000}
           enableColors={true}
         />

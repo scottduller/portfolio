@@ -6,7 +6,7 @@ import { FaGithub, FaLinkedin } from 'react-icons/fa'
 const index = () => {
   return (
     <header className="navbar">
-      <Image src="/logo.svg" width={64} height={64} alt="logo" />
+      <Image src="/logo.svg" width={64} height={64} alt="logo" priority />
       <div className="links">
         <nav>
           <ul role="list">

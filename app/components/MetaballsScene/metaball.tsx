@@ -92,7 +92,7 @@ export const addBall = (
 
           // Add the ball to the palette
           caches.current!.palette[(yOff + x) * 3] +=
-            ballColor.r * smoothStep * 2
+            ballColor.r * smoothStep * 3
           caches.current!.palette[(yOff + x) * 3 + 1] +=
             ballColor.g * smoothStep * 1
           caches.current!.palette[(yOff + x) * 3 + 2] +=

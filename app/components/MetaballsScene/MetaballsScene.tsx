@@ -1,8 +1,6 @@
 import { useRef, useMemo } from 'react'
 import * as THREE from 'three'
 import Metaballs from './Metaballs'
-import { lerp, lerpVelocityFactor } from './utils'
-import { useScroll } from '@react-three/drei'
 import { Bloom, EffectComposer } from '@react-three/postprocessing'
 import { BlendFunction } from 'postprocessing'
 import useWindowDimensions from '@/hooks/useWindowDimensions'
@@ -29,11 +27,7 @@ const MetaballsScene = ({
   maxPolyCount,
   enableColors,
 }: MetaballsSceneProps) => {
-  const initialVelocity = useRef(velocity)
-
   const meshRef = useRef<THREE.Mesh>(null!)
-
-  const scroll = useScroll()
 
   const { width, height } = useWindowDimensions()
   const oldSize = useRef({ width, height })
@@ -76,10 +70,6 @@ const MetaballsScene = ({
     return { aspect, aspectX: 1, aspectY: 1, aspectZ: 1 }
   }, [width, height])
 
-  const adjVelocity = useMemo(() => {
-    return velocity * Math.max(aspectX, aspectY)
-  }, [velocity, aspectX, aspectY])
-
   const subtract = 21
   const strength = useMemo(
     () => (2 * Math.sqrt(aspect)) / ((Math.sqrt(numBalls) - 1) / 4 + 1),
@@ -110,60 +100,10 @@ const MetaballsScene = ({
     strength: number,
     subtract: number,
   ) => {
-    const { pages } = scroll
-
-    if (numBalls % 2 !== 0) {
-      numBalls -= 1
-    }
-
-    const currentBalls = balls.current.map((ball) => {
-      return {
-        x: ball.x,
-        y: ball.y,
-        z: ball.z,
-        vx: ball.vx,
-        vy: ball.vy,
-        vz: ball.vz,
-      }
-    })
-
-    if (scroll.visible(0.1 / pages, 2 / pages)) {
-      currentBalls.forEach((ball, i) => {
-        const factor = scroll.range(0 / pages, 2 / pages, -0.1 / pages)
-
-        const leftX = (aspectX - aspect) / 2
-        const rightX = aspectX - leftX
-
-        const finalX = i < numBalls / 2 ? leftX : rightX
-        const finalY = ball.y
-
-        const newX = lerp(balls.current[i].x, finalX, factor)
-        const newY = lerp(balls.current[i].y, finalY, factor)
-
-        currentBalls[i] = { ...ball, x: newX, y: newY }
-      })
-
-      return currentBalls
-    }
-
-    if (initialVelocity.current !== adjVelocity) {
-      balls.current.forEach((ball) => {
-        ball.vx =
-          THREE.MathUtils.randFloat(adjVelocity * 0.75, adjVelocity) *
-          Math.sign(ball.vx)
-        ball.vy =
-          THREE.MathUtils.randFloat(adjVelocity * 0.75, adjVelocity) *
-          Math.sign(ball.vy)
-        ball.vz = 0
-      })
-
-      initialVelocity.current = adjVelocity
-    }
-
     if (numBalls !== balls.current.length) {
-      if (balls.current.length < adjVelocity) {
+      if (balls.current.length < numBalls) {
         balls.current.push(
-          ...generateBalls(numBalls - balls.current.length, adjVelocity),
+          ...generateBalls(numBalls - balls.current.length, velocity),
         )
       }
 
@@ -185,15 +125,9 @@ const MetaballsScene = ({
       const minZ = 0
       const maxZ = aspectZ / 1.5 - offset
 
-      const xVFactor = lerpVelocityFactor(x, 0, aspectX, 0.2 * aspectX, 1)
-      const yVFactor = lerpVelocityFactor(y, 0, aspectY, 0.2 * aspectY, 1)
-      const zVFactor = lerpVelocityFactor(z, 0, aspectZ, 0.2 * aspectZ, 1)
-
-      const vFactor = Math.min(xVFactor, yVFactor, zVFactor) * dt
-
-      ball.x += vx * vFactor
-      ball.y += vy * vFactor
-      ball.z += vz * vFactor
+      ball.x += vx * dt
+      ball.y += vy * dt
+      ball.z += vz * dt
 
       if (x < minX) {
         ball.x = minX
@@ -226,25 +160,30 @@ const MetaballsScene = ({
 
   return (
     <>
-      {/* <pointLight intensity={10} position={[aspectX, aspectY, aspectZ * 2]} /> */}
-      <pointLight intensity={10} position={[0, aspectY * 2, aspectZ * 4]} />
-      <Metaballs
-        meshRef={meshRef}
-        position={[0, 0, 0]}
-        numBalls={numBalls}
-        addBalls={addBalls}
-        subtract={subtract}
-        strength={strength}
-        aspectX={aspectX}
-        aspectY={aspectY}
-        aspectZ={aspectZ}
-        enableColors={enableColors}
-        maxPolyCount={maxPolyCount}
-      />
       <EffectComposer>
+        <ambientLight intensity={0.1} />
+
+        <pointLight
+          intensity={10}
+          color="white"
+          position={[aspectX, aspectY * 2, aspectZ * 4]}
+        />
+        <Metaballs
+          meshRef={meshRef}
+          position={[0, 0, 0]}
+          numBalls={numBalls}
+          addBalls={addBalls}
+          subtract={subtract}
+          strength={strength}
+          aspectX={aspectX}
+          aspectY={aspectY}
+          aspectZ={aspectZ}
+          enableColors={enableColors}
+          maxPolyCount={maxPolyCount}
+        />
         <Bloom
           luminanceThreshold={0.1}
-          luminanceSmoothing={0.05}
+          luminanceSmoothing={0.025}
           intensity={1}
           blendFunction={BlendFunction.SCREEN}
           mipmapBlur
