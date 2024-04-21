@@ -1,6 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap');
 :root {
   --section-spacing: 8rem;
+  --space-3xs: clamp(0.1875rem, 0.1534rem + 0.1705vi, 0.5625rem);
+  --space-2xs: clamp(0.375rem, 0.3068rem + 0.3409vi, 1.125rem);
+  --space-xs: clamp(0.5625rem, 0.4602rem + 0.5114vi, 1.6875rem);
+  --space-s: clamp(0.75rem, 0.6136rem + 0.6818vi, 2.25rem);
+  --space-m: clamp(1.125rem, 0.9205rem + 1.0227vi, 3.375rem);
+  --space-l: clamp(1.5rem, 1.2273rem + 1.3636vi, 4.5rem);
+  --space-xl: clamp(2.25rem, 1.8409rem + 2.0455vi, 6.75rem);
+  --space-2xl: clamp(3rem, 2.4545rem + 2.7273vi, 9rem);
+  --space-3xl: clamp(4.5rem, 3.6818rem + 4.0909vi, 13.5rem);
+  --fs-xxs: clamp(0.6076rem, 0.5465rem + 0.3056vi, 1.28rem);
+  --fs-xs: clamp(0.7292rem, 0.65rem + 0.3958vi, 1.6rem);
+  --fs-s: clamp(0.875rem, 0.7727rem + 0.5114vi, 2rem);
+  --fs-m: clamp(1.05rem, 0.9182rem + 0.6591vi, 2.5rem);
+  --fs-l: clamp(1.26rem, 1.0905rem + 0.8477vi, 3.125rem);
+  --fs-xl: clamp(1.512rem, 1.2943rem + 1.0883vi, 3.9063rem);
+  --fs-xxl: clamp(1.8144rem, 1.5355rem + 1.3947vi, 4.8828rem);
+  --fs-3xl: clamp(2.1773rem, 1.8203rem + 1.7847vi, 6.1035rem);
+  --fs-4xl: clamp(2.6127rem, 2.1567rem + 2.2803vi, 7.6294rem);
+  --fs-5xl: clamp(3.1353rem, 2.5533rem + 2.9098vi, 9.5367rem);
+  --fs-6xl: clamp(3.7623rem, 3.0206rem + 3.7084vi, 11.9209rem);
+  --fs-7xl: clamp(4.5148rem, 3.5706rem + 4.7211vi, 14.9012rem);
+  --fs-8xl: clamp(5.4178rem, 4.217rem + 6.0039vi, 18.6265rem);
   --clr-red-100: #fcc;
   --clr-red-200: #f99;
   --clr-red-300: #f66;
@@ -122,10 +144,7 @@ body {
   font-family: Quicksand, sans-serif;
   font-weight: 400;
   line-height: 1.75;
-}
-
-p {
-  margin-bottom: 1rem;
+  font-size: var(--fs-s);
 }
 
 h1,
@@ -606,57 +625,99 @@ body::-webkit-scrollbar-thumb {
 }
 
 .hero {
+  position: relative;
   min-height: 100svh;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  padding: 3em;
+  padding: var(--space-m);
   z-index: 1;
+  justify-content: center;
 }
-.hero h1 {
-  font-size: 10em;
-  font-weight: 500;
-  line-height: 1.3;
-}
-.hero p {
-  font-size: var(--fs-400);
-  display: flex;
-  font-weight: 100;
-  letter-spacing: 1em;
-  gap: 2em;
-}
-.hero p strong {
-  font-weight: 900;
-  text-indent: -1em;
-  direction: rtl;
+@media only screen and (min-width: 1200px) {
+  .hero {
+    justify-content: flex-end;
+  }
 }
 .hero__content {
   display: flex;
   flex-direction: column;
+  gap: var(--space-l);
 }
-.hero__content > div {
+@media only screen and (min-width: 1200px) {
+  .hero__content {
+    gap: var(--space-m);
+  }
+}
+.hero__content h1 {
+  font-size: var(--fs-8xl);
+  font-weight: 500;
+  text-align: center;
+}
+@media only screen and (min-width: 1200px) {
+  .hero__content h1 {
+    text-align: left;
+  }
+}
+.hero__content p {
   display: flex;
-  flex-direction: column;
-  gap: 1.5em;
+  font-weight: 900;
+  letter-spacing: 1em;
+  gap: var(--space-m);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: var(--fs-m);
+}
+@media only screen and (min-width: 1200px) {
+  .hero__content p {
+    font-weight: 100;
+    text-align: left;
+    font-size: var(--fs-s);
+    justify-content: flex-start;
+  }
+}
+.hero__content p strong {
+  display: none;
+  font-weight: 900;
+  text-indent: calc(var(--space-m) / -2);
+  direction: rtl;
+}
+@media only screen and (min-width: 1200px) {
+  .hero__content p strong {
+    display: block;
+  }
+}
+.hero__content p .vertical {
+  display: none;
+  background: var(--clr-purple-300);
+  width: 0.2em;
+  height: 1.7em;
+}
+@media only screen and (min-width: 1200px) {
+  .hero__content p .vertical {
+    display: block;
+  }
 }
 .hero__content .gradient-bar {
-  width: 100%;
-  height: 3em;
+  position: absolute;
+  bottom: var(--space-l);
+  height: var(--fs-xxl);
+  left: 0;
+  width: calc(100% - 2 * var(--space-l));
+  margin-inline: var(--space-l);
   background: linear-gradient(
     to right,
     var(--clr-red-500),
     var(--clr-blue-500)
   );
 }
-.hero .vertical {
-  display: inline-block;
-  background: var(--clr-purple-300);
-  font-weight: 900;
-  width: 0.2em;
-  line-height: 0;
-  height: 1.75em;
-  margin: 0;
-  transform: rotate(180deg);
+@media only screen and (min-width: 1200px) {
+  .hero__content .gradient-bar {
+    position: static;
+    width: 100%;
+    margin: 0;
+    height: var(--fs-l);
+  }
 }
 
 .canvas {

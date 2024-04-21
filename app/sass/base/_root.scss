@@ -2,6 +2,28 @@
 
 :root {
   --section-spacing: 8rem;
+  --space-3xs: clamp(0.1875rem, 0.1534rem + 0.1705vi, 0.5625rem);
+  --space-2xs: clamp(0.375rem, 0.3068rem + 0.3409vi, 1.125rem);
+  --space-xs: clamp(0.5625rem, 0.4602rem + 0.5114vi, 1.6875rem);
+  --space-s: clamp(0.75rem, 0.6136rem + 0.6818vi, 2.25rem);
+  --space-m: clamp(1.125rem, 0.9205rem + 1.0227vi, 3.375rem);
+  --space-l: clamp(1.5rem, 1.2273rem + 1.3636vi, 4.5rem);
+  --space-xl: clamp(2.25rem, 1.8409rem + 2.0455vi, 6.75rem);
+  --space-2xl: clamp(3rem, 2.4545rem + 2.7273vi, 9rem);
+  --space-3xl: clamp(4.5rem, 3.6818rem + 4.0909vi, 13.5rem);
+  --fs-xxs: clamp(0.6076rem, 0.5465rem + 0.3056vi, 1.28rem);
+  --fs-xs: clamp(0.7292rem, 0.65rem + 0.3958vi, 1.6rem);
+  --fs-s: clamp(0.875rem, 0.7727rem + 0.5114vi, 2rem);
+  --fs-m: clamp(1.05rem, 0.9182rem + 0.6591vi, 2.5rem);
+  --fs-l: clamp(1.26rem, 1.0905rem + 0.8477vi, 3.125rem);
+  --fs-xl: clamp(1.512rem, 1.2943rem + 1.0883vi, 3.9063rem);
+  --fs-xxl: clamp(1.8144rem, 1.5355rem + 1.3947vi, 4.8828rem);
+  --fs-3xl: clamp(2.1773rem, 1.8203rem + 1.7847vi, 6.1035rem);
+  --fs-4xl: clamp(2.6127rem, 2.1567rem + 2.2803vi, 7.6294rem);
+  --fs-5xl: clamp(3.1353rem, 2.5533rem + 2.9098vi, 9.5367rem);
+  --fs-6xl: clamp(3.7623rem, 3.0206rem + 3.7084vi, 11.9209rem);
+  --fs-7xl: clamp(4.5148rem, 3.5706rem + 4.7211vi, 14.9012rem);
+  --fs-8xl: clamp(5.4178rem, 4.217rem + 6.0039vi, 18.6265rem);
 
   @each $colour, $shade in $colours {
     @each $prop, $value in $shade {

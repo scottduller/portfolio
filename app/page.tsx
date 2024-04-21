@@ -1,16 +1,15 @@
-import Navbar from '@components/Navbar'
+// import Navbar from '@components/Navbar'
 import Hero from '@components/home/Hero'
 import MetaballsScene from '@components/MetaballsScene'
 
 const Home = () => {
   return (
     <>
-      <header>
+      {/* <header>
         <Navbar />
-      </header>
+      </header> */}
       <main>
         <MetaballsScene />
-        <div className="background-blur" />
         <Hero />
       </main>
     </>

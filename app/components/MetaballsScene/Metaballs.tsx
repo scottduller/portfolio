@@ -89,6 +89,7 @@ const Metaballs = ({
   enableColors: enableColorsProp,
   maxPolyCount,
 }: MetaballsProps) => {
+  // TODO: Turn performance monitor back on (50)
   const [resolution, setResolution] = useState(50)
   const [oldResolution, setOldResolution] = useState(50)
 
@@ -312,6 +313,7 @@ const Metaballs = ({
 
   useResizeDebounce(() => {
     setResolution(50)
+    // TODO: Turn performance monitor back on
     setPerfMonitorKey((prev) => prev + 1)
   }, 1000)
 
