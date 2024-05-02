@@ -4,6 +4,8 @@ import { Canvas } from '@react-three/fiber'
 import MetaballsScene from './MetaballsScene'
 import { PerspectiveCamera } from '@react-three/drei'
 import useWindowDimensions from '@/hooks/useWindowDimensions'
+import HeroText from './HeroText'
+import { Suspense } from 'react'
 
 const Scene = () => {
   const { width, height } = useWindowDimensions()
@@ -23,10 +25,12 @@ const Scene = () => {
         far={far}
         position={[0, 0, 5.5]}
       />
-
       <ambientLight intensity={0.75} />
-
       <color attach="background" args={['#191716']} />
+
+      <Suspense fallback={null}>
+        <HeroText />
+      </Suspense>
 
       <MetaballsScene
         numBalls={8}

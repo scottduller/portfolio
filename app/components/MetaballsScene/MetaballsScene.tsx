@@ -1,7 +1,7 @@
 import { useRef, useMemo } from 'react'
 import * as THREE from 'three'
 import Metaballs from './Metaballs'
-import { Bloom, EffectComposer } from '@react-three/postprocessing'
+import { EffectComposer, SelectiveBloom } from '@react-three/postprocessing'
 import { BlendFunction } from 'postprocessing'
 import useWindowDimensions from '@/hooks/useWindowDimensions'
 
@@ -158,12 +158,16 @@ const MetaballsScene = ({
     return balls.current
   }
 
+  const pointLight = useRef<THREE.PointLight>(null!)
+  const ambientLight = useRef<THREE.AmbientLight>(null!)
+
   return (
     <>
       <EffectComposer>
-        <ambientLight intensity={0.1} />
+        <ambientLight ref={ambientLight} intensity={0.1} />
 
         <pointLight
+          ref={pointLight}
           intensity={10}
           color="white"
           position={[aspectX, aspectY * 2, aspectZ * 4]}
@@ -181,9 +185,13 @@ const MetaballsScene = ({
           enableColors={enableColors}
           maxPolyCount={maxPolyCount}
         />
-        <Bloom
+
+        <SelectiveBloom
+          lights={[pointLight]}
+          selection={[meshRef]}
           luminanceThreshold={0.1}
           luminanceSmoothing={0.025}
+          levels={10}
           intensity={1}
           blendFunction={BlendFunction.SCREEN}
           mipmapBlur

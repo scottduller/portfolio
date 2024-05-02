@@ -2,13 +2,10 @@
 
 .hero {
   position: relative;
-  min-height: 100svh;
   display: flex;
   flex-direction: column;
-  padding: var(--space-m);
-  z-index: 1;
   justify-content: center;
-
+  height: 100%;
   @include xl-breakpoint {
     justify-content: flex-end;
   }
@@ -16,10 +13,14 @@
   &__content {
     display: flex;
     flex-direction: column;
-    gap: var(--space-l);
+    gap: var(--space-m);
+    justify-content: center;
+    align-items: center;
+    padding-bottom: calc(var(--layout-margin) / 2);
 
     @include xl-breakpoint {
-      gap: var(--space-m);
+      gap: var(--space-s);
+      align-items: flex-start;
     }
 
     h1 {
@@ -34,25 +35,29 @@
 
     p {
       display: flex;
-      font-weight: 900;
+      font-weight: 500;
       letter-spacing: 1em;
       gap: var(--space-m);
       justify-content: center;
       align-items: center;
       text-align: center;
       font-size: var(--fs-m);
+      text-indent: -1em;
+      direction: rtl;
 
       @include xl-breakpoint {
         font-weight: 100;
         text-align: left;
         font-size: var(--fs-s);
         justify-content: flex-start;
+        text-indent: 0;
+        direction: ltr;
       }
 
       & strong {
         display: none;
         font-weight: 900;
-        text-indent: calc(var(--space-m) / -2);
+        text-indent: -1em;
         direction: rtl;
 
         @include xl-breakpoint {
@@ -73,12 +78,10 @@
     }
 
     .gradient-bar {
-      position: absolute;
-      bottom: var(--space-l);
-      height: var(--fs-xxl);
+      bottom: calc(var(--layout-margin) / 2);
       left: 0;
-      width: calc(100% - 2 * var(--space-l));
-      margin-inline: var(--space-l);
+      position: absolute;
+      width: 100%;
       background: linear-gradient(
         to right,
         var(--clr-red-500),
@@ -86,18 +89,10 @@
       );
 
       @include xl-breakpoint {
-        position: static;
-        width: 100%;
-        margin: 0;
+        display: block;
         height: var(--fs-l);
+        margin-top: var(--space-xs);
       }
     }
   }
-}
-
-.canvas {
-  position: absolute !important;
-  top: 0;
-  z-index: -1;
-  min-height: 100svh;
 }

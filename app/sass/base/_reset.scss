@@ -3,6 +3,15 @@
 *::before,
 *::after {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+a,
+a label {
+  cursor: pointer;
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
 }
 
 /* Remove default margin */
@@ -32,7 +41,6 @@ html {
 
 /* Set core body defaults */
 body {
-  min-height: 100vh;
   text-rendering: optimizespeed;
   line-height: 1.6;
 }

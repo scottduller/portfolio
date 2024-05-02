@@ -1,6 +1,3 @@
-@use 'sass:color';
-@use 'sass:map';
-
 @function font-lerp($min-font, $max-font, $min-width, $max-width) {
   $gradient: calc(
     (#{$max-font} - #{$min-font}) / (#{$max-width} - #{$min-width})
@@ -11,9 +8,10 @@
   @return clamp(#{$min-font}rem, #{$lerp}, #{$max-font}rem);
 }
 
-@function map-deep-get($map, $keys...) {
-  @each $key in $keys {
-    $map: map.get($map, $key);
-  }
-  @return $map;
+@function hex-opacity($hex, $alpha: 1) {
+  $r: color.red($hex);
+  $g: color.green($hex);
+  $b: color.blue($hex);
+
+  @return rgba($r, $g, $b, $alpha);
 }

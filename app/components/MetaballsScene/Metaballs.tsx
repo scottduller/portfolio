@@ -5,7 +5,7 @@ import { normBetween } from './utils'
 import { polygonise } from './polygonise'
 import { addBall } from './metaball'
 import { Ball } from './MetaballsScene'
-import { PerformanceMonitor, StatsGl } from '@react-three/drei'
+import { PerformanceMonitor } from '@react-three/drei'
 import useResizeDebounce from '@/hooks/useResizeDebouce'
 
 export type MetaballsProps = {
@@ -89,7 +89,6 @@ const Metaballs = ({
   enableColors: enableColorsProp,
   maxPolyCount,
 }: MetaballsProps) => {
-  // TODO: Turn performance monitor back on (50)
   const [resolution, setResolution] = useState(50)
   const [oldResolution, setOldResolution] = useState(50)
 
@@ -313,7 +312,6 @@ const Metaballs = ({
 
   useResizeDebounce(() => {
     setResolution(50)
-    // TODO: Turn performance monitor back on
     setPerfMonitorKey((prev) => prev + 1)
   }, 1000)
 
@@ -335,8 +333,6 @@ const Metaballs = ({
           setResolution(resolution > oldResolution ? oldResolution : resolution)
         }}
       />
-
-      <StatsGl />
 
       <mesh
         geometry={geometryRef.current}

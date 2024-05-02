@@ -1,13 +1,13 @@
 .cursor {
   z-index: 1000;
   position: absolute;
+  pointer-events: none;
   width: 54px;
   height: 54px;
   border-radius: 50%;
   border: 2px solid var(--clr-neutral-100);
   left: 0;
   transform: translate(-50%, -50%);
-  pointer-events: none;
   background-color: transparent;
   mix-blend-mode: hard-light;
   transition:
@@ -25,13 +25,13 @@
 .cursor-dot {
   z-index: 1000;
   position: absolute;
+  pointer-events: none;
   width: 10px;
   height: 10px;
   background-color: var(--clr-neutral-100);
   border-radius: 50%;
   left: 0;
   transform: translate(-50%, -50%);
-  pointer-events: none;
   opacity: 1;
   transition: opacity 500ms;
 

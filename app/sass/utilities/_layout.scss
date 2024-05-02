@@ -1,10 +1,50 @@
-.row {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: flex-start;
+@use '../abstracts' as *;
+@use 'sass:map';
+@use 'sass:color';
+
+.canvas {
+  position: absolute !important;
+
+  // inset: var(--layout-margin);
+  // width: calc(100% - var(--layout-margin-2)) !important;
+  // height: calc(100% - var(--layout-margin-2)) !important;
+  z-index: -1;
 }
 
-.col {
-  flex-basis: 0;
-  flex-grow: 1;
+.overlay {
+  --bar-height: calc(var(--layout-margin) * 2);
+  --bar-width: 100%;
+
+  $gradient-color: map-deep-get($colours, 'neutral', 900);
+  $gradient-color-start: rgba($gradient-color, 1);
+  $gradient-color-end: rgba($gradient-color, 0);
+
+  > * {
+    // mix-blend-mode: hard-light;
+    position: absolute;
+    height: var(--bar-height);
+    width: var(--bar-width);
+  }
+
+  // Top bar
+  :nth-child(1) {
+    background: linear-gradient(
+      to bottom,
+      $gradient-color-start 0%,
+      $gradient-color-end 100%
+    );
+    top: 0;
+    left: 0;
+  }
+
+  // Bottom bar
+  :nth-child(2) {
+    background: linear-gradient(
+      to top,
+      $gradient-color-start 0%,
+      $gradient-color-end 100%
+    );
+    bottom: 0;
+    left: 0;
+  }
 }

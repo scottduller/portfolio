@@ -5,7 +5,12 @@ html {
 body {
   background-color: var(--clr-neutral-900);
   color: var(--clr-neutral-100);
-  min-height: 100vh;
-  width: 100vw;
+  height: 100svh !important;
+  margin: 0;
   overflow-x: hidden;
+}
+
+main {
+  height: 100%;
+  display: flex;
 }
