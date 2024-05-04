@@ -16,14 +16,14 @@ const Scene = () => {
   const far = 10000
 
   return (
-    <Canvas dpr={0.5} className="canvas">
+    <Canvas dpr={0.75} className="canvas">
       <PerspectiveCamera
         makeDefault
         fov={viewAngle}
         aspect={cameraAspect}
         near={near}
         far={far}
-        position={[0, 0, 5.5]}
+        position={[0, 0, 5.4]}
       />
       <ambientLight intensity={0.75} />
       <color attach="background" args={['#191716']} />

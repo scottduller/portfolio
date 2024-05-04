@@ -755,42 +755,12 @@ header nav .list-link {
 }
 
 .hero {
-  position: relative;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100%;
 }
-@media only screen and (min-width: 1200px) {
-  .hero {
-    justify-content: flex-end;
-  }
-}
-.hero__content {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-m);
-  justify-content: center;
-  align-items: center;
-  padding-bottom: calc(var(--layout-margin) / 2);
-}
-@media only screen and (min-width: 1200px) {
-  .hero__content {
-    gap: var(--space-s);
-    align-items: flex-start;
-  }
-}
-.hero__content h1 {
-  font-size: var(--fs-8xl);
-  font-weight: 500;
-  text-align: center;
-}
-@media only screen and (min-width: 1200px) {
-  .hero__content h1 {
-    text-align: left;
-  }
-}
-.hero__content p {
+.hero p {
   display: flex;
   font-weight: 500;
   letter-spacing: 1em;
@@ -803,52 +773,32 @@ header nav .list-link {
   direction: rtl;
 }
 @media only screen and (min-width: 1200px) {
-  .hero__content p {
+  .hero p {
     font-weight: 100;
-    text-align: left;
     font-size: var(--fs-s);
-    justify-content: flex-start;
     text-indent: 0;
     direction: ltr;
   }
 }
-.hero__content p strong {
+.hero p strong {
   display: none;
   font-weight: 900;
   text-indent: -1em;
   direction: rtl;
 }
 @media only screen and (min-width: 1200px) {
-  .hero__content p strong {
+  .hero p strong {
     display: block;
   }
 }
-.hero__content p .vertical {
+.hero p .vertical {
   display: none;
   background: var(--clr-purple-300);
   width: 0.2em;
   height: 1.7em;
 }
 @media only screen and (min-width: 1200px) {
-  .hero__content p .vertical {
+  .hero p .vertical {
     display: block;
-  }
-}
-.hero__content .gradient-bar {
-  bottom: calc(var(--layout-margin) / 2);
-  left: 0;
-  position: absolute;
-  width: 100%;
-  background: linear-gradient(
-    to right,
-    var(--clr-red-500),
-    var(--clr-blue-500)
-  );
-}
-@media only screen and (min-width: 1200px) {
-  .hero__content .gradient-bar {
-    display: block;
-    height: var(--fs-l);
-    margin-top: var(--space-xs);
   }
 }

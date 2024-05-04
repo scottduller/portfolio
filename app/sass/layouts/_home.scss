@@ -1,97 +1,49 @@
 @use '../abstracts' as *;
 
 .hero {
-  position: relative;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100%;
-  @include xl-breakpoint {
-    justify-content: flex-end;
-  }
 
-  &__content {
+  p {
     display: flex;
-    flex-direction: column;
+    font-weight: 500;
+    letter-spacing: 1em;
     gap: var(--space-m);
     justify-content: center;
     align-items: center;
-    padding-bottom: calc(var(--layout-margin) / 2);
+    text-align: center;
+    font-size: var(--fs-m);
+    text-indent: -1em;
+    direction: rtl;
 
     @include xl-breakpoint {
-      gap: var(--space-s);
-      align-items: flex-start;
+      font-weight: 100;
+      font-size: var(--fs-s);
+      text-indent: 0;
+      direction: ltr;
     }
 
-    h1 {
-      font-size: var(--fs-8xl);
-      font-weight: 500;
-      text-align: center;
-
-      @include xl-breakpoint {
-        text-align: left;
-      }
-    }
-
-    p {
-      display: flex;
-      font-weight: 500;
-      letter-spacing: 1em;
-      gap: var(--space-m);
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      font-size: var(--fs-m);
+    & strong {
+      display: none;
+      font-weight: 900;
       text-indent: -1em;
       direction: rtl;
 
       @include xl-breakpoint {
-        font-weight: 100;
-        text-align: left;
-        font-size: var(--fs-s);
-        justify-content: flex-start;
-        text-indent: 0;
-        direction: ltr;
-      }
-
-      & strong {
-        display: none;
-        font-weight: 900;
-        text-indent: -1em;
-        direction: rtl;
-
-        @include xl-breakpoint {
-          display: block;
-        }
-      }
-
-      .vertical {
-        display: none;
-        background: var(--clr-purple-300);
-        width: 0.2em;
-        height: 1.7em;
-
-        @include xl-breakpoint {
-          display: block;
-        }
+        display: block;
       }
     }
 
-    .gradient-bar {
-      bottom: calc(var(--layout-margin) / 2);
-      left: 0;
-      position: absolute;
-      width: 100%;
-      background: linear-gradient(
-        to right,
-        var(--clr-red-500),
-        var(--clr-blue-500)
-      );
+    .vertical {
+      display: none;
+      background: var(--clr-purple-300);
+      width: 0.2em;
+      height: 1.7em;
 
       @include xl-breakpoint {
         display: block;
-        height: var(--fs-l);
-        margin-top: var(--space-xs);
       }
     }
   }

@@ -1,12 +1,23 @@
+import useWindowDimensions from '@/hooks/useWindowDimensions'
 import { Text } from '@react-three/drei'
 import { useThree } from '@react-three/fiber'
 import React, { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 
 const HeroText = () => {
-  const fontUrl = 'fonts/BarlowSemiCondensed-Bold.ttf'
+  const fontUrl = 'fonts/BarlowSemiCondensed-Black.ttf'
 
-  const { camera } = useThree()
+  type Three = {
+    camera: THREE.PerspectiveCamera
+    viewport: {
+      width: number
+      height: number
+    }
+  }
+
+  const { camera: camera, viewport } = useThree() as Three
+
+  const { width } = useWindowDimensions()
 
   const textRef = useRef<THREE.Mesh>(null!)
   const outlineRef = useRef<THREE.Mesh>(null!)
@@ -43,8 +54,12 @@ const HeroText = () => {
   const textProps = {
     font: fontUrl,
     color: '#dbcdc6',
-    fontSize: 0.15,
+    fontSize: width > 1024 ? 0.1 * camera.aspect : 0.25 * camera.aspect,
+    maxWidth: viewport.width * 0.9,
+
     strokeColor: '#dbcdc6',
+    textAlign: 'center' as 'center' | 'left' | 'right' | 'justify' | undefined,
+    glyphGeometryDetail: 100,
   }
 
   return (
@@ -54,7 +69,6 @@ const HeroText = () => {
           ref={textRef}
           anchorX={'center'}
           anchorY={'middle'}
-          position={[0, 0, 0]}
           {...textProps}
         >
           SCOTT DULLER
@@ -65,14 +79,14 @@ const HeroText = () => {
           anchorY={'middle'}
           fillOpacity={0}
           strokeOpacity={1}
-          strokeWidth={0.003}
+          strokeWidth={0.005}
           position-z={1}
           {...textProps}
         >
           SCOTT DULLER
         </Text>
       </group>
-      {/* <Html wrapperClass="hero__content" position={[0, 0, 0]}>
+      {/* <Html as="div" center position={[0, 0, 0]} wrapperClass="hero">
         <p>
           <strong>SCOTT DULLER</strong>
           <span className="vertical" />
