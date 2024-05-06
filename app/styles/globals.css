@@ -24,6 +24,8 @@
   --fs-8xl: clamp(5.4178rem, 4.217rem + 6.0039vi, 18.6265rem);
   --layout-margin: var(--space-l);
   --layout-margin-2: calc(var(--layout-margin) * 2);
+  --logo-size: clamp(3rem, 2.6364rem + 1.8182vi, 4rem);
+  --icon-size: clamp(2.5rem, 2.1364rem + 1.8182vi, 3.5rem);
   --clr-red-100: #fcc;
   --clr-red-200: #f99;
   --clr-red-300: #f66;
@@ -71,6 +73,8 @@
   :root {
     --layout-margin: var(--space-m);
     --layout-margin-2: calc(var(--layout-margin) * 2);
+    --logo-size: clamp(3.5rem, 2.1364rem + 1.8182vi, 6.5rem);
+    --icon-size: clamp(3rem, 1.6364rem + 1.8182vi, 6rem);
   }
 }
 
@@ -216,7 +220,7 @@ html {
 body {
   background-color: var(--clr-neutral-900);
   color: var(--clr-neutral-100);
-  height: 100svh !important;
+  min-height: 100svh !important;
   margin: 0;
   overflow-x: hidden;
 }
@@ -543,10 +547,17 @@ main {
 }
 
 .container {
-  overflow-y: auto;
+  --bar-height: calc(var(--layout-margin-2));
+  display: flex;
   width: 100%;
   margin: 0 var(--layout-margin);
   padding: 0 var(--layout-margin);
+  margin-top: calc(
+    var(--layout-margin-2) + var(--layout-margin) + var(--logo-size)
+  );
+  margin-bottom: var(--layout-margin);
+  padding-top: var(--layout-margin);
+  padding-bottom: var(--layout-margin);
 }
 
 .border-padding {
@@ -631,7 +642,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 header {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -642,19 +653,11 @@ header {
 }
 header nav {
   --gap: var(--space-2xl);
-  --logo-size: clamp(3rem, 2.6364rem + 1.8182vi, 4rem);
-  --icon-size: clamp(2.5rem, 2.1364rem + 1.8182vi, 3.5rem);
   display: flex;
   flex-wrap: wrap;
   gap: var(--gap);
   width: 100%;
   padding: var(--layout-margin);
-}
-@media only screen and (min-width: 1200px) {
-  header nav {
-    --logo-size: clamp(3.5rem, 2.1364rem + 1.8182vi, 6.5rem);
-    --icon-size: clamp(3rem, 1.6364rem + 1.8182vi, 6rem);
-  }
 }
 header nav .logo {
   order: 1;
@@ -752,6 +755,29 @@ header nav .list-link {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.card {
+  background-color: var(--clr-neutral-100);
+  color: var(--clr-neutral-900);
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}
+.card__title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+.card__content {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+.card__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: #666;
 }
 
 .hero {

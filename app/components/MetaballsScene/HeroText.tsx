@@ -1,7 +1,7 @@
 import useWindowDimensions from '@/hooks/useWindowDimensions'
 import { Text } from '@react-three/drei'
-import { useThree } from '@react-three/fiber'
-import React, { useEffect, useRef } from 'react'
+import { useFrame, useThree } from '@react-three/fiber'
+import React, { useRef } from 'react'
 import * as THREE from 'three'
 
 const HeroText = () => {
@@ -22,34 +22,27 @@ const HeroText = () => {
   const textRef = useRef<THREE.Mesh>(null!)
   const outlineRef = useRef<THREE.Mesh>(null!)
 
-  useEffect(() => {
-    const transformOutlineText = () => {
-      const dText = camera.position.distanceTo(textRef.current.position)
-      const dOutline = dText - 1 // 1 is the increase in Z coordinate
-      const scale = dOutline / dText
+  const transformOutlineText = () => {
+    const dText = camera.position.distanceTo(textRef.current.position)
+    const dOutline = dText - 1 // 1 is the increase in Z coordinate
+    const scale = dOutline / dText
 
-      // Apply the scale factor to outlineRef
-      outlineRef.current.scale.set(scale, scale, scale)
+    // Apply the scale factor to outlineRef
+    outlineRef.current.scale.set(scale, scale, scale)
 
-      // Set the position of outlineRef to be the same as textRef
-      outlineRef.current.position.copy(textRef.current.position)
+    // Set the position of outlineRef to be the same as textRef
+    outlineRef.current.position.copy(textRef.current.position)
 
-      // Move outlineRef slightly towards the camera along the camera's viewing direction
-      const direction = new THREE.Vector3()
-        .subVectors(camera.position, textRef.current.position)
-        .normalize()
-      outlineRef.current.position.add(direction)
-    }
+    // Move outlineRef slightly towards the camera along the camera's viewing direction
+    const direction = new THREE.Vector3()
+      .subVectors(camera.position, textRef.current.position)
+      .normalize()
+    outlineRef.current.position.add(direction)
+  }
 
+  useFrame(() => {
     transformOutlineText()
-
-    window.addEventListener('resize', transformOutlineText)
-
-    return () => {
-      window.removeEventListener('resize', transformOutlineText)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  })
 
   const textProps = {
     font: fontUrl,
@@ -59,7 +52,7 @@ const HeroText = () => {
 
     strokeColor: '#dbcdc6',
     textAlign: 'center' as 'center' | 'left' | 'right' | 'justify' | undefined,
-    glyphGeometryDetail: 100,
+    characters: 'SCOTDULER',
   }
 
   return (

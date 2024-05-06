@@ -8,7 +8,7 @@ const index = () => {
   return (
     <header>
       <nav className="navbar">
-        <Link className="logo" href="/">
+        <Link className="logo" href={'/'}>
           <Image src="/logo.svg" width="1" height="1" alt="logo" priority />
         </Link>
 
@@ -22,9 +22,9 @@ const index = () => {
         </ul>
 
         <ul className="nav-links" role="list">
-          <ListLink href="/about">About Me</ListLink>
+          {/* <ListLink href="/about">About Me</ListLink> */}
           <ListLink href="/projects">Projects</ListLink>
-          <ListLink href="/contact">Contact</ListLink>
+          {/* <ListLink href="/contact">Contact</ListLink> */}
         </ul>
       </nav>
     </header>

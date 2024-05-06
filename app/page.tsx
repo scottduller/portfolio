@@ -1,7 +1,15 @@
-import Hero from '@components/home/Hero'
+import dynamic from 'next/dynamic'
+
+const MetaballsScene = dynamic(() => import('./components/MetaballsScene'), {
+  ssr: false,
+})
 
 const Home = () => {
-  return <Hero />
+  return (
+    <div>
+      <MetaballsScene />
+    </div>
+  )
 }
 
 export default Home

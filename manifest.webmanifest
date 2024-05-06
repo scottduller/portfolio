@@ -8,17 +8,17 @@
       "type": "image/x-icon"
     },
     {
-      "src": "/icon1.png",
+      "src": "assets/icon1.png",
       "sizes": "48x48",
       "type": "image/png"
     },
     {
-      "src": "/icon2.svg",
+      "src": "assets/icon2.svg",
       "sizes": "any",
       "type": "image/svg+xml"
     },
     {
-      "src": "/apple-icon.png",
+      "src": "assets/apple-icon.png",
       "sizes": "180x180",
       "type": "image/png"
     }

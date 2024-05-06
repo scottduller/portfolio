@@ -1,9 +1,11 @@
 import { useRef, useMemo } from 'react'
 import * as THREE from 'three'
 import Metaballs from './Metaballs'
-import { EffectComposer, SelectiveBloom } from '@react-three/postprocessing'
+import { Bloom, EffectComposer } from '@react-three/postprocessing'
 import { BlendFunction } from 'postprocessing'
 import useWindowDimensions from '@/hooks/useWindowDimensions'
+import { PerspectiveCamera } from '@react-three/drei'
+import HeroText from './HeroText'
 
 export type Ball = {
   x: number
@@ -67,7 +69,7 @@ const MetaballsScene = ({
         aspectZ: 0.5,
       }
     }
-    return { aspect, aspectX: 1, aspectY: 1, aspectZ: 1 }
+    return { aspect, aspectX: 1, aspectY: 1, aspectZ: 0.5 }
   }, [width, height])
 
   const subtract = 21
@@ -161,42 +163,57 @@ const MetaballsScene = ({
   const pointLight = useRef<THREE.PointLight>(null!)
   const ambientLight = useRef<THREE.AmbientLight>(null!)
 
+  const viewAngle = 10
+  const cameraAspect = width / height
+  const near = 0.01
+  const far = 10000
+
   return (
     <>
-      <EffectComposer>
-        <ambientLight ref={ambientLight} intensity={0.1} />
+      <PerspectiveCamera
+        makeDefault
+        fov={viewAngle}
+        aspect={cameraAspect}
+        near={near}
+        far={far}
+        position={[0, 0, 5.4]}
+      />
+      <ambientLight intensity={0.75} />
+      <color attach="background" args={['#191716']} />
 
-        <pointLight
-          ref={pointLight}
-          intensity={10}
-          color="white"
-          position={[aspectX, aspectY * 2, aspectZ * 4]}
-        />
-        <Metaballs
-          meshRef={meshRef}
-          position={[0, 0, 0]}
-          numBalls={numBalls}
-          addBalls={addBalls}
-          subtract={subtract}
-          strength={strength}
-          aspectX={aspectX}
-          aspectY={aspectY}
-          aspectZ={aspectZ}
-          enableColors={enableColors}
-          maxPolyCount={maxPolyCount}
-        />
+      <HeroText />
 
-        <SelectiveBloom
-          lights={[pointLight]}
-          selection={[meshRef]}
+      <EffectComposer resolutionScale={0.5}>
+        <Bloom
           luminanceThreshold={0.1}
           luminanceSmoothing={0.025}
-          levels={10}
           intensity={1}
           blendFunction={BlendFunction.SCREEN}
           mipmapBlur
         />
       </EffectComposer>
+
+      <ambientLight ref={ambientLight} intensity={0.1} />
+
+      <pointLight
+        ref={pointLight}
+        intensity={10}
+        color="white"
+        position={[aspectX, aspectY * 2, aspectZ * 4]}
+      />
+      <Metaballs
+        meshRef={meshRef}
+        position={[0, 0, 0]}
+        numBalls={numBalls}
+        addBalls={addBalls}
+        subtract={subtract}
+        strength={strength}
+        aspectX={aspectX}
+        aspectY={aspectY}
+        aspectZ={aspectZ}
+        enableColors={enableColors}
+        maxPolyCount={maxPolyCount}
+      />
     </>
   )
 }

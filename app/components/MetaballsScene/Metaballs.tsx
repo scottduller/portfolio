@@ -321,7 +321,7 @@ const Metaballs = ({
         key={perfMonitorKey}
         factor={0.5}
         step={0.1}
-        bounds={() => [60, 60]}
+        bounds={() => [30, 60]}
         onChange={({ factor }) => {
           setOldResolution(resolution)
           setResolution(() => {

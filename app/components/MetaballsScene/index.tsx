@@ -2,39 +2,14 @@
 
 import { Canvas } from '@react-three/fiber'
 import MetaballsScene from './MetaballsScene'
-import { PerspectiveCamera } from '@react-three/drei'
-import useWindowDimensions from '@/hooks/useWindowDimensions'
-import HeroText from './HeroText'
-import { Suspense } from 'react'
 
 const Scene = () => {
-  const { width, height } = useWindowDimensions()
-
-  const viewAngle = 10
-  const cameraAspect = width / height
-  const near = 0.01
-  const far = 10000
-
+  //TODO: Go through each child and find where the reload is occuring
   return (
-    <Canvas dpr={0.75} className="canvas">
-      <PerspectiveCamera
-        makeDefault
-        fov={viewAngle}
-        aspect={cameraAspect}
-        near={near}
-        far={far}
-        position={[0, 0, 5.4]}
-      />
-      <ambientLight intensity={0.75} />
-      <color attach="background" args={['#191716']} />
-
-      <Suspense fallback={null}>
-        <HeroText />
-      </Suspense>
-
+    <Canvas dpr={1} className="canvas">
       <MetaballsScene
         numBalls={8}
-        velocity={0.2}
+        velocity={0.15}
         maxPolyCount={100000}
         enableColors={true}
       />
