@@ -18,6 +18,9 @@
   "browserslist": [
     "defaults"
   ],
+  "resolutions": {
+    "string-width": "4.2.3"
+  },
   "dependencies": {
     "@react-hook/resize-observer": "^2.0.1",
     "@react-hookz/web": "^24.0.4",
