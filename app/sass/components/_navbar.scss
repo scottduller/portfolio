@@ -1,6 +1,10 @@
 @use '../abstracts' as *;
 
 header {
+  $shadow-colour: rgba(map-deep-get($colours, 'neutral', 900), 0);
+  $nav-background: rgba(map-deep-get($colours, 'neutral', 900), 0.85);
+  $nav-active: rgba(map-deep-get($colours, 'neutral', 600), 0.5);
+
   position: fixed;
   top: 0;
   left: 0;
@@ -8,26 +12,44 @@ header {
   z-index: 1000;
   display: flex;
   justify-content: center;
-  margin: var(--layout-margin);
+  transition:
+    padding 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out;
+  padding: calc(2 * var(--layout-margin));
+  box-shadow: 0 0 16px 4px $shadow-colour;
 
-  nav {
+  &.scroll {
+    $shadow-colour: rgba(map-deep-get($colours, 'neutral', 900), 1);
+
+    padding: calc(var(--layout-margin)) calc(2 * var(--layout-margin));
+    box-shadow: 0 0 16px 4px $shadow-colour;
+  }
+
+  &.nav-background {
+    background-color: $nav-background;
+    backdrop-filter: blur(0.7em);
+  }
+
+  .navbar {
     --gap: var(--space-2xl);
 
     display: flex;
     flex-wrap: wrap;
     gap: var(--gap);
     width: 100%;
-    padding: var(--layout-margin);
 
     .logo {
       order: 1;
       flex-shrink: 0;
+      z-index: 1000;
 
       img {
+        z-index: -1000;
         width: var(--logo-size);
         height: var(--logo-size);
 
         svg {
+          z-index: -1000;
           width: 100%;
           height: 100%;
         }
@@ -36,6 +58,7 @@ header {
 
     .icon {
       font-size: var(--icon-size);
+      z-index: -1;
     }
 
     .social-links {
@@ -55,6 +78,9 @@ header {
     }
 
     .nav-links {
+      --radius: 0.7em;
+      --gap: var(--space-3xs);
+
       display: none;
       order: 3;
       position: fixed;
@@ -67,56 +93,61 @@ header {
       font-weight: 900;
       text-wrap: nowrap;
       z-index: 1000;
-      gap: var(--space-3xs);
+      gap: var(--gap);
 
       & > li {
+        z-index: 999;
         flex-grow: 1;
         flex-basis: 0;
         min-width: 0;
-        padding: var(--space-xs) var(--space-s);
-        background-color: var(--clr-purple-300);
-        color: var(--clr-neutral-900);
+
+        a {
+          z-index: 1000;
+          border-radius: var(--radius);
+          transition:
+            background-color 0.3s,
+            padding 0.3s,
+            color 0.3s,
+            box-shadow 0.3s;
+        }
 
         // box-shadow: 0 0 16px 4px rgb(127 0 127 / 100%);
 
         // border: 0.2em solid var(--clr-purple-500);
       }
 
-      @include sm-breakpoint {
-        gap: var(--space-xs);
-
-        & > li {
-          padding: var(--space-s) var(--space-m);
+      & > li.active {
+        a {
+          padding: var(--space-2xs) var(--space-xs);
+          background-color: $nav-active;
+          font-weight: 600;
         }
       }
 
+      @include sm-breakpoint {
+        --gap: var(--space-xs);
+      }
+
       @include md-breakpoint {
-        gap: var(--space-m);
+        --gap: var(--space-m);
       }
 
       @include xl-breakpoint {
+        --gap: var(--space-2xl);
+
         display: flex;
         order: 2;
         position: static;
         transform: none;
-        border: none;
-        border-radius: 0;
-        background-color: transparent;
         justify-content: flex-end;
-        padding: 0;
         flex-wrap: wrap;
         flex-grow: 1;
-        gap: var(--space-2xl);
         font-weight: unset;
         text-transform: unset;
 
         & > li {
-          padding: 0;
           flex: 0 0 auto;
           color: unset;
-          border: none;
-          border-radius: 0;
-          background-color: transparent;
           box-shadow: none;
         }
       }

@@ -6,6 +6,14 @@ const nextConfig = {
   sassOptions: {
     includePaths: [path.join(__dirname, 'app/styles')],
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'fakeimg.pl',
+      },
+    ],
+  },
 }
 
 module.exports = nextConfig

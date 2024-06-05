@@ -1,6 +1,10 @@
+@use '../abstracts' as *;
+
 .cursor {
+  $background-colour: rgba(map-deep-get($colours, 'neutral', 100), 0.5);
+
   z-index: 1000;
-  position: absolute;
+  position: fixed;
   pointer-events: none;
   width: 54px;
   height: 54px;
@@ -11,20 +15,26 @@
   background-color: transparent;
   mix-blend-mode: hard-light;
   transition:
-    width 500ms ease-out,
-    height 500ms ease-out,
-    background-color 500ms ease-out;
+    width 250ms ease-out,
+    height 250ms ease-out,
+    background-color 250ms ease-out;
+
+  &.hover {
+    height: 65px;
+    width: 65px;
+    background-color: $background-colour;
+  }
 
   &.active {
-    height: 76px;
-    width: 76px;
-    background-color: var(--clr-neutral-400);
+    height: 76px !important;
+    width: 76px !important;
+    background-color: $background-colour;
   }
 }
 
 .cursor-dot {
   z-index: 1000;
-  position: absolute;
+  position: fixed;
   pointer-events: none;
   width: 10px;
   height: 10px;

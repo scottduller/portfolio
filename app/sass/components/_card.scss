@@ -1,9 +1,23 @@
+@use '../abstracts' as *;
+
 .card {
-  background-color: var(--clr-neutral-100);
-  color: var(--clr-neutral-900);
-  border-radius: 0.5rem;
+  // try colour gradients with light opacity
+
+  $gradient-color: map-deep-get($colours, 'neutral', 800);
+  $border-color: map-deep-get($colours, 'neutral', 700);
+  $gradient-color-start: rgba($gradient-color, 1);
+  $gradient-color-end: rgba($gradient-color, 1);
+
+  background: linear-gradient(
+    to bottom,
+    $gradient-color-start,
+    $gradient-color-end
+  );
+  backdrop-filter: blur(7px);
+  border-radius: 0.7rem;
   box-shadow: 0 0 0.5rem rgb(0 0 0 / 10%);
   padding: 1rem;
+  border: 2px solid $border-color;
 
   &__title {
     font-size: 1.5rem;

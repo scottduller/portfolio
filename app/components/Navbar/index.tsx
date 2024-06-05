@@ -3,35 +3,37 @@ import Link from 'next/link'
 import React from 'react'
 
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
+import NavbarWrapper from './NavbarWrapper'
+import LinkWrapper from './LinkWrapper'
 
 const index = () => {
   return (
-    <header>
+    <NavbarWrapper>
       <nav className="navbar">
         <Link className="logo" href={'/'}>
           <Image src="/logo.svg" width="1" height="1" alt="logo" priority />
         </Link>
 
         <ul className="social-links" role="list">
-          <ListLink href="https://www.linkedin.com/in/scottduller/">
+          <NavLink href="https://www.linkedin.com/in/scottduller/">
             <FaLinkedin className="icon" />
-          </ListLink>
-          <ListLink href="https://github.com/scottduller">
+          </NavLink>
+          <NavLink href="https://github.com/scottduller">
             <FaGithub className="icon" />
-          </ListLink>
+          </NavLink>
         </ul>
 
         <ul className="nav-links" role="list">
-          {/* <ListLink href="/about">About Me</ListLink> */}
-          <ListLink href="/projects">Projects</ListLink>
-          {/* <ListLink href="/contact">Contact</ListLink> */}
+          <NavLink href="/about">About Me</NavLink>
+          <NavLink href="/projects">Projects</NavLink>
+          {/* <NavLink href="/contact">Contact</NavLink> */}
         </ul>
       </nav>
-    </header>
+    </NavbarWrapper>
   )
 }
 
-const ListLink = ({
+const NavLink = ({
   href,
   isExternal = false,
   children,
@@ -40,22 +42,22 @@ const ListLink = ({
   isExternal?: boolean
   children: React.ReactNode
 }) => (
-  <li>
+  <LinkWrapper href={href}>
     {isExternal ? (
-      <a
+      <Link
         href={href}
         className="list-link"
         target="_blank"
         rel="noopener noreferrer"
       >
         {children}
-      </a>
+      </Link>
     ) : (
-      <Link className="list-link" href={href}>
+      <Link className="list-link" href={href} prefetch>
         {children}
       </Link>
     )}
-  </li>
+  </LinkWrapper>
 )
 
 export default index

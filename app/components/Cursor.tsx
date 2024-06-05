@@ -14,7 +14,7 @@ const Cursor = () => {
     setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0)
 
     document.addEventListener('mousemove', (e) => {
-      setCursorPos({ x: e.pageX, y: e.pageY })
+      setCursorPos({ x: e.clientX, y: e.clientY })
     })
 
     document.addEventListener('mousedown', () => {
@@ -31,6 +31,17 @@ const Cursor = () => {
           cursorDotRef.current?.classList.remove('active')
         }, 500)
       }
+    })
+
+    document.addEventListener('mouseover', (e) => {
+      const targetElement = e.target as HTMLElement
+      targetElement.tagName === 'A'
+        ? cursorRef.current?.classList.add('hover')
+        : cursorRef.current?.classList.remove('hover')
+
+      targetElement.tagName === 'A'
+        ? cursorDotRef.current?.classList.add('hover')
+        : cursorDotRef.current?.classList.remove('hover')
     })
   }, [])
 

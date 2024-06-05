@@ -12,7 +12,7 @@
   margin: 0 var(--layout-margin);
   padding: 0 var(--layout-margin);
   margin-top: calc(
-    var(--layout-margin-2) + var(--layout-margin) + var(--logo-size)
+    var(--layout-margin-2) + var(--layout-margin) + 10px + var(--logo-size)
   );
   margin-bottom: var(--layout-margin);
   padding-top: var(--layout-margin);
