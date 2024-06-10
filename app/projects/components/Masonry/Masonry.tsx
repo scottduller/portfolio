@@ -1,17 +1,8 @@
-import React, { useLayoutEffect } from 'react'
-import styled from 'styled-components'
+import React, { useEffect } from 'react'
 import { MasonryProvider } from './MasonryProvider'
 import { useMasonry } from './useMasonry'
 import { useWindowSize } from '@react-hookz/web'
-
-const Container = styled.div<{ $height: number }>`
-  height: ${({ $height }) => $height}px;
-  position: relative;
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-`
+import './masonry.css'
 
 type Breakpoints = Record<number, number>
 
@@ -61,19 +52,30 @@ const MasonryContainer = ({
     return 1
   }
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const columnCount = getColumns(columns)
 
     setMasonryOptions(columnCount, forceOrder, gap)
 
-    if (window.scrollY < window.innerHeight) {
-      window.scrollTo(0, 0)
-    }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [containerSize, forceOrder, gap])
 
-  return <Container $height={containerHeight}>{children}</Container>
+  useEffect(() => {
+    if (window.scrollY < window.innerHeight) {
+      window.scrollTo(0, 0)
+    }
+  }, [])
+
+  return (
+    <div
+      className="masonry"
+      style={{
+        height: containerHeight,
+      }}
+    >
+      {children}
+    </div>
+  )
 }
 
 export { Masonry }

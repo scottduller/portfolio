@@ -27,6 +27,14 @@ const useMasonry = () => {
     })
   }
 
+  const updateItem = (item: Partial<MasonryItemType>) => {
+    if (!item.id) return
+    dispatch({
+      type: ActionType.UPDATE_ITEM,
+      payload: item,
+    })
+  }
+
   const removeItem = (id: string) => {
     dispatch({
       type: ActionType.REMOVE_ITEM,
@@ -39,6 +47,7 @@ const useMasonry = () => {
     setMasonryOptions,
     addItem,
     removeItem,
+    updateItem,
   }
 }
 

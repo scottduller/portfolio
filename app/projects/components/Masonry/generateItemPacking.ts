@@ -16,6 +16,10 @@ const packItems = ({
   forceOrder,
   gap,
 }: PackItemsProps) => {
+  // console.log(items, columnWidth, columnCount, forceOrder, gap)
+
+  if (items.length === 0) return { items: [], containerHeight: 0 }
+
   const columnHeights = Array.from({ length: columnCount }, () => 0)
 
   let sortedItems = [...items]
@@ -58,7 +62,7 @@ const packItems = ({
 
     let top = minTop
 
-    top = top === 0 ? 0 : top + gap
+    top = top === 0 || top === Infinity ? 0 : top + gap
 
     for (let i = startColumn; i < startColumn + stretchColumns; i++) {
       columnHeights[i] = top + item.height
@@ -73,9 +77,12 @@ const packItems = ({
     )
   })
 
+  const containerHeight =
+    Math.max(...columnHeights) === Infinity ? 0 : Math.max(...columnHeights)
+
   return {
     items: sortedItems.sort((a, b) => a.index! - b.index!),
-    containerHeight: Math.max(...columnHeights),
+    containerHeight: containerHeight,
   }
 }
 

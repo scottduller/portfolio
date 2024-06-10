@@ -1,0 +1,12 @@
+.masonryItem {
+  position: absolute;
+  transition:
+    top 0.3s,
+    left 0.3s,
+    width 0.3s;
+}
+
+.masonry {
+  position: relative;
+  width: 100%;
+}

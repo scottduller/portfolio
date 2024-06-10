@@ -11,12 +11,14 @@
   width: 100%;
   margin: 0 var(--layout-margin);
   padding: 0 var(--layout-margin);
-  margin-top: calc(
-    var(--layout-margin-2) + var(--layout-margin) + 10px + var(--logo-size)
-  );
+  margin-top: calc(var(--layout-margin-2) * 2 + var(--logo-size));
   margin-bottom: var(--layout-margin);
-  padding-top: var(--layout-margin);
   padding-bottom: var(--layout-margin);
+
+  @media screen and (max-width: $md-breakpoint) {
+    margin-inline: calc(var(--layout-margin) / 2);
+    padding-inline: calc(var(--layout-margin) / 2);
+  }
 }
 
 .border-padding {

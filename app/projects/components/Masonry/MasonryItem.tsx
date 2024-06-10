@@ -1,46 +1,9 @@
-import { useRef, useState, useLayoutEffect, useEffect } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { v4 as uuid } from 'uuid'
-import styled, { keyframes } from 'styled-components'
 import { pxPercCalcSub } from './generateCalcString'
 import { useMasonry } from './useMasonry'
 import { MasonryItemType } from './types'
 import { useMeasure } from '@react-hookz/web'
-
-const appear = keyframes`
-	from {
-		scale: 0;
-		opacity: 0;
-	}
-	to {
-		scale: 1;
-		opacity: 1;
-	}
-`
-
-const Item = styled.div.attrs<{
-  $height?: number
-  $width?: string
-  $top?: number
-  $left?: string
-  $gap?: number
-}>((props) => ({
-  style: {
-    height: `${props.$height}px`,
-    width: props.$width,
-    top: `${props.$top}px`,
-    left: props.$left,
-  },
-}))`
-  transition:
-    top 0.5s,
-    left 0.5s,
-    width 0.5s,
-    height 0.5s;
-  display: inline-block;
-  position: absolute;
-  animation: ${appear} 0.3s ease-out;
-  will-change: top, left, width, height;
-`
 
 type MasonryItemProps = {
   children: React.ReactNode
@@ -67,14 +30,13 @@ export const MasonryItem = ({
       ? columnCount
       : Math.min(columnCount, stretchColumnsProp)
 
-  const width = pxPercCalcSub(
-    stretchColumns * columnWidth,
-    ((columnCount - stretchColumns) * gap) / columnCount,
-  )
-
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!itemSize) return
 
+    const width = pxPercCalcSub(
+      stretchColumns * columnWidth,
+      ((columnCount - stretchColumns) * gap) / columnCount,
+    )
     const item = items.find((item) => item.id === id.current)
 
     let newItem: MasonryItemType
@@ -105,7 +67,7 @@ export const MasonryItem = ({
     setCurrentItem(newItem)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [columnWidth, items, itemSize, stretchColumnsProp, width])
+  }, [columnWidth, items, itemSize, stretchColumnsProp])
 
   useEffect(() => {
     return () => {
@@ -116,15 +78,17 @@ export const MasonryItem = ({
   }, [])
 
   return (
-    <Item
+    <div
       ref={ref as React.RefObject<HTMLDivElement>}
-      $width={currentItem?.width}
-      $top={currentItem?.top}
-      $left={currentItem?.left}
-      $height={height}
-      $gap={gap}
+      className="masonryItem"
+      style={{
+        height: height,
+        width: currentItem?.width,
+        top: currentItem?.top,
+        left: currentItem?.left,
+      }}
     >
-      {children}
-    </Item>
+      {currentItem?.width && children}
+    </div>
   )
 }

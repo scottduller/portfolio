@@ -21,9 +21,9 @@ type ProjectCardProps = {
   }
 }
 
-//TODO: extract tags to seperate component for filtering
+//TODO: Check useEffects in Masonry to see if it can be optimized (less rerenders!!!)
 
-//TODO: make height of card dynamic based on content
+//TODO: extract tags to seperate component for filtering
 
 const ProjectCard = ({
   title,
@@ -51,6 +51,7 @@ const ProjectCard = ({
         <div className="project-card__overlay">
           <div className="project-card__overlay__header">
             <h2 className="project-card__overlay__header__title">{title}</h2>
+            <hr />
             <div className="project-card__overlay__header__links">
               <Link href={githubHref} target="_blank" rel="noopener noreferrer">
                 GitHub
@@ -66,7 +67,6 @@ const ProjectCard = ({
               )}
             </div>
           </div>
-          <hr />
           <div className="project-card__overlay__content">
             <p>{description}</p>
             <div className="project-card__overlay__content__tags">

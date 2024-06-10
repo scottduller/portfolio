@@ -23,7 +23,7 @@ const Projects = () => {
     {
       title: 'Financial Portal',
       description:
-        'A financial portal application for organising my finances. It allows me to track my income, expenses, and investments. It also provides a dashboard with an overview of my financial health.',
+        'A financial portal application for organising my finances. It allows me to track my income, expenses, and investments. It also provides a dashboard with an overview of my financial health. ',
       githubHref: 'https://github.com/scottduller/financial-portal',
       webHref: 'https://financial-portal.vercel.app',
       imageHref: '/mockup.png',
@@ -33,11 +33,13 @@ const Projects = () => {
         type: ['Full Stack'],
         device: ['Desktop', 'Mobile'],
       } as Tags,
+      enabled: true,
     },
+
     {
       title: 'Portfolio Website',
       description:
-        'My personal portfolio website. It showcases my projects, skills, and experience. It contains some experimental features like a 3D background using the marching cubes alorithm.',
+        'My personal portfolio website. It showcases my projects, skills, and experience. It contains some experimental features like a 3D background using the marching cubes algorithm.',
       githubHref: 'https://gitghub.com/scottduller/portfolio',
       webHref: 'https://scottduller.com',
       imageHref: '/mockup.png',
@@ -48,6 +50,7 @@ const Projects = () => {
         device: ['Desktop', 'Mobile'],
       } as Tags,
       stretchColumns: 2,
+      enabled: false,
     },
     {
       title: 'Study Now',
@@ -60,12 +63,12 @@ const Projects = () => {
         type: ['Full Stack'],
         device: ['Desktop', 'Mobile'],
       } as Tags,
+      enabled: true,
     },
   ]
 
   return (
     <section className="container projects">
-      {/* <h1>PROJECTS</h1> */}
       <Masonry columns={columns} gap={32}>
         {data.map((project, index) => (
           <ProjectCard key={index} {...project} />

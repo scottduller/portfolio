@@ -2,6 +2,8 @@
 @use 'sass:selector';
 
 .projects {
+  width: 100%;
+
   & h1 {
     position: fixed;
     top: 50%;
@@ -14,8 +16,21 @@
   }
 }
 
+@keyframes fade-in {
+  0% {
+    scale: 0;
+    opacity: 0;
+  }
+
+  100% {
+    scale: 1;
+    opacity: 1;
+  }
+}
+
 .project-card {
   --radius: 0.7em;
+  --space: 1.25em;
 
   $p: &;
 
@@ -26,14 +41,15 @@
   align-items: center;
   border-radius: var(--radius);
   margin: 0;
-  min-height: 25svh;
-
-  // border: 2px solid var(--clr-neutral-500);
+  animation: fade-in 0.5s ease-out;
+  height: 100%;
+  padding: var(--space-m) var(--space-s);
+  padding-top: var(--space-s);
+  gap: var(--space);
   transition:
-    min-height 0.2s,
+    height 0.3s ease-out,
     transform 0.2s ease-out,
     box-shadow 0.2s ease-out;
-  padding: var(--space-s);
 
   $background-colour-start: rgba(map-deep-get($colours, 'neutral', 600), 0.5);
   $background-colour-end: rgba(map-deep-get($colours, 'neutral', 800), 0.5);
@@ -43,6 +59,7 @@
     $background-colour-start,
     $background-colour-end
   );
+  backdrop-filter: blur(7px);
   overflow: hidden;
 
   img {
@@ -52,56 +69,40 @@
   }
 
   &__overlay {
-    position: absolute;
-    inset: 0;
-    transform: translateY(100%);
-
-    $background-colour-start: rgba(map-deep-get($colours, 'neutral', 700), 0.8);
-    $background-colour-end: rgba(map-deep-get($colours, 'neutral', 900), 0.8);
-
-    background: linear-gradient(
-      to bottom right,
-      $background-colour-start,
-      $background-colour-end
-    );
     display: flex;
     flex-direction: column;
     border-radius: var(--radius);
-    transition: transform 0.2s ease-out;
-    backdrop-filter: blur(7px);
+    transition:
+      transform 0.2s ease-out,
+      box-shadow 0.2s ease-out;
+    gap: var(--space);
 
     & hr {
-      margin-inline: var(--space-s);
+      $border-colour: rgba(map-deep-get($colours, 'neutral', 400), 0.5);
+
       height: 1px;
       border-width: 1px;
-      border-color: var(--clr-neutral-400);
+      border-color: $border-colour;
     }
 
     &__header {
       display: flex;
       flex-direction: column;
-      gap: var(--space-s);
-      transform: translateY(-100%);
-      padding: var(--space-m) var(--space-s);
-      background: linear-gradient(
-        to bottom right,
-        $background-colour-start,
-        $background-colour-end
-      );
+      gap: var(--space);
       border-radius: var(--radius) var(--radius) 0 0;
 
       &__title {
-        font-size: var(--fs-m);
+        font-size: var(--fs-l);
         font-weight: 600;
         width: 100%;
         line-height: 1;
-        margin-inline: calc(var(--space-s) / 4);
+        margin-inline: calc(var(--space-s) / 6);
       }
 
       &__links {
         display: flex;
         flex-flow: row wrap;
-        gap: var(--space-s);
+        gap: var(--space-xs);
 
         & > * {
           flex: 1;
@@ -122,9 +123,8 @@
           font-size: var(--fs-xs);
           font-weight: 600;
           transition:
-            background-color 0.3s ease-out,
-            border 0.3s ease-out,
-            transform 0.2s ease-out;
+            scale 0.2s ease-out,
+            box-shadow 0.2s ease-out;
           gap: var(--space-s);
 
           svg {
@@ -147,21 +147,45 @@
             .divider {
               background-color: var(--clr-neutral-800);
             }
+
+            svg {
+              width: 1.25rem;
+              height: 1.25rem;
+            }
+          }
+
+          $hover-shadow: rgba(map-deep-get($colours, 'neutral', 900), 0.5);
+
+          &:only-child:hover {
+            scale: 1.015;
+            box-shadow: 0 0 5px 3px $hover-shadow;
           }
 
           &:nth-child(1):hover {
-            background: var(--clr-neutral-800);
-            transform: scale(1.05);
+            scale: 1.025;
+            box-shadow: 0 0 5px 3px $hover-shadow;
           }
 
           &:nth-child(2):hover {
-            background: var(--clr-neutral-300);
-            transform: scale(1.05);
+            $hover-shadow: rgba(map-deep-get($colours, 'neutral', 100), 0.5);
+
+            scale: 1.025;
+            box-shadow: 0 0 5px 3px $hover-shadow;
           }
 
-          &:only-child:hover {
-            background: var(--clr-neutral-800);
-            transform: scale(1.025);
+          &:nth-child(1):focus {
+            background: var(--clr-neutral-900);
+            scale: (0.95);
+          }
+
+          &:nth-child(2):focus {
+            background: var(--clr-neutral-100);
+            scale: (0.95);
+          }
+
+          &:only-child:focus {
+            background: var(--clr-neutral-900);
+            scale: (0.975);
           }
         }
       }
@@ -172,7 +196,6 @@
       flex-direction: column;
       justify-content: center;
       gap: var(--space-m);
-      padding: var(--space-m) var(--space-s);
       line-height: 1.5;
       font-size: var(--fs-s);
 
@@ -185,52 +208,17 @@
   }
 
   &.no-image {
-    padding: 0;
-    min-height: 0 !important;
-
-    #{$p}__overlay {
-      position: static !important;
-      width: 100% !important;
-      transform: none !important;
-      height: 100%;
-      background: none !important;
-
-      &__header {
-        transform: none !important;
-        background: none !important;
-        gap: var(--space-m);
-      }
-    }
-  }
-
-  &:hover {
-    min-height: 30vh;
-  }
-
-  &:hover &__overlay__header {
-    transform: none;
-    background: none;
-    gap: var(--space-m);
-  }
-
-  &:hover &__overlay {
-    transform: translateY(0);
-    top: 0;
-    overflow: auto;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
+    padding-top: var(--space-m);
   }
 
   &.featured {
     flex-direction: row;
     justify-content: start;
-    min-height: 0 !important;
+    padding: var(--space-s);
+    height: 100%;
 
     #{$p}__overlay {
+      position: absolute;
       right: 0;
       top: 0;
       bottom: 0;
@@ -240,12 +228,36 @@
       transform: none;
       border-radius: 0;
       box-shadow: 0 0 10px 5px rgb(0 0 0 / 50%);
-      justify-content: center !important;
+      justify-content: start;
+      padding: var(--space-l) var(--space-m);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-m);
+      backdrop-filter: blur(7px);
+
+      $background-colour-start: rgba(
+        map-deep-get($colours, 'neutral', 700),
+        0.8
+      );
+      $background-colour-end: rgba(map-deep-get($colours, 'neutral', 900), 0.8);
+
+      background: linear-gradient(
+        to bottom right,
+        $background-colour-start,
+        $background-colour-end
+      );
 
       &__header {
         background: none;
         transform: none;
+        padding: 0;
         gap: var(--space-m);
+      }
+
+      &__content {
+        padding: 0;
+        height: 100%;
+        justify-content: space-between !important;
       }
     }
   }
@@ -260,13 +272,14 @@
 
     &:hover ~ #{$p}__overlay {
       transform: translateX(100%) !important;
+      box-shadow: none;
     }
   }
 
   @media screen and (max-width: $md-breakpoint) {
     flex-direction: column;
-    gap: var(--space-m) !important;
-    padding: var(--space-m) !important;
+    gap: 2em !important;
+    padding: var(--space-l) var(--space-m) !important;
 
     #{$p}__overlay {
       position: static;
@@ -276,26 +289,40 @@
       background: none;
       gap: var(--space-m);
 
-      hr {
-        display: none;
-      }
-
       &__header {
         transform: none;
         background: none;
         padding: 0;
         gap: var(--space-m);
+
+        &__title {
+          font-size: var(--fs-xl);
+        }
+
+        &__links {
+          a {
+            font-size: var(--fs-s);
+          }
+        }
       }
 
       &__content {
         padding: 0;
+        font-size: var(--fs-m);
       }
     }
 
     &.featured {
       flex-direction: column;
 
+      & .hoverTrigger {
+        display: none;
+      }
+
       #{$p}__overlay {
+        background: none;
+        padding: 0;
+        position: static;
         width: 100%;
         right: unset;
         top: 0;
@@ -303,6 +330,7 @@
         left: 0;
         border-radius: 0;
         box-shadow: none;
+        backdrop-filter: none;
 
         &__header {
           background: none;

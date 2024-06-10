@@ -1,7 +1,7 @@
 @use '../abstracts' as *;
 
 .cursor {
-  $background-colour: rgba(map-deep-get($colours, 'neutral', 100), 0.5);
+  $background-colour: rgba(map-deep-get($colours, 'neutral', 100), 1);
 
   z-index: 1000;
   position: fixed;
@@ -13,11 +13,11 @@
   left: 0;
   transform: translate(-50%, -50%);
   background-color: transparent;
-  mix-blend-mode: hard-light;
   transition:
     width 250ms ease-out,
     height 250ms ease-out,
     background-color 250ms ease-out;
+  mix-blend-mode: hard-light;
 
   &.hover {
     height: 65px;
@@ -44,6 +44,7 @@
   transform: translate(-50%, -50%);
   opacity: 1;
   transition: opacity 500ms;
+  mix-blend-mode: hard-light;
 
   &.active {
     opacity: 0;

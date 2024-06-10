@@ -57,6 +57,26 @@ export const reducer = (
       }
     }
 
+    case ActionType.UPDATE_ITEM: {
+      const packedItems = packItems({
+        items: state.items.map((i) =>
+          i.id === action.payload.id ? { ...i, ...action.payload } : i,
+        ),
+        columnWidth,
+        columnCount,
+        forceOrder,
+        gap,
+      })
+
+      const { items: newItems, containerHeight } = packedItems
+
+      return {
+        ...state,
+        containerHeight,
+        items: newItems,
+      }
+    }
+
     case ActionType.REMOVE_ITEM: {
       const packedItems = packItems({
         items: state.items.filter((i) => i.id !== action.payload),

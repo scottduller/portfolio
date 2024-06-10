@@ -3,8 +3,8 @@ export type MasonryItemType = {
   id: string
   width: string
   height: number
-  top: number
-  left: string
+  top?: number
+  left?: string
   stretchColumns: number
 }
 
@@ -12,6 +12,7 @@ export enum ActionType {
   SET_MASONRY_OPTIONS = 'SET_MASONRY_OPTIONS',
   ADD_ITEM = 'ADD_ITEM',
   REMOVE_ITEM = 'REMOVE_ITEM',
+  UPDATE_ITEM = 'UPDATE_ITEM',
 }
 
 export type MasonryContextActionType =
@@ -30,4 +31,8 @@ export type MasonryContextActionType =
   | {
       type: ActionType.REMOVE_ITEM
       payload: string
+    }
+  | {
+      type: ActionType.UPDATE_ITEM
+      payload: Partial<MasonryItemType>
     }

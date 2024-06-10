@@ -1,9 +1,11 @@
+@use '../abstracts' as *;
+
 .pill {
   display: inline-block;
   border-radius: var(--radius);
   padding: var(--space-3xs) var(--space-xs);
   background-color: var(--clr-neutral-900);
-  color: var(--clr-neutral-400);
+  color: var(--clr-neutral-300);
   font-weight: 600;
   font-size: var(--fs-xxs);
   text-align: center;
@@ -11,10 +13,9 @@
   transition:
     background-color 0.3s,
     color 0.3s,
-    transform 0.2s;
+    scale 0.2s;
 
-  &:hover {
-    background-color: var(--clr-neutral-800);
-    transform: scale(1.05);
+  @media screen and (max-width: $md-breakpoint) {
+    font-size: var(--fs-xs);
   }
 }
