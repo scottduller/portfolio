@@ -9,7 +9,7 @@ const Scene = () => {
     <Canvas dpr={1} className="canvas">
       <MetaballsScene
         numBalls={8}
-        velocity={0.15}
+        velocity={0.12}
         maxPolyCount={100000}
         enableColors={true}
       />

@@ -14,6 +14,8 @@ const NavbarWrapper = ({ children }: { children: React.ReactNode }) => {
     const handleScroll = () => {
       if (pathname !== '/') {
         window.scrollY > 10 ? setScroll(true) : setScroll(false)
+      } else {
+        setScroll(false)
       }
     }
 

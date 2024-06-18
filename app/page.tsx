@@ -5,7 +5,11 @@ const MetaballsScene = dynamic(() => import('./components/MetaballsScene'), {
 })
 
 const Home = () => {
-  return <MetaballsScene />
+  return (
+    <>
+      <MetaballsScene />
+    </>
+  )
 }
 
 export default Home

@@ -21,8 +21,6 @@ type ProjectCardProps = {
   }
 }
 
-//TODO: Check useEffects in Masonry to see if it can be optimized (less rerenders!!!)
-
 //TODO: extract tags to seperate component for filtering
 
 const ProjectCard = ({

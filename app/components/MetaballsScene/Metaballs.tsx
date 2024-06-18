@@ -10,6 +10,7 @@ import useResizeDebounce from '@/hooks/useResizeDebouce'
 
 export type MetaballsProps = {
   meshRef: React.MutableRefObject<THREE.Mesh>
+  scale: number
   position: [number, number, number]
   numBalls: number
   addBalls: (
@@ -78,6 +79,7 @@ export type State = {
 
 const Metaballs = ({
   meshRef,
+  scale,
   position,
   numBalls,
   addBalls,
@@ -99,9 +101,8 @@ const Metaballs = ({
   const materialRef = useRef<THREE.Material>(
     new THREE.MeshPhongMaterial({
       vertexColors: true,
-      shininess: 50,
+      shininess: 10,
       toneMapped: false,
-      side: THREE.DoubleSide,
     }),
   )
 
@@ -339,6 +340,7 @@ const Metaballs = ({
         material={materialRef.current}
         ref={meshRef}
         position={position}
+        scale={[scale, scale, scale]}
       />
     </>
   )

@@ -2,10 +2,9 @@ import { useRef, useMemo } from 'react'
 import * as THREE from 'three'
 import Metaballs from './Metaballs'
 import { Bloom, EffectComposer } from '@react-three/postprocessing'
-import { BlendFunction } from 'postprocessing'
 import useWindowDimensions from '@/hooks/useWindowDimensions'
 import { PerspectiveCamera } from '@react-three/drei'
-import HeroText from './HeroText'
+import { useThree } from '@react-three/fiber'
 
 export type Ball = {
   x: number
@@ -161,12 +160,15 @@ const MetaballsScene = ({
   }
 
   const pointLight = useRef<THREE.PointLight>(null!)
-  const ambientLight = useRef<THREE.AmbientLight>(null!)
 
   const viewAngle = 10
   const cameraAspect = width / height
   const near = 0.01
   const far = 10000
+
+  const {
+    viewport: { width: vpWidth, height: vpHeight },
+  } = useThree()
 
   return (
     <>
@@ -176,33 +178,36 @@ const MetaballsScene = ({
         aspect={cameraAspect}
         near={near}
         far={far}
-        position={[0, 0, 5.4]}
+        position={[0, 0, 100]}
       />
-      <ambientLight intensity={0.75} />
-      <color attach="background" args={['#191716']} />
 
-      <HeroText />
+      <color attach="background" args={['#191716']} />
 
       <EffectComposer resolutionScale={0.5}>
         <Bloom
           luminanceThreshold={0.1}
-          luminanceSmoothing={0.025}
-          intensity={1}
-          blendFunction={BlendFunction.SCREEN}
+          luminanceSmoothing={0.05}
+          intensity={2}
           mipmapBlur
         />
       </EffectComposer>
 
-      <ambientLight ref={ambientLight} intensity={0.1} />
-
+      <ambientLight intensity={0.7} />
       <pointLight
         ref={pointLight}
-        intensity={10}
+        intensity={100}
         color="white"
-        position={[aspectX, aspectY * 2, aspectZ * 4]}
+        position={[(-vpWidth * 0.9) / 2, (vpHeight * 0.9) / 2, 10]}
+      />
+      <pointLight
+        ref={pointLight}
+        intensity={200}
+        color="white"
+        position={[(vpWidth * 0.85) / 2, (-vpHeight * 0.85) / 2, 10]}
       />
       <Metaballs
         meshRef={meshRef}
+        scale={16}
         position={[0, 0, 0]}
         numBalls={numBalls}
         addBalls={addBalls}

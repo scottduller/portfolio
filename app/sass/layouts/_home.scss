@@ -1,50 +1,17 @@
 @use '../abstracts' as *;
 
+.heroWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid blue;
+}
+
 .hero {
-  width: 100%;
+  width: 90vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  p {
-    display: flex;
-    font-weight: 500;
-    letter-spacing: 1em;
-    gap: var(--space-m);
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-size: var(--fs-m);
-    text-indent: -1em;
-    direction: rtl;
-
-    @include xl-breakpoint {
-      font-weight: 100;
-      font-size: var(--fs-s);
-      text-indent: 0;
-      direction: ltr;
-    }
-
-    & strong {
-      display: none;
-      font-weight: 900;
-      text-indent: -1em;
-      direction: rtl;
-
-      @include xl-breakpoint {
-        display: block;
-      }
-    }
-
-    .vertical {
-      display: none;
-      background: var(--clr-purple-300);
-      width: 0.2em;
-      height: 1.7em;
-
-      @include xl-breakpoint {
-        display: block;
-      }
-    }
-  }
+  text-align: center;
+  font-size: var(--fs-xl);
 }

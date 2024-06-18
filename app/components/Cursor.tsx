@@ -35,11 +35,14 @@ const Cursor = () => {
 
     document.addEventListener('mouseover', (e) => {
       const targetElement = e.target as HTMLElement
-      targetElement.tagName === 'A'
+
+      targetElement.tagName === 'A' ||
+      targetElement.classList.contains('pointer')
         ? cursorRef.current?.classList.add('hover')
         : cursorRef.current?.classList.remove('hover')
 
-      targetElement.tagName === 'A'
+      targetElement.tagName === 'A' ||
+      targetElement.classList.contains('pointer')
         ? cursorDotRef.current?.classList.add('hover')
         : cursorDotRef.current?.classList.remove('hover')
     })

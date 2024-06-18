@@ -51,6 +51,7 @@ export const MasonryItem = ({
       if (item.height !== itemSize.height || width !== item.width) {
         addItem(newItem)
       }
+      console.log('masonryItem useEffect')
     } else {
       newItem = {
         id: id.current,
@@ -62,12 +63,12 @@ export const MasonryItem = ({
       }
 
       addItem(newItem)
+      console.log('masonryItem useEffect')
     }
 
     setCurrentItem(newItem)
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [columnWidth, items, itemSize, stretchColumnsProp])
+  }, [items, itemSize, stretchColumns, columnWidth, columnCount, gap])
 
   useEffect(() => {
     return () => {

@@ -2,11 +2,16 @@
   <defs>
     <style>
       .cls-1 {
-        fill: #dbcdc6;
+				<!-- fill: #dbcdc6; -->
+				stroke-width: 125;
+				stroke-linecap: round;
+				stroke: #dbcdc6;
+				fill: none;
+
       }
     </style>
   </defs>
-  <ellipse style="fill: rgb(25, 23, 22);" cx="1500" cy="1500" rx="1500" ry="1500" transform="matrix(1, 0, 0, 1, -5.684341886080802e-14, -2.842170943040401e-14)"></ellipse>
+  <!-- <ellipse style="fill: rgb(25, 23, 22);" cx="1500" cy="1500" rx="1500" ry="1500" transform="matrix(1, 0, 0, 1, -5.684341886080802e-14, -2.842170943040401e-14)"></ellipse> -->
   <g id="Layer_2" data-name="Layer 2" transform="matrix(0.901463, 0, 0, 0.902316, 149.99898, 149.998153)" style="">
     <g id="Layer_1-2" data-name="Layer 1">
       <g>

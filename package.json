@@ -19,7 +19,8 @@
     "defaults"
   ],
   "resolutions": {
-    "string-width": "4.2.3"
+    "string-width": "4.2.3",
+    "wrap-ansi": "7.0.0"
   },
   "dependencies": {
     "@react-hook/resize-observer": "^2.0.1",
@@ -44,6 +45,7 @@
     "react-dom": "^18.3.1",
     "react-icons": "^4.10.1",
     "react-use": "^17.5.0",
+    "sharp": "^0.33.4",
     "styled-components": "^6.1.9",
     "three": "^0.156.1",
     "typescript": "5.1.6",

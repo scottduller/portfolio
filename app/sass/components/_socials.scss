@@ -1,0 +1,55 @@
+@use '../abstracts' as *;
+
+aside {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: var(--layout-margin-3);
+  align-items: center;
+  justify-content: center;
+  display: none;
+
+  & .socials {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-m);
+
+    & > a {
+      height: var(--layout-margin);
+      width: var(--layout-margin);
+      position: relative;
+
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      div {
+        inset: 0;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+      }
+
+      transition: scale 0.2s ease-in-out;
+
+      &:hover {
+        scale: 1.2;
+      }
+    }
+
+    &::after {
+      content: '';
+      width: 2px;
+      height: 15svh;
+      background-color: rgba(map-deep-get($colours, 'neutral', 100), 0.5);
+    }
+  }
+
+  @include md-breakpoint {
+    display: flex;
+  }
+}

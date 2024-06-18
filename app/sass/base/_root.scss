@@ -31,14 +31,14 @@
   // Layout border variable
   --layout-margin: var(--space-l);
   --layout-margin-2: calc(var(--layout-margin) * 2);
-  --logo-size: clamp(3rem, 2.6364rem + 1.8182vi, 4rem);
-  --icon-size: clamp(2.5rem, 2.1364rem + 1.8182vi, 3.5rem);
+  --layout-margin-3: calc(var(--layout-margin) * 3);
+  --logo-size: var(--fs-3xl);
+  --icon-size: var(--fs-xl);
+  --nav-height: calc(var(--layout-margin-2) * 2 + var(--logo-size));
 
   @include xl-breakpoint {
     --layout-margin: var(--space-m);
-    --layout-margin-2: calc(var(--layout-margin) * 2);
-    --logo-size: clamp(3.5rem, 2.1364rem + 1.8182vi, 6.5rem);
-    --icon-size: clamp(3rem, 1.6364rem + 1.8182vi, 6rem);
+    --logo-size: var(--fs-2xl);
   }
 
   // Colour variables

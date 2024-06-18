@@ -7,21 +7,16 @@ header {
   $nav-hover: rgba(map-deep-get($colours, 'neutral', 800), 0.5);
 
   position: fixed;
+  width: 100svw;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
   display: flex;
   justify-content: center;
-  transition:
-    padding 0.2s ease-in-out,
-    box-shadow 0.2s ease-in-out;
-  padding: var(--layout-margin-2);
+  transition: padding 0.2s ease-in-out;
+  padding: var(--layout-margin-2) var(--layout-margin);
   box-shadow: 0 0 16px 4px $shadow-colour;
-
-  @media screen and (max-width: $md-breakpoint) {
-    padding-inline: var(--layout-margin);
-  }
 
   &.scroll {
     $shadow-colour: rgba(map-deep-get($colours, 'neutral', 900), 1);
@@ -35,157 +30,40 @@ header {
     backdrop-filter: blur(0.7em);
   }
 
-  .navbar {
-    --gap: var(--space-2xl);
+  & .navbar {
+    --gap: var(--space-3xl);
+    --item-gap: var(--space-xl);
 
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--gap);
     width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--gap);
 
     .logo {
-      order: 1;
-      flex-shrink: 0;
-      z-index: 1000;
+      width: var(--logo-size);
+      height: var(--logo-size);
+      transition: scale 0.2s ease-in-out;
 
-      img {
-        z-index: -1000;
-        width: var(--logo-size);
-        height: var(--logo-size);
-
-        svg {
-          z-index: -1000;
-          width: 100%;
-          height: 100%;
-        }
+      svg {
+        width: 100%;
+        height: 100%;
       }
-
-      transition: scale 0.2s ease-out;
 
       &:hover {
-        scale: 1.1;
+        cursor: pointer;
+        scale: 1.2;
       }
     }
 
-    .icon {
-      font-size: var(--icon-size);
-      z-index: -1;
-    }
-
-    .nav-links {
-      --radius: 0.7em;
-      --gap: var(--space-3xs);
-
-      display: none;
-      order: 3;
-      position: fixed;
-      left: 50%;
-      bottom: 20%;
-      transform: translateX(-50%);
-
-      // display: flex;
-      align-items: center;
-      font-weight: 900;
-      text-wrap: nowrap;
-      z-index: 1000;
-      gap: var(--gap);
-
-      & > li {
-        z-index: 999;
-        flex-grow: 1;
-        flex-basis: 0;
-        min-width: 0;
-        height: 100%;
-
-        a {
-          height: 100%;
-          z-index: 1000;
-          border-radius: var(--radius);
-          transition:
-            background-color 0.3s,
-            padding 0.3s,
-            color 0.3s,
-            box-shadow 0.3s;
-          padding: 0 var(--space-s);
-        }
-
-        // box-shadow: 0 0 16px 4px rgb(127 0 127 / 100%);
-
-        // border: 0.2em solid var(--clr-purple-500);
-      }
-
-      & > li:hover {
-        a {
-          background-color: $nav-hover;
-        }
-      }
-
-      & > li.active {
-        a {
-          background-color: $nav-active;
-          font-weight: 600;
-        }
-      }
-
-      @include sm-breakpoint {
-        --gap: var(--space-xs);
-      }
-
-      @include md-breakpoint {
-        --gap: var(--space-m);
-      }
-
-      @include xl-breakpoint {
-        --gap: var(--space-2xl);
-
-        display: flex;
-        order: 2;
-        position: static;
-        transform: none;
-        justify-content: flex-end;
-        flex-wrap: wrap;
-        flex-grow: 1;
-        font-weight: unset;
-        text-transform: unset;
-
-        & > li {
-          flex: 0 0 auto;
-          color: unset;
-          box-shadow: none;
-        }
-      }
-    }
-
-    .social-links {
-      order: 2;
+    .links {
       display: flex;
-      flex-basis: calc(50% - var(--gap) / 2);
-      flex-grow: 1;
-      gap: var(--space-m);
-      justify-content: flex-end;
-      align-items: center;
-
-      /* stylelint-disable-next-line no-descending-specificity */
-      & a {
-        transition: scale 0.2s ease-out;
-      }
-
-      /* stylelint-disable-next-line no-descending-specificity */
-      & a:hover {
-        scale: 1.1;
-      }
-
-      @include xl-breakpoint {
-        order: 3;
-        flex-grow: 0;
-        flex-basis: auto;
-      }
-    }
-
-    .list-link {
-      display: flex;
-      justify-content: center;
+      gap: var(--item-gap);
       align-items: center;
     }
+  }
+
+  @include md-breakpoint {
+    padding-inline: calc(var(--layout-margin-3));
   }
 }
