@@ -15,13 +15,13 @@ function VIntX(
   c_offset2: number,
   state: State,
 ) {
-  const { caches, deltaValues, buffers } = state
+  const { caches, deltas, buffers } = state
 
   // Calculate the interpolation factor
   const mu = (isol - valp1) / (valp2 - valp1)
-  const { palette, normalCache: nc } = caches.current!
-  const { vList, nList, cList } = buffers.current
-  const { deltaX } = deltaValues.current!
+  const { palette, normalCache: nc } = caches
+  const { vList, nList, cList } = buffers
+  const { deltaX } = deltas
 
   // Calculate the interpolated vertex, normal and color values and store them in the buffer lists
   vList[offset + 0] = x + mu * deltaX
@@ -62,13 +62,13 @@ function VIntY(
   c_offset2: number,
   state: State,
 ) {
-  const { caches, deltaValues, buffers } = state
+  const { caches, deltas, buffers } = state
 
   // Calculate the interpolation factor
   const mu = (isol - valp1) / (valp2 - valp1)
-  const { palette, normalCache: nc } = caches.current!
-  const { vList, nList, cList } = buffers.current
-  const { deltaY, yOffset } = deltaValues.current!
+  const { palette, normalCache: nc } = caches
+  const { vList, nList, cList } = buffers
+  const { deltaY, yOffset } = deltas
 
   // Calculate the interpolated vertex, normal and color values and store them in the buffer lists
   vList[offset + 0] = x
@@ -111,18 +111,18 @@ function VIntZ(
   c_offset2: number,
   state: State,
 ) {
-  const { caches, deltaValues, buffers } = state
+  const { caches, deltas, buffers } = state
 
   // Calculate the interpolation factor
   const mu = (isol - valp1) / (valp2 - valp1)
-  const { palette, normalCache: nc } = caches.current!
-  const { vList, nList, cList } = buffers.current
-  const { deltaX, zOffset } = deltaValues.current!
+  const { palette, normalCache: nc } = caches
+  const { vList, nList, cList } = buffers
+  const { deltaZ, zOffset } = deltas
 
   // Calculate the interpolated vertex, normal and color values and store them in the buffer lists
   vList[offset + 0] = x
   vList[offset + 1] = y
-  vList[offset + 2] = z + mu * deltaX
+  vList[offset + 2] = z + mu * deltaZ
 
   const q2 = q + zOffset * 3
 
@@ -148,10 +148,10 @@ function VIntZ(
 }
 
 function compNorm(q: number, state: State) {
-  const { caches, deltaValues } = state
+  const { caches, deltas } = state
 
-  const { normalCache, field } = caches.current!
-  const { yOffset, zOffset } = deltaValues.current!
+  const { normalCache, field } = caches
+  const { yOffset, zOffset } = deltas
 
   // Compute the normal for the given index and store it in the normal cache
   const q3 = q * 3
@@ -178,14 +178,14 @@ function posnormtriv(
   o1: number,
   o2: number,
   o3: number,
+  vertexCount: React.MutableRefObject<number>,
   state: State,
 ) {
-  const { arrays, vertexCount, enableColors } = state
+  const { arrays } = state
 
-  const c = vertexCount.current! * 3
+  const c = vertexCount.current * 3
 
-  const { positionArray, normalArray, colorArray } = arrays.current!
-  const isColors = enableColors.current
+  const { positionArray, normalArray, colorArray } = arrays
 
   // Calculate pos, norm and colors values once
   const pos1 = [pos[o1], pos[o1 + 1], pos[o1 + 2]]
@@ -196,9 +196,9 @@ function posnormtriv(
   const norm2 = [norm[o2], norm[o2 + 1], norm[o2 + 2]]
   const norm3 = [norm[o3], norm[o3 + 1], norm[o3 + 2]]
 
-  const colors1 = isColors ? [colors[o1], colors[o1 + 1], colors[o1 + 2]] : []
-  const colors2 = isColors ? [colors[o2], colors[o2 + 1], colors[o2 + 2]] : []
-  const colors3 = isColors ? [colors[o3], colors[o3 + 1], colors[o3 + 2]] : []
+  const colors1 = [colors[o1], colors[o1 + 1], colors[o1 + 2]]
+  const colors2 = [colors[o2], colors[o2 + 1], colors[o2 + 2]]
+  const colors3 = [colors[o3], colors[o3 + 1], colors[o3 + 2]]
 
   // Update the position, normal, and color arrays with the given vertex data
   positionArray.set(pos1, c)
@@ -209,13 +209,11 @@ function posnormtriv(
   normalArray.set(norm2, c + 3)
   normalArray.set(norm3, c + 6)
 
-  if (isColors) {
-    colorArray!.set(colors1, c)
-    colorArray!.set(colors2, c + 3)
-    colorArray!.set(colors3, c + 6)
-  }
+  colorArray!.set(colors1, c)
+  colorArray!.set(colors2, c + 3)
+  colorArray!.set(colors3, c + 6)
 
-  vertexCount.current! += 3
+  return (vertexCount.current += 3)
 }
 
 export const polygonise = (
@@ -224,13 +222,13 @@ export const polygonise = (
   dz: number,
   q: number,
   isol: number,
+  vertexCount: React.MutableRefObject<number>,
   state: State,
 ) => {
-  const { caches, deltaValues, buffers } = state
-  const { field } = caches.current!
-  const { deltaX, deltaY, deltaZ, yOffset, zOffset } = deltaValues.current!
-  const { vList, nList, cList } = buffers.current
-
+  const { caches, deltas, buffers } = state
+  const { field } = caches
+  const { deltaX, deltaY, deltaZ, yOffset, zOffset } = deltas
+  const { vList, nList, cList } = buffers
   // Define the indices of the cube vertices
   const q1 = q + 1
   const qy = q + yOffset
@@ -263,8 +261,13 @@ export const polygonise = (
   if (field7 < isol) cubeindex |= 64
 
   // Determine the edge mask for the cube configuration to find the edge intersections
+
   const edgeMask = edgeTable[cubeindex]
-  if (edgeMask === 0) return 0
+  if (edgeMask === 0) {
+    return 0
+  }
+
+  // console.log('edgeMask', edgeMask)
 
   // Define the interpolated vertex and color values for the edge intersections
   const dx2 = dx + deltaX
@@ -364,6 +367,7 @@ export const polygonise = (
       3 * triTable[o1],
       3 * triTable[o2],
       3 * triTable[o3],
+      vertexCount,
       state,
     )
 

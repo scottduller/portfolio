@@ -7,7 +7,7 @@ html {
 }
 
 body {
-  background-color: var(--clr-neutral-900);
+  background-color: var(--clr-neutral-100);
   color: var(--clr-neutral-100);
   min-height: 100svh !important;
   margin: 0;
@@ -15,6 +15,8 @@ body {
 }
 
 main {
-  height: 100%;
+  position: relative;
   display: flex;
+  background-color: var(--clr-neutral-900);
+  min-height: 100svh;
 }

@@ -1,17 +1,72 @@
 @use '../abstracts' as *;
 
 .heroWrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid blue;
-}
-
-.hero {
-  width: 90vw;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   text-align: center;
-  font-size: var(--fs-xl);
+  padding-inline: var(--layout-margin);
+  gap: 1.5rem;
+  width: 100%;
+  height: 100%;
+
+  h1 {
+    font-size: var(--fs-header);
+    text-align: center;
+    color: transparent;
+    stroke: 0.03em var(--clr-neutral-100);
+    -webkit-text-stroke: 0.03em var(--clr-neutral-100);
+
+    @include xl-breakpoint {
+      text-align: left;
+    }
+
+    & .beautiful {
+      & .ampersand {
+        font-weight: 100;
+        font-size: 0.5em;
+        font-style: italic;
+        color: var(--clr-neutral-100);
+        stroke: 0;
+        -webkit-text-stroke: 0;
+      }
+    }
+
+    & .emphasis {
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin-left: 0;
+      transition: margin-left 0.5s;
+
+      @include xl-breakpoint {
+        margin-left: 10svw;
+      }
+
+      & .functional {
+        display: inline-block;
+        padding: 0;
+        border-radius: 0.15em;
+
+        @include xl-breakpoint {
+          padding: var(--space-2xs) var(--space-s);
+        }
+
+        & .fun {
+          position: relative;
+          color: var(--clr-neutral-100);
+        }
+      }
+    }
+  }
+
+  p {
+    color: var(--clr-neutral-300);
+    max-width: 60ch;
+  }
 }

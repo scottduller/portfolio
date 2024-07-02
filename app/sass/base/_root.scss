@@ -26,7 +26,7 @@
   --fs-6xl: clamp(3.7623rem, 3.0206rem + 3.7084vi, 11.9209rem);
   --fs-7xl: clamp(4.5148rem, 3.5706rem + 4.7211vi, 14.9012rem);
   --fs-8xl: clamp(5.4178rem, 4.217rem + 6.0039vi, 18.6265rem);
-  --fs-header: clamp(5rem, 0rem + 25vi, 60rem);
+  --fs-header: clamp(4rem, 1.1429rem + 14.2857vi, 8rem);
 
   // Layout border variable
   --layout-margin: var(--space-l);
@@ -36,9 +36,14 @@
   --icon-size: var(--fs-xl);
   --nav-height: calc(var(--layout-margin-2) * 2 + var(--logo-size));
 
+  @include md-breakpoint {
+    --fs-header: clamp(8rem, 0.8889rem + 14.8148vi, 12rem);
+  }
+
   @include xl-breakpoint {
+    --fs-header: clamp(12rem, 10.1818rem + 2.4242vi, 16rem);
     --layout-margin: var(--space-m);
-    --logo-size: var(--fs-2xl);
+    --logo-size: var(--fs-3xl);
   }
 
   // Colour variables

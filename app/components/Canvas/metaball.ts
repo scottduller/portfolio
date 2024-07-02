@@ -18,10 +18,10 @@ export const addBall = (
   strength: number,
   subtract: number,
   aspectX: number,
-  state: State & { parameters: React.MutableRefObject<Parameters | undefined> },
+  state: State & { params: Parameters },
 ) => {
-  const { caches, parameters } = state
-  const { size, sizeX, sizeXY, sizeY, sizeZ } = parameters.current!
+  const { caches, params } = state
+  const { size, sizeX, sizeXY, sizeY, sizeZ } = params
 
   const colorOffset = 0.2
   const colorR =
@@ -80,7 +80,7 @@ export const addBall = (
 
         if (value > 0.0) {
           // Add the ball to the field
-          caches.current!.field[offset] += value * sign
+          caches.field[offset] += value * sign
 
           const ratio =
             Math.sqrt(
@@ -91,12 +91,9 @@ export const addBall = (
             1 - ratio * ratio * ratio * (ratio * (ratio * 6 - 15) + 10)
 
           // Add the ball to the palette
-          caches.current!.palette[(yOff + x) * 3] +=
-            ballColor.r * smoothStep * 3
-          caches.current!.palette[(yOff + x) * 3 + 1] +=
-            ballColor.g * smoothStep * 1
-          caches.current!.palette[(yOff + x) * 3 + 2] +=
-            ballColor.b * smoothStep * 4
+          caches.palette[(yOff + x) * 3] += ballColor.r * smoothStep * 3
+          caches.palette[(yOff + x) * 3 + 1] += ballColor.g * smoothStep * 1
+          caches.palette[(yOff + x) * 3 + 2] += ballColor.b * smoothStep * 4
 
           // caches.current!.palette[(yOff + x) * 3] = Math.max(
           //   Math.min(1, caches.current!.palette[(yOff + x) * 3]),

@@ -1,13 +1,3 @@
-export const lerp = (a: number, b: number, t: number) => a + (b - a) * t
-
-export const normBetween = (
-  value: number,
-  min: number,
-  max: number,
-  normMin: number,
-  normMax: number,
-) => ((value - min) * (normMax - normMin)) / (max - min) + normMin
-
 const easeInOutCubic = (t: number) =>
   t < 0.5 ? 8 * t * t * t * t : 1 - 8 * --t * t * t * t
 
@@ -28,4 +18,18 @@ export const lerpVelocityFactor = (
   } else {
     return maxFactor + (minFactor - maxFactor) * easeInOutCubic(t2)
   }
+}
+
+export const normBetween = (
+  value: number,
+  min: number,
+  max: number,
+  normMin: number,
+  normMax: number,
+) => {
+  return ((value - min) * (normMax - normMin)) / (max - min) + normMin
+}
+
+export const lerp = (a: number, b: number, t: number) => {
+  return a + (b - a) * t
 }
