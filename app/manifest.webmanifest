@@ -1,0 +1,31 @@
+{
+  "name": "Scott Duller | Full Stack Web Developer",
+  "short_name": "Scott Duller",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "assets/icon1.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon2.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "assets/apple-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#191716",
+  "background_color": "#191716",
+  "start_url": "/",
+  "display": "standalone",
+  "description": "Scott Duller is a Full Stack Web Developer based in the UK. He specialises in building websites and web applications using modern technologies such as React and Next.js."
+}
