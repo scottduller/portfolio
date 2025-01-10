@@ -48,6 +48,32 @@
   --radius: 1rem;
 
   --gradient-primary: linear-gradient(to bottom left, var(--primary-300), var(--primary-500));
+
+  --nav-height: 3.5rem;
+  --nav-padding: 1rem;
+  --navbar-height: calc(var(--nav-height) + var(--nav-padding) * 2);
+
+  --gap: 1.5rem;
+}
+
+h1 {
+  font-size: var(--fs-title);
+  font-weight: 500;
+  line-height: 1.2;
+  text-align: center;
+  letter-spacing: -0.3rem;
+  margin-top: 1rem;
+}
+
+.wrapper {
+  width: 100%;
+  display: flex;
+  min-height: 120vh;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: var(--navbar-height) 1.5rem 0;
+  gap: var(--gap);
 }
 
 /* --------- CSS RESET --------- */
@@ -67,6 +93,7 @@ html {
   -moz-text-size-adjust: none;
   -webkit-text-size-adjust: none;
   text-size-adjust: none;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -99,6 +126,7 @@ button,
 textarea,
 select {
   font: inherit;
+  border: none;
 }
 
 summary[role='button'],

@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import Navbar from '@components/Navbar';
 
 import { Amiko, Noto_Sans } from 'next/font/google';
+import { InViewProvider } from './context';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -28,8 +29,10 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en" className={`${noto_sans.variable} ${amiko.className}`}>
       <body>
-        <Navbar />
-        {children}
+        <InViewProvider>
+          <Navbar />
+          {children}
+        </InViewProvider>
       </body>
     </html>
   );

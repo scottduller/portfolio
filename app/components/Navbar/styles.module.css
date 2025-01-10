@@ -1,6 +1,6 @@
 .navbarWrapper {
   width: 100%;
-  padding: 1rem;
+  padding: 1rem 1.5rem;
   position: fixed;
   top: 0;
   left: 0;
@@ -52,18 +52,15 @@
 
     .hamburger {
       z-index: 20;
-      background-color: var(--tertiary-500);
+      /* background-color: var(--tertiary-500); */
       height: 100%;
       aspect-ratio: 1 / 1;
-      padding: 1rem;
       border-radius: var(--radius);
-      border: 3px solid var(--tertiary-500);
-      overflow: hidden;
+      border: none;
       position: relative;
-      transform: rotate(0deg);
-      transition:
-        border 0.1s ease-in-out,
-        background-color 0.1s ease-in-out;
+      padding: 0;
+      overflow: hidden;
+
       cursor: pointer;
       -webkit-backface-visibility: hidden;
 
@@ -72,117 +69,74 @@
         box-shadow: none;
       }
 
-      &.open {
-        background-color: var(--neutral-100);
-      }
-
       span {
         display: block;
         position: absolute;
         height: 3px;
         width: 25%;
-        background: var(--neutral-100);
-        opacity: 1;
-
-        transform: rotate(0deg);
-
-        transition: 0.25s ease-in-out;
+        background-color: var(--neutral-100);
       }
 
       span:nth-child(even) {
-        left: 50%;
-        transform: translateY(-50%);
-        border-radius: 0 9px 9px 0;
+        margin-right: 25%;
+        border-radius: 0 var(--radius) var(--radius) 0;
       }
 
       span:nth-child(odd) {
-        left: 50%;
-        transform: translateX(-100%) translateY(-50%);
-
-        border-radius: 9px 0 0 9px;
-      }
-
-      span:nth-child(1),
-      span:nth-child(2) {
-        top: 30%;
-      }
-
-      span:nth-child(3),
-      span:nth-child(4) {
-        top: 50%;
-      }
-
-      span:nth-child(5),
-      span:nth-child(6) {
-        top: 70%;
-      }
-
-      &.open span {
-        background-color: var(--tertiary-500);
-      }
-
-      &.open span:nth-child(1),
-      &.open span:nth-child(6) {
-        transform: rotate(45deg);
-      }
-
-      &.open span:nth-child(2),
-      &.open span:nth-child(5) {
-        transform: rotate(-45deg);
-      }
-
-      &.open span:nth-child(1) {
-        left: 30%;
-        top: 40%;
-      }
-
-      &.open span:nth-child(2) {
-        left: 45%;
-        top: 40%;
-      }
-
-      &.open span:nth-child(3) {
-        left: 0%;
-        opacity: 0;
-      }
-
-      &.open span:nth-child(4) {
-        left: 100%;
-        opacity: 0;
-      }
-
-      &.open span:nth-child(5) {
-        left: 30%;
-        top: 55%;
-      }
-
-      &.open span:nth-child(6) {
-        left: 45%;
-        top: 55%;
+        margin-left: 25%;
+        border-radius: var(--radius) 0 0 var(--radius);
       }
     }
 
-    .hamburgerOverlay {
+    .menu {
       z-index: 11;
       position: fixed;
       top: 0;
       right: 0;
-      width: 0%;
-      height: 0%;
+      width: 100%;
+      height: 100%;
       background-color: var(--neutral-200);
-      opacity: 0;
-      border-radius: 0 0 0 1000px;
-      transition:
-        opacity 0.3s ease-in-out,
-        width 0.3s ease-in-out,
-        height 0.3s ease-in-out,
-        border-radius 0.3s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: end;
+      gap: 1rem;
+      padding: 5.5rem 1.5rem 3.5rem 1.5rem;
 
-      &.open {
-        width: 100svw;
-        height: 100svh;
-        opacity: 1;
-        border-radius: 0;
+      .item {
+        width: 100%;
+        border-radius: var(--radius);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 1rem;
+        min-height: 12.5%;
+        text-decoration: none !important;
+
+        &.home {
+          background-color: var(--secondary-500);
+        }
+        &.projects {
+          background-color: var(--primary-500);
+        }
+        &.about {
+          background-color: var(--primary-300);
+        }
+        &.contact {
+          background-color: var(--tertiary-500);
+        }
+
+        &.openInView {
+          flex-grow: 1;
+        }
+
+        .title {
+          align-self: end;
+        }
+
+        .number {
+          font-weight: bold;
+        }
       }
     }
   }
