@@ -152,29 +152,6 @@ const Hamburger = () => {
 
   const { inView } = useContext(InViewContext);
 
-  const calcFlexGrow = (index: number) => {
-    const { home, projects, about, contact } = inView;
-    if (home && index === 0) {
-      return 1;
-    }
-    if (projects && index === 1) {
-      if (!home) {
-        return 1;
-      }
-    }
-    if (about && index === 2) {
-      if (!projects) {
-        return 1;
-      }
-    }
-    if (contact && index === 3) {
-      if (!about) {
-        return 1;
-      }
-    }
-    return 0;
-  };
-
   const menuItemVariants: Variants = {
     closed: {
       opacity: 0,
@@ -184,7 +161,7 @@ const Hamburger = () => {
     open: (index: number) => ({
       opacity: 1,
       x: 0,
-      flexGrow: calcFlexGrow(index),
+      flexGrow: inView[index].scrollProgress,
       transition: {
         type: 'spring',
         bounce: 0,
@@ -200,6 +177,10 @@ const Hamburger = () => {
   const handleMenuItemClick = () => {
     setIsOpen(false);
   };
+
+  // TODO: Remove # navigation (to stop scrolling to tagged section on reload/browswer navigation)
+  // TODO: Make it so that when you navigate in the browser, pressing back on the nav menu will close it and not navigate to the previous page
+  // NOTE: This maybe a case where it is one or the other, but I'm not sure
 
   const MotionLink = motion.create(Link);
 

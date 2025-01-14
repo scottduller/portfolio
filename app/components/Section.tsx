@@ -1,8 +1,8 @@
 'use client';
 
 import { InViewContext } from '@/context';
-import { useInView } from 'framer-motion';
-import React, { useContext, useEffect } from 'react';
+import { useInView, useMotionValueEvent, useScroll } from 'framer-motion';
+import React, { useContext } from 'react';
 
 type Props = {
   children: React.ReactNode;
@@ -14,27 +14,45 @@ const Section = ({ children, section, id }: Props) => {
   const ref = React.useRef<HTMLDivElement>(null);
   const isInView = useInView(ref);
 
+  const { scrollYProgress: scrollYProgressStart } = useScroll({
+    target: ref,
+    offset: ['start end', 'start start'],
+  });
+
+  const { scrollYProgress: scrollYProgressEnd } = useScroll({
+    target: ref,
+    offset: ['end end', 'end start'],
+  });
+
   const { setInView } = useContext(InViewContext);
 
-  useEffect(() => {
-    if (section === 0) {
-      setInView((prevState) => ({ ...prevState, home: isInView }));
-    } else if (section === 1) {
-      setInView((prevState) => ({ ...prevState, projects: isInView }));
-    } else if (section === 2) {
-      setInView((prevState) => ({ ...prevState, about: isInView }));
-    } else if (section === 3) {
-      setInView((prevState) => ({ ...prevState, contact: isInView }));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isInView]);
-
-  // TODO: Add scroll progress to the section and add to context
+  useMotionValueEvent(scrollYProgressStart, 'change', (current) => {
+    setInView((prevState) => {
+      return {
+        ...prevState,
+        [section]: {
+          isInView,
+          scrollProgress: current > 0.5 ? 1 : current,
+        },
+      };
+    });
+  });
+  useMotionValueEvent(scrollYProgressEnd, 'change', (current) => {
+    setInView((prevState) => {
+      return {
+        ...prevState,
+        [section]: {
+          isInView,
+          scrollProgress: 1 - current > 0.5 ? 1 : 1 - current,
+        },
+      };
+    });
+  });
 
   return (
-    <div id={id} ref={ref}>
+    <section id={id} ref={ref}>
       {children}
-    </div>
+    </section>
   );
 };
 
