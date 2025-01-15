@@ -3,7 +3,7 @@
 }
 
 .imageWrapper {
-  width: 80%;
+  width: 75%;
   aspect-ratio: 3 / 4;
   background: var(--gradient-primary);
   border-radius: var(--radius);

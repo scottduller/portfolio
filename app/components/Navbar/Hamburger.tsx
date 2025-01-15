@@ -2,7 +2,6 @@
 
 import { InViewContext } from '@/context';
 import { motion, type Variants } from 'framer-motion';
-import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import styles from './styles.module.css';
 
@@ -170,19 +169,34 @@ const Hamburger = () => {
     }),
   };
 
+  useEffect(() => {
+    if (history.scrollRestoration) {
+      history.scrollRestoration = 'manual';
+    }
+
+    window.addEventListener('popstate', (current) => {
+      if (!current.state?.menuOpen) {
+        setIsOpen(false);
+      }
+    });
+  }, []);
+
   const handleMenuToggle = () => {
-    setIsOpen(!isOpen);
+    if (isOpen) {
+      window.history.back();
+      setIsOpen(false);
+    } else {
+      window.history.pushState({ menuOpen: true }, '');
+      setIsOpen(true);
+    }
   };
 
-  const handleMenuItemClick = () => {
+  const handleMenuItemClick = (section: number) => {
+    const sectionRef = inView[section].ref;
+    sectionRef?.current?.scrollIntoView({ behavior: 'smooth' });
     setIsOpen(false);
+    window.history.back();
   };
-
-  // TODO: Remove # navigation (to stop scrolling to tagged section on reload/browswer navigation)
-  // TODO: Make it so that when you navigate in the browser, pressing back on the nav menu will close it and not navigate to the previous page
-  // NOTE: This maybe a case where it is one or the other, but I'm not sure
-
-  const MotionLink = motion.create(Link);
 
   return (
     <>
@@ -235,50 +249,46 @@ const Hamburger = () => {
         initial="closed"
         animate={isOpen ? 'open' : 'closed'}
       >
-        <MotionLink
-          href="#home"
-          replace
-          onClick={handleMenuItemClick}
+        <motion.button
+          type="button"
+          onClick={() => handleMenuItemClick(0)}
           className={`${styles.item} ${styles.home}`}
           variants={menuItemVariants}
           custom={0}
         >
           <motion.div className={styles.title}>Home</motion.div>
           <motion.div className={styles.number}>00</motion.div>
-        </MotionLink>
-        <MotionLink
-          href="#projects"
-          replace
-          onClick={handleMenuItemClick}
+        </motion.button>
+        <motion.button
+          type="button"
+          onClick={() => handleMenuItemClick(1)}
           className={`${styles.item} ${styles.projects}`}
           variants={menuItemVariants}
           custom={1}
         >
           <motion.div className={styles.title}>Projects</motion.div>
           <motion.div className={styles.number}>01</motion.div>
-        </MotionLink>
-        <MotionLink
-          href="#about"
-          replace
-          onClick={handleMenuItemClick}
+        </motion.button>
+        <motion.button
+          type="button"
+          onClick={() => handleMenuItemClick(2)}
           className={`${styles.item} ${styles.about}`}
           variants={menuItemVariants}
           custom={2}
         >
           <motion.div className={styles.title}>About</motion.div>
           <motion.div className={styles.number}>02</motion.div>
-        </MotionLink>
-        <MotionLink
-          href="#contact"
-          replace
-          onClick={handleMenuItemClick}
+        </motion.button>
+        <motion.button
+          type="button"
+          onClick={() => handleMenuItemClick(3)}
           className={`${styles.item} ${styles.contact}`}
           variants={menuItemVariants}
           custom={3}
         >
           <motion.div className={styles.title}>Contact</motion.div>
           <motion.div className={styles.number}>03</motion.div>
-        </MotionLink>
+        </motion.button>
       </motion.div>
     </>
   );

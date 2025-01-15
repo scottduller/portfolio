@@ -6,18 +6,22 @@ type InViewType = [
   {
     isInView: boolean;
     scrollProgress: number;
+    ref?: React.RefObject<HTMLDivElement | null>;
   },
   {
     isInView: boolean;
     scrollProgress: number;
+    ref?: React.RefObject<HTMLDivElement | null>;
   },
   {
     isInView: boolean;
     scrollProgress: number;
+    ref?: React.RefObject<HTMLDivElement | null>;
   },
   {
     isInView: boolean;
     scrollProgress: number;
+    ref?: React.RefObject<HTMLDivElement | null>;
   },
 ];
 

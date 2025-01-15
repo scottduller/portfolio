@@ -2,7 +2,7 @@
 
 import { InViewContext } from '@/context';
 import { useInView, useMotionValueEvent, useScroll } from 'framer-motion';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 type Props = {
   children: React.ReactNode;
@@ -26,11 +26,25 @@ const Section = ({ children, section, id }: Props) => {
 
   const { setInView } = useContext(InViewContext);
 
+  useEffect(() => {
+    setInView((prevState) => {
+      return {
+        ...prevState,
+        [section]: {
+          ...prevState[section],
+          ref,
+        },
+      };
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   useMotionValueEvent(scrollYProgressStart, 'change', (current) => {
     setInView((prevState) => {
       return {
         ...prevState,
         [section]: {
+          ...prevState[section],
           isInView,
           scrollProgress: current > 0.5 ? 1 : current,
         },
@@ -42,6 +56,7 @@ const Section = ({ children, section, id }: Props) => {
       return {
         ...prevState,
         [section]: {
+          ...prevState[section],
           isInView,
           scrollProgress: 1 - current > 0.5 ? 1 : 1 - current,
         },

@@ -51,7 +51,7 @@
 
   --nav-height: 3.5rem;
   --nav-padding: 1rem;
-  --navbar-height: calc(var(--nav-height) + var(--nav-padding) * 2);
+  --navbar-height: calc(var(--nav-height) + var(--nav-padding) * 3);
 
   --gap: 1.5rem;
 }
@@ -73,6 +73,16 @@ h1 {
   flex-direction: column;
   padding: var(--navbar-height) 1.5rem 0;
   gap: var(--gap);
+}
+
+/* Section Tests */
+section {
+  min-height: 150svh;
+}
+
+#projects,
+#contact {
+  background-color: var(--primary-500);
 }
 
 /* --------- CSS RESET --------- */
@@ -127,6 +137,7 @@ textarea,
 select {
   font: inherit;
   border: none;
+  background-color: transparent;
 }
 
 summary[role='button'],

@@ -1,7 +1,9 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
+import ScrollButton from '../ScrollButton';
 import styles from './styles.module.css';
+
+// TODO: Redesign home page so that the image background gradient contains all the content of the section
 
 const Home = () => {
   return (
@@ -17,10 +19,18 @@ const Home = () => {
         />
       </div>
       <h1 className={styles.title}>SCOTT DULLER</h1>
-      <Link href="#contact" className={styles.link}>
+      <ScrollButton
+        className={styles.link}
+        section={3}
+        whileTap={{ scale: 0.9 }}
+        whileHover={{
+          backgroundColor: 'var(--tertiary-500)',
+          color: 'var(--neutral-100)',
+        }}
+      >
         <span>Let's Connect</span>
         <span>03</span>
-      </Link>
+      </ScrollButton>
     </div>
   );
 };

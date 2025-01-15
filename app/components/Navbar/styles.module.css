@@ -6,36 +6,33 @@
   left: 0;
   z-index: 10;
   background-color: var(--neutral-100);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
 
   .navbar {
     width: 100%;
     height: 3.5rem;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     gap: 0.75rem;
+    width: 100%;
 
-    .navLink {
+    .navItem {
       height: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-inline: 1rem;
       text-decoration: none !important;
       border-radius: var(--radius);
+      background-color: var(--secondary-500);
+      padding-inline: 1rem;
+      flex-grow: 1;
 
-      &.home {
-        background-color: var(--secondary-500);
-      }
-
-      &.active {
-        flex-grow: 1;
-      }
-
-      .name {
+      .content {
         display: flex;
         gap: 1rem;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         line-height: 0;
 
         .logo {
@@ -52,7 +49,6 @@
 
     .hamburger {
       z-index: 20;
-      /* background-color: var(--tertiary-500); */
       height: 100%;
       aspect-ratio: 1 / 1;
       border-radius: var(--radius);
