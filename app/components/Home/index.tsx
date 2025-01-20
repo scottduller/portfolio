@@ -1,14 +1,22 @@
 import Image from 'next/image';
-import React from 'react';
-import ScrollButton from '../ScrollButton';
-import styles from './styles.module.css';
 
-// TODO: Redesign home page so that the image background gradient contains all the content of the section
+import TextResizer from '../TextResizer';
+import styles from './styles.module.css';
 
 const Home = () => {
   return (
-    <div className="wrapper">
-      <hr className={styles.hr} />
+    <div className={styles.wrapper}>
+      <div className={styles.title}>
+        <TextResizer as="h1" mode="oneline">
+          SCOTT
+          <br />
+          DULLER
+        </TextResizer>
+      </div>
+      <p>
+        Crafting seamless web experiences with dynamic designs and robust
+        solutions, I build user-focused applications that bring ideas to life.
+      </p>
       <div className={styles.imageWrapper}>
         <Image
           className={styles.image}
@@ -18,19 +26,6 @@ const Home = () => {
           height={1536}
         />
       </div>
-      <h1 className={styles.title}>SCOTT DULLER</h1>
-      <ScrollButton
-        className={styles.link}
-        section={3}
-        whileTap={{ scale: 0.9 }}
-        whileHover={{
-          backgroundColor: 'var(--tertiary-500)',
-          color: 'var(--neutral-100)',
-        }}
-      >
-        <span>Let's Connect</span>
-        <span>03</span>
-      </ScrollButton>
     </div>
   );
 };

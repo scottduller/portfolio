@@ -39,7 +39,7 @@
   --tertiary-800: hsla(188, 91.8%, 19.2%, 1);
   --tertiary-900: hsla(188, 91.8%, 9.6%, 1);
 
-  --fs-title: 4.5rem;
+  --fs-title: 4rem;
   --fs-xl: 1.5rem;
   --fs-lg: 1rem;
   --fs-md: 0.88rem;
@@ -47,32 +47,24 @@
 
   --radius: 1rem;
 
-  --gradient-primary: linear-gradient(to bottom left, var(--primary-300), var(--primary-500));
+  --gradient-primary: linear-gradient(to top right, var(--secondary-500), var(--primary-300));
 
-  --nav-height: 3.5rem;
-  --nav-padding: 1rem;
-  --navbar-height: calc(var(--nav-height) + var(--nav-padding) * 3);
+  --gradient-tertiary: linear-gradient(to top right, var(--tertiary-500), var(--tertiary-200));
+
+  --nav-height: 5.5rem;
+  --navbar-padding: 0.75rem;
+  --navbar-margin-block: 1rem;
+  --navbar-margin-inline: 1.5rem;
+
+  --navbar-height: calc(var(--nav-height) + var(--navbar-margin-block) * 2);
 
   --gap: 1.5rem;
 }
 
 h1 {
   font-size: var(--fs-title);
-  font-weight: 500;
+  font-weight: 700;
   line-height: 1.2;
-  text-align: center;
-  letter-spacing: -0.3rem;
-  margin-top: 1rem;
-}
-
-.wrapper {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: var(--navbar-height) 1.5rem 0;
-  gap: var(--gap);
 }
 
 /* Section Tests */
@@ -114,6 +106,7 @@ body {
   font-size: 16px;
   color: var(--neutral-900);
   background-color: var(--neutral-100);
+  text-underline-offset: 0.2rem;
 }
 /* 5. Improve media defaults */
 img,

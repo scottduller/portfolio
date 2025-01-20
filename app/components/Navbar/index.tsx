@@ -5,15 +5,13 @@ import styles from './styles.module.css';
 
 const Navbar = () => {
   return (
-    <div className={styles.navbarWrapper}>
-      <nav className={styles.navbar}>
-        <NavItem section={0}>
-          <Logo className={styles.logo} />
-          <div>Scott Duller</div>
-        </NavItem>
-        <Hamburger />
-      </nav>
-    </div>
+    <nav className={styles.navbar}>
+      <NavItem section={0}>
+        <Logo className={styles.logo} />
+        <div>Scott Duller</div>
+      </NavItem>
+      <Hamburger />
+    </nav>
   );
 };
 
