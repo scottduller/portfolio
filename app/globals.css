@@ -39,6 +39,8 @@
   --tertiary-800: hsla(188, 91.8%, 19.2%, 1);
   --tertiary-900: hsla(188, 91.8%, 9.6%, 1);
 
+  --github: hsla(210, 12%, 19%, 1);
+
   --fs-title: 4rem;
   --fs-xl: 1.5rem;
   --fs-lg: 1rem;
@@ -61,19 +63,28 @@
   --gap: 1.5rem;
 }
 
+h1,
+h2 {
+  font-family: var(--font-noto-sans);
+}
+
 h1 {
   font-size: var(--fs-title);
   font-weight: 700;
   line-height: 1.2;
 }
 
-/* Section Tests */
-section {
-  min-height: 150svh;
+h2 {
+  font-size: var(--fs-xl);
+  font-weight: 500;
 }
 
-#projects,
-#contact {
+/* Section Tests */
+section {
+  min-height: 100svh;
+}
+
+#about {
   background-color: var(--primary-500);
 }
 

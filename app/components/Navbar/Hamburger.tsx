@@ -139,9 +139,9 @@ const Hamburger = () => {
       clipPath: 'circle(100% at 50% 50%)',
       opacity: 1,
       transition: {
-        duration: 1.5,
         type: 'spring',
         bounce: 0,
+        duration: 1.5,
         delayChildren: 0.4,
         staggerChildren: 0.15,
         staggerDirection: -1,
@@ -170,7 +170,7 @@ const Hamburger = () => {
   };
 
   useEffect(() => {
-    if (history.scrollRestoration) {
+    if (history.scrollRestoration && process.env.NODE_ENV === 'production') {
       history.scrollRestoration = 'manual';
     }
 
@@ -204,7 +204,7 @@ const Hamburger = () => {
         type="button"
         className={`${styles.hamburger}`}
         onClick={handleMenuToggle}
-        whileTap={{ scale: 0.9 }}
+        whileTap={{ scale: 0.8 }}
         variants={hamburgerVariants}
         initial="closed"
         animate={isOpen ? 'open' : 'closed'}
@@ -254,6 +254,7 @@ const Hamburger = () => {
           onClick={() => handleMenuItemClick(0)}
           className={`${styles.item} ${styles.home}`}
           variants={menuItemVariants}
+          whileTap={{ scale: 0.9 }}
           custom={0}
         >
           <motion.div className={styles.title}>Home</motion.div>
@@ -264,6 +265,7 @@ const Hamburger = () => {
           onClick={() => handleMenuItemClick(1)}
           className={`${styles.item} ${styles.projects}`}
           variants={menuItemVariants}
+          whileTap={{ scale: 0.9 }}
           custom={1}
         >
           <motion.div className={styles.title}>Projects</motion.div>
@@ -274,6 +276,7 @@ const Hamburger = () => {
           onClick={() => handleMenuItemClick(2)}
           className={`${styles.item} ${styles.about}`}
           variants={menuItemVariants}
+          whileTap={{ scale: 0.9 }}
           custom={2}
         >
           <motion.div className={styles.title}>About</motion.div>
@@ -284,6 +287,7 @@ const Hamburger = () => {
           onClick={() => handleMenuItemClick(3)}
           className={`${styles.item} ${styles.contact}`}
           variants={menuItemVariants}
+          whileTap={{ scale: 0.9 }}
           custom={3}
         >
           <motion.div className={styles.title}>Contact</motion.div>
