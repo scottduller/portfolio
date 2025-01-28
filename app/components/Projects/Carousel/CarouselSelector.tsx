@@ -1,42 +1,31 @@
+import { motion } from 'framer-motion';
 import styles from '../styles.module.css';
 
 type Props = {
   projectIndex: number;
-  setProjectIndex: React.Dispatch<React.SetStateAction<number>>;
   projectsLength: number;
+  setProjectIndex: React.Dispatch<React.SetStateAction<[number, number]>>;
+  wrappedIndex: number;
+  paginate: (direction: number) => void;
 };
 
 const CarouselSelector = ({
   projectIndex,
   setProjectIndex,
   projectsLength,
+  wrappedIndex,
+  paginate,
 }: Props) => {
-  const handleDecrement = () => {
-    if (projectIndex <= 0) {
-      setProjectIndex(projectsLength - 1);
-    } else {
-      setProjectIndex((prevState) => prevState - 1);
-    }
-  };
-
-  const handleIncrement = () => {
-    if (projectIndex >= projectsLength - 1) {
-      setProjectIndex(0);
-    } else {
-      setProjectIndex((prevState) => prevState + 1);
-    }
-  };
-
   return (
     <div className={styles.carouselSelector}>
-      <button type="button" onClick={handleDecrement}>
+      <motion.button whileTap={{ scale: 0.8 }} type="button" onClick={() => paginate(-1)} className={styles.chevron}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className={styles.chevron}
+
         >
           <path
             strokeLinecap="round"
@@ -44,37 +33,32 @@ const CarouselSelector = ({
             d="M15.75 19.5L8.25 12l7.5-7.5"
           />
         </svg>
-      </button>
+      </motion.button>
 
-      {Array.from({ length: projectsLength }, (_, i) => {
-        if (i === projectIndex) {
+      <div className={styles.dots}>
+
+        {Array.from({ length: projectsLength }, (_, i) => {
           return (
-            <button
+            <motion.button
+              initial={{ scale: 1, backgroundColor: 'var(--neutral-400)' }}
+              animate={{ scale: wrappedIndex === i ? 1.2 : 1, backgroundColor: wrappedIndex === i ? 'var(--primary-900)' : 'var(--neutral-400)' }}
+              transition={{ duration: 0.05 }}
               type="button"
-              className={`${styles.dot} ${styles.active}`}
-              onClick={() => setProjectIndex(i)}
+              className={styles.dot}
+              onClick={() => setProjectIndex([i, i === projectIndex ? 0 : i > projectIndex ? 1 : -1])}
               key={i}
             />
           );
-        }
-        return (
-          <button
-            type="button"
-            className={`${styles.dot}`}
-            onClick={() => setProjectIndex(i)}
-            key={i}
-          />
-        );
-      })}
+        })}
+      </div>
 
-      <button type="button" onClick={handleIncrement}>
+      <motion.button whileTap={{ scale: 0.8 }} type="button" onClick={() => paginate(1)} className={styles.chevron}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className={styles.chevron}
         >
           <path
             strokeLinecap="round"
@@ -82,7 +66,7 @@ const CarouselSelector = ({
             d="M8.25 4.5l7.5 7.5-7.5 7.5"
           />
         </svg>
-      </button>
+      </motion.button>
     </div>
   );
 };

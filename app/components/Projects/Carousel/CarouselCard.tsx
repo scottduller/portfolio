@@ -2,27 +2,35 @@ import type { Variants } from 'framer-motion';
 import type { Project } from '..';
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
-
 import { useEffect, useRef, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import styles from '../styles.module.css';
 
 type Props = {
   project: Project;
   projectIndex: number;
+  direction: number;
+  wrappedIndex: number;
+  paginate: (direction: number) => void;
 };
 
-const CarouselItem = ({ project: { name, github, website }, projectIndex }: Props) => {
+const swipeConfidenceThreshold = 10000;
+const swipePower = (offset: number, velocity: number) => {
+  return Math.abs(offset) * velocity;
+};
+
+const CarouselCard = ({ project: { name, github, website }, direction, wrappedIndex, paginate }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isInitial, setIsInitial] = useState(false);
+
+  const [key, setKey] = useState<string | undefined>(undefined);
 
   useEffect(() => {
-    setIsInitial(true);
-  }, []);
+    setKey(uuidv4());
+  }, [wrappedIndex]);
 
   const buttonVariants: Variants = {
     initial: {
-      x: '-50%',
-      y: '-200%',
+      y: -50,
       opacity: 0,
       transition: {
         type: 'spring',
@@ -31,8 +39,7 @@ const CarouselItem = ({ project: { name, github, website }, projectIndex }: Prop
       },
     },
     animate: {
-      x: '-50%',
-      y: '-50%',
+      y: 0,
       opacity: 1,
       transition: {
         type: 'spring',
@@ -41,8 +48,7 @@ const CarouselItem = ({ project: { name, github, website }, projectIndex }: Prop
       },
     },
     exit: {
-      x: '-50%',
-      y: '100%',
+      y: 50,
       opacity: 0,
       transition: {
         type: 'spring',
@@ -78,7 +84,7 @@ const CarouselItem = ({ project: { name, github, website }, projectIndex }: Prop
   const menuItemVariants: Variants = {
     closed: {
       opacity: 0,
-      y: 10,
+      y: 20,
     },
     open: {
       opacity: 1,
@@ -89,6 +95,23 @@ const CarouselItem = ({ project: { name, github, website }, projectIndex }: Prop
         duration: 0.6,
       },
     },
+  };
+
+  const cardVariants: Variants = {
+    initial: (direction: number) => ({
+      x: direction > 0 ? '100%' : '-100%',
+      opacity: 0,
+    }),
+    animate: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1,
+    },
+    exit: (direction: number) => ({
+      zIndex: 0,
+      x: direction < 0 ? '100%' : '-100%',
+      opacity: 0,
+    }),
   };
 
   const menuRef = useRef<HTMLDivElement>(null);
@@ -109,9 +132,35 @@ const CarouselItem = ({ project: { name, github, website }, projectIndex }: Prop
   }, []);
 
   return (
-    <div className={styles.carouselItem}>
-      <div className={styles.projectCard}>
-        <div>
+    <AnimatePresence initial={false} mode="wait" custom={direction}>
+      <motion.div
+        key={key}
+        className={styles.carouselCard}
+        variants={cardVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        custom={direction}
+        transition={{
+          x: { type: 'spring', duration: 0.4, bounce: 0 },
+          opacity: { duration: 0.2 },
+        }}
+        drag="x"
+        dragConstraints={{ left: 0, right: 0 }}
+        dragElastic={1}
+        dragMomentum={false}
+        onDragEnd={(e, { offset, velocity }) => {
+          setIsOpen(false);
+          const swipe = swipePower(offset.x, velocity.x);
+
+          if (swipe < -swipeConfidenceThreshold) {
+            paginate(1);
+          } else if (swipe > swipeConfidenceThreshold) {
+            paginate(-1);
+          }
+        }}
+      >
+        <div className={styles.projectCardLeft}>
           <p>{name}</p>
         </div>
         <div className={styles.projectCardRight}>
@@ -121,16 +170,16 @@ const CarouselItem = ({ project: { name, github, website }, projectIndex }: Prop
                 ref={buttonRef}
                 type="button"
                 whileTap={{ scale: 0.8 }}
-                className={styles.iconButton}
+                className={`${styles.iconButton} ${isOpen ? styles.open : ''}`}
                 onClick={() => setIsOpen((prevState) => !prevState)}
               >
-                <AnimatePresence>
+                <AnimatePresence initial={false}>
                   {isOpen
                     ? (
                         <motion.div
                           className={styles.iconWrapper}
                           variants={buttonVariants}
-                          initial={isInitial ? 'initial' : false}
+                          initial="initial"
                           animate="animate"
                           exit="exit"
                           key="open"
@@ -153,7 +202,7 @@ const CarouselItem = ({ project: { name, github, website }, projectIndex }: Prop
                         <motion.div
                           className={styles.iconWrapper}
                           variants={buttonVariants}
-                          initial={isInitial ? 'initial' : false}
+                          initial="initial"
                           animate="animate"
                           exit="exit"
                           key="closed"
@@ -175,7 +224,6 @@ const CarouselItem = ({ project: { name, github, website }, projectIndex }: Prop
                       )}
                 </AnimatePresence>
               </motion.button>
-
               <motion.div className={styles.linkMenu} ref={menuRef} variants={menuVariants} initial="closed" animate={isOpen ? 'open' : 'closed'}>
                 {github && (
                   <motion.div
@@ -235,11 +283,11 @@ const CarouselItem = ({ project: { name, github, website }, projectIndex }: Prop
               </motion.div>
             </>
           )}
-          {projectIndex.toString().padStart(2, '0')}
+          <p className={styles.number}>{wrappedIndex.toString().padStart(2, '0')}</p>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </AnimatePresence>
   );
 };
 
-export default CarouselItem;
+export default CarouselCard;

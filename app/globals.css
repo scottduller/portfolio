@@ -1,3 +1,5 @@
+@import './reset.css';
+
 :root {
   --neutral-100: hsla(0, 0%, 98%, 1);
   --neutral-200: hsla(0, 0%, 88.2%, 1);
@@ -41,6 +43,9 @@
 
   --github: hsla(210, 12%, 19%, 1);
 
+  --gradient-primary: linear-gradient(to top right, var(--secondary-500), var(--primary-300));
+  --gradient-tertiary: linear-gradient(to top right, var(--tertiary-500), var(--tertiary-200));
+
   --fs-title: 4rem;
   --fs-xl: 1.5rem;
   --fs-lg: 1rem;
@@ -48,10 +53,9 @@
   --fs-sm: 0.75rem;
 
   --radius: 1rem;
-
-  --gradient-primary: linear-gradient(to top right, var(--secondary-500), var(--primary-300));
-
-  --gradient-tertiary: linear-gradient(to top right, var(--tertiary-500), var(--tertiary-200));
+  --gap: 2rem;
+  --shadow: 0 0.25rem 1rem hsla(0, 0%, 9.8%, 0.2);
+  --shadow-button: 0 0 1rem hsla(0, 0%, 9.8%, 0.2);
 
   --nav-height: 5.5rem;
   --navbar-padding: 0.75rem;
@@ -59,8 +63,6 @@
   --navbar-margin-inline: 1.5rem;
 
   --navbar-height: calc(var(--nav-height) + var(--navbar-margin-block) * 2);
-
-  --gap: 1.5rem;
 }
 
 h1,
@@ -80,102 +82,33 @@ h2 {
 }
 
 /* Section Tests */
-section {
+/* section {
   min-height: 100svh;
+} */
+
+a {
+  text-underline-offset: 0.3rem;
 }
 
-#about {
-  background-color: var(--primary-500);
+.section {
+  width: 100%;
 }
 
-/* --------- CSS RESET --------- */
+.wrapper {
+  --wrapper-padding-inline: 2.5rem;
+  --wrapper-padding-block: calc(var(--navbar-height) - 3.75rem) 2.5rem;
 
-/* 1. Use a more-intuitive box-sizing model */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-/* 2. Remove default margin */
-* {
-  margin: 0;
-}
-
-html {
-  -moz-text-size-adjust: none;
-  -webkit-text-size-adjust: none;
-  text-size-adjust: none;
-  scroll-behavior: smooth;
   position: relative;
-}
 
-body {
-  /* 3. Add accessible line-height */
-  line-height: 1.5;
-  /* 4. Improve text rendering */
-  -webkit-font-smoothing: antialiased;
-  font-size: 16px;
-  color: var(--neutral-900);
-  background-color: var(--neutral-100);
-  text-underline-offset: 0.2rem;
-}
-/* 5. Improve media defaults */
-img,
-picture,
-video,
-canvas,
-svg {
-  display: block;
-  max-width: 100%;
-}
+  width: 100%;
+  max-width: 30rem;
+  /* min-height: 100svh; */
+  margin: 0 auto;
+  padding: var(--wrapper-padding-block) var(--wrapper-padding-inline);
+  overflow: hidden;
 
-a {
-  text-decoration-skip-ink: auto;
-  color: currentColor;
-}
-
-/* 6. Inherit fonts for form controls */
-input,
-button,
-textarea,
-select {
-  font: inherit;
-  border: none;
-  background-color: transparent;
-}
-
-summary[role='button'],
-button,
-.footer__blocks-wrapper .footer-block,
-a {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
-/* 7. Avoid text overflows */
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  overflow-wrap: break-word;
-}
-/* 8. Improve line wrapping */
-p {
-  text-wrap: pretty;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  text-wrap: balance;
-}
-/*
-  9. Create a root stacking context
-*/
-#root,
-#__next {
-  isolation: isolate;
+  display: flex;
+  align-items: center !important;
+  flex-direction: column;
+  gap: var(--gap);
 }

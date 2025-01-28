@@ -65,7 +65,7 @@ const Section = ({ children, section, id }: Props) => {
   });
 
   return (
-    <section id={id} ref={ref}>
+    <section id={id} ref={ref} className="section">
       {children}
     </section>
   );

@@ -21,7 +21,7 @@ const Hamburger = () => {
       },
     },
     open: {
-      backgroundColor: 'var(--neutral-200)',
+      backgroundColor: 'var(--neutral-100)',
       transition: {
         type: 'spring',
         duration: 0.1,

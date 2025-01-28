@@ -1,18 +1,19 @@
 .navbar {
   height: var(--nav-height);
   width: calc(100% - var(--navbar-margin-inline) * 2);
-  margin: var(--navbar-margin-block) var(--navbar-margin-inline);
+  max-width: 40rem;
+  margin: var(--navbar-margin-block) auto;
   padding: var(--navbar-padding);
 
   position: fixed;
   top: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 10;
 
   background-color: var(--neutral-100);
   border-radius: calc(var(--radius) + var(--navbar-padding));
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-
+  box-shadow: var(--shadow);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -25,6 +26,7 @@
     text-decoration: none !important;
     border-radius: var(--radius);
     background-color: var(--secondary-500);
+    box-shadow: var(--shadow-button);
     padding-inline: 1rem;
     flex-grow: 1;
 
@@ -56,13 +58,13 @@
     position: relative;
     padding: 0;
     overflow: hidden;
+    box-shadow: var(--shadow-button);
 
     cursor: pointer;
     -webkit-backface-visibility: hidden;
 
     &:focus {
       outline: 0;
-      box-shadow: none;
     }
 
     span {
@@ -87,17 +89,18 @@
   .menu {
     z-index: 11;
     position: fixed;
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--neutral-200);
+    top: calc(-1 * var(--navbar-margin-block));
+    right: 50%;
+    width: 100svw;
+    height: 100svh;
+    transform: translate(50%);
+    background-color: var(--neutral-100);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: end;
     gap: 1rem;
-    padding: var(--navbar-height) 1.5rem 3.5rem 1.5rem;
+    padding: var(--navbar-height) 2.25rem 3.5rem 2.25rem;
 
     .item {
       width: 100%;
@@ -108,6 +111,7 @@
       padding: 1rem;
       min-height: 12.5%;
       text-decoration: none !important;
+      box-shadow: var(--shadow-button);
 
       &.home {
         background-color: var(--secondary-500);
