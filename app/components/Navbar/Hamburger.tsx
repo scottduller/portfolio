@@ -170,11 +170,11 @@ const Hamburger = () => {
   };
 
   useEffect(() => {
-    // if (history.scrollRestoration && process.env.NODE_ENV === 'production') {
-    //   history.scrollRestoration = 'manual';
-    // }
+    if (history.scrollRestoration && process.env.NODE_ENV === 'production') {
+      history.scrollRestoration = 'manual';
+    }
 
-    history.scrollRestoration = 'manual';
+    // history.scrollRestoration = 'manual';
 
     window.addEventListener('popstate', (current) => {
       if (!current.state?.menuOpen) {
