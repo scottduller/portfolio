@@ -1,7 +1,7 @@
 'use client';
 
 import { InViewContext } from '@/context';
-import { motion, type Variants } from 'framer-motion';
+import { motion } from 'motion/react';
 import { useContext, useEffect, useState } from 'react';
 import styles from './styles.module.css';
 
@@ -12,7 +12,7 @@ const Hamburger = () => {
     document.body.style.overflow = isOpen ? 'hidden' : 'auto';
   }, [isOpen]);
 
-  const hamburgerVariants: Variants = {
+  const hamburgerVariants = {
     closed: {
       backgroundColor: 'var(--tertiary-500)',
       transition: {
@@ -29,7 +29,7 @@ const Hamburger = () => {
     },
   };
 
-  const topLeftVariants: Variants = {
+  const topLeftVariants = {
     closed: {
       rotate: 0,
       left: 0,
@@ -45,7 +45,7 @@ const Hamburger = () => {
     },
   };
 
-  const topRightVariants: Variants = {
+  const topRightVariants = {
     closed: {
       rotate: 0,
       left: '50%',
@@ -61,7 +61,7 @@ const Hamburger = () => {
     },
   };
 
-  const middleLeftVariants: Variants = {
+  const middleLeftVariants = {
     closed: {
       left: 0,
       top: '50%',
@@ -77,7 +77,7 @@ const Hamburger = () => {
     },
   };
 
-  const middleRightVariants: Variants = {
+  const middleRightVariants = {
     closed: {
       left: '50%',
       top: '50%',
@@ -93,7 +93,7 @@ const Hamburger = () => {
     },
   };
 
-  const bottomLeftVariants: Variants = {
+  const bottomLeftVariants = {
     closed: {
       rotate: 0,
       left: 0,
@@ -109,7 +109,7 @@ const Hamburger = () => {
     },
   };
 
-  const bottomRightVariants: Variants = {
+  const bottomRightVariants = {
     closed: {
       rotate: 0,
       left: '50%',
@@ -125,7 +125,7 @@ const Hamburger = () => {
     },
   };
 
-  const menuVariants: Variants = {
+  const menuVariants = {
     closed: {
       clipPath: 'circle(0% at 100% 0%)',
       opacity: 0,
@@ -151,7 +151,7 @@ const Hamburger = () => {
 
   const { inView } = useContext(InViewContext);
 
-  const menuItemVariants: Variants = {
+  const menuItemVariants = {
     closed: {
       opacity: 0,
       x: 100,
@@ -170,15 +170,21 @@ const Hamburger = () => {
   };
 
   useEffect(() => {
-    if (history.scrollRestoration && process.env.NODE_ENV === 'production') {
-      history.scrollRestoration = 'manual';
-    }
+    // if (history.scrollRestoration && process.env.NODE_ENV === 'production') {
+    //   history.scrollRestoration = 'manual';
+    // }
+
+    history.scrollRestoration = 'manual';
 
     window.addEventListener('popstate', (current) => {
       if (!current.state?.menuOpen) {
         setIsOpen(false);
       }
     });
+
+    return () => {
+      window.removeEventListener('popstate', () => {});
+    };
   }, []);
 
   const handleMenuToggle = () => {

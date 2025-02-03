@@ -4,6 +4,9 @@ import Contact from './components/Contact';
 import Home from './components/Home';
 import Projects from './components/Projects';
 
+// TODO: possibly make each element appear on whileInView
+// TODO: reduce time for each element to appear
+
 const page = () => {
   return (
     <main>

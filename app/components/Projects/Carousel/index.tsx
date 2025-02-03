@@ -1,21 +1,25 @@
 'use client';
 
 import type { Project } from '..';
-import { wrap } from 'framer-motion';
+import * as motion from 'motion/react-client';
 import { useState } from 'react';
 import styles from '../styles.module.css';
 import CarouselCard from './CarouselCard';
-import CarouselDescription from './CarouselDescription';
+import CarouselContent from './CarouselContent';
 import CarouselSelector from './CarouselSelector';
 
-type Props = {
+type CarouselProps = {
   projects: Project[];
 };
 
-const Carousel = ({ projects }: Props) => {
-  const [[projectIndex, direction], setProjectIndex] = useState([0, 0]);
+export type CarouselItemProps = {
+  projectIndex: number;
+  direction: number;
+  paginate: (direction: number) => void;
+} & CarouselProps;
 
-  const wrappedIndex = wrap(0, projects.length, projectIndex);
+const Carousel = ({ projects }: CarouselProps) => {
+  const [[projectIndex, direction], setProjectIndex] = useState([0, 0]);
 
   const paginate = (
     direction: number,
@@ -23,26 +27,43 @@ const Carousel = ({ projects }: Props) => {
     setProjectIndex((prevState) => [prevState[0] + direction, direction]);
   };
 
+  const carouselVariants = {
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: 1,
+        duration: 1,
+      },
+    },
+    hidden: {
+      opacity: 0,
+      y: 30,
+    },
+  };
+
   return (
-    <div className={styles.carousel}>
+    <motion.div variants={carouselVariants} initial="hidden" whileInView="visible" className={styles.carousel} viewport={{ once: true }}>
       <CarouselCard
-        project={projects[wrappedIndex]}
+        projects={projects}
         projectIndex={projectIndex}
-        wrappedIndex={wrappedIndex}
         direction={direction}
         paginate={paginate}
       />
       <CarouselSelector
+        projects={projects}
         projectIndex={projectIndex}
+        direction={direction}
+        paginate={paginate}
         setProjectIndex={setProjectIndex}
-        wrappedIndex={wrappedIndex}
-        projectsLength={projects.length}
+      />
+      <CarouselContent
+        projects={projects}
+        projectIndex={projectIndex}
+        direction={direction}
         paginate={paginate}
       />
-      <CarouselDescription
-        description={projects[wrappedIndex].description}
-      />
-    </div>
+    </motion.div>
   );
 };
 

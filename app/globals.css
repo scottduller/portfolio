@@ -90,6 +90,16 @@ a {
   text-underline-offset: 0.3rem;
 }
 
+hr {
+  border: 0.5px solid var(--neutral-900);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 10svh;
+}
+
 .section {
   width: 100%;
 }
@@ -104,7 +114,8 @@ a {
   max-width: 30rem;
   /* min-height: 100svh; */
   margin: 0 auto;
-  padding: var(--wrapper-padding-block) var(--wrapper-padding-inline);
+  padding-inline: var(--wrapper-padding-inline);
+  padding-top: calc(var(--navbar-height) - 4.5rem);
   overflow: hidden;
 
   display: flex;

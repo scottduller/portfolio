@@ -13,7 +13,7 @@
   .carousel {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: var(--gap);
     width: 100%;
 
     .carouselCard {
@@ -110,7 +110,6 @@
             display: flex;
             align-items: center;
             width: 100%;
-            padding: 1.5rem 1rem;
             border-radius: var(--radius);
             /* border: 2px solid var(--neutral-900); */
             box-shadow: var(--shadow-button);
@@ -119,6 +118,8 @@
               display: flex;
               align-items: center;
               width: 100%;
+              height: 100%;
+              padding: 1.5rem 1rem;
             }
 
             span {
@@ -162,7 +163,6 @@
     align-items: center;
     justify-content: space-around;
     border-radius: 1000px;
-    padding: 1rem 1.5rem;
     width: 100%;
     /* box-shadow: var(--shadow); */
 
@@ -186,7 +186,7 @@
 
     .dots {
       display: flex;
-      gap: 1rem;
+      gap: 1.5rem;
       align-items: center;
       justify-content: center;
 
@@ -196,16 +196,15 @@
         padding: 0;
         border-radius: 50%;
         background-color: var(--neutral-400);
-        transition:
-          background-color 0.1s ease-in-out,
-          transform 0.1s ease-in-out;
       }
     }
   }
 
   .content {
-    height: 100%;
-    text-align: center;
+    border-top: 1px solid var(--neutral-900);
+    padding-top: var(--gap);
     padding-inline: 1rem;
+    text-align: left;
+    overflow: hidden;
   }
 }

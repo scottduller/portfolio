@@ -1,21 +1,15 @@
-import { motion } from 'framer-motion';
+import type { CarouselItemProps } from '.';
+import { motion, wrap } from 'framer-motion';
 import styles from '../styles.module.css';
 
-type Props = {
-  projectIndex: number;
-  projectsLength: number;
-  setProjectIndex: React.Dispatch<React.SetStateAction<[number, number]>>;
-  wrappedIndex: number;
-  paginate: (direction: number) => void;
-};
-
 const CarouselSelector = ({
+  projects,
   projectIndex,
-  setProjectIndex,
-  projectsLength,
-  wrappedIndex,
   paginate,
-}: Props) => {
+  setProjectIndex,
+}: CarouselItemProps & { setProjectIndex: React.Dispatch<React.SetStateAction<[number, number]>> }) => {
+  const wrappedProjectIndex = wrap(0, projects.length, projectIndex);
+
   return (
     <div className={styles.carouselSelector}>
       <motion.button whileTap={{ scale: 0.8 }} type="button" onClick={() => paginate(-1)} className={styles.chevron}>
@@ -37,12 +31,12 @@ const CarouselSelector = ({
 
       <div className={styles.dots}>
 
-        {Array.from({ length: projectsLength }, (_, i) => {
+        {Array.from({ length: projects.length }, (_, i) => {
           return (
             <motion.button
               initial={{ scale: 1, backgroundColor: 'var(--neutral-400)' }}
-              animate={{ scale: wrappedIndex === i ? 1.2 : 1, backgroundColor: wrappedIndex === i ? 'var(--primary-900)' : 'var(--neutral-400)' }}
-              transition={{ duration: 0.05 }}
+              animate={{ scale: wrappedProjectIndex === i ? 1.2 : 1, backgroundColor: wrappedProjectIndex === i ? 'var(--primary-900)' : 'var(--neutral-400)' }}
+              transition={{ duration: 0.2 }}
               type="button"
               className={styles.dot}
               onClick={() => setProjectIndex([i, i === projectIndex ? 0 : i > projectIndex ? 1 : -1])}
