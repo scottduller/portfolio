@@ -1,8 +1,8 @@
 'use client';
 
-import { InViewContext } from '@/context';
 import { motion } from 'motion/react';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import Menu from './Menu';
 import styles from './styles.module.css';
 
 const Hamburger = () => {
@@ -125,56 +125,12 @@ const Hamburger = () => {
     },
   };
 
-  const menuVariants = {
-    closed: {
-      clipPath: 'circle(0% at 100% 0%)',
-      opacity: 0,
-      transition: {
-        type: 'spring',
-        bounce: 0,
-        duration: 0.7,
-      },
-    },
-    open: {
-      clipPath: 'circle(100% at 50% 50%)',
-      opacity: 1,
-      transition: {
-        type: 'spring',
-        bounce: 0,
-        duration: 1.5,
-        delayChildren: 0.4,
-        staggerChildren: 0.15,
-        staggerDirection: -1,
-      },
-    },
-  };
-
-  const { inView } = useContext(InViewContext);
-
-  const menuItemVariants = {
-    closed: {
-      opacity: 0,
-      x: 100,
-      flexGrow: 0,
-    },
-    open: (index: number) => ({
-      opacity: 1,
-      x: 0,
-      flexGrow: inView[index].scrollProgress,
-      transition: {
-        type: 'spring',
-        bounce: 0,
-        duration: 0.6,
-      },
-    }),
-  };
-
   useEffect(() => {
-    if (history.scrollRestoration && process.env.NODE_ENV === 'production') {
-      history.scrollRestoration = 'manual';
-    }
+    // if (history.scrollRestoration && process.env.NODE_ENV === 'production') {
+    //   history.scrollRestoration = 'manual';
+    // }
 
-    // history.scrollRestoration = 'manual';
+    history.scrollRestoration = 'manual';
 
     window.addEventListener('popstate', (current) => {
       if (!current.state?.menuOpen) {
@@ -197,20 +153,14 @@ const Hamburger = () => {
     }
   };
 
-  const handleMenuItemClick = (section: number) => {
-    const sectionRef = inView[section].ref;
-    sectionRef?.current?.scrollIntoView({ behavior: 'smooth' });
-    setIsOpen(false);
-    window.history.back();
-  };
-
   return (
     <>
       <motion.button
         type="button"
         className={`${styles.hamburger}`}
         onClick={handleMenuToggle}
-        whileTap={{ scale: 0.8 }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
         variants={hamburgerVariants}
         initial="closed"
         animate={isOpen ? 'open' : 'closed'}
@@ -249,57 +199,7 @@ const Hamburger = () => {
           animate={isOpen ? 'open' : 'closed'}
         />
       </motion.button>
-      <motion.div
-        className={styles.menu}
-        variants={menuVariants}
-        initial="closed"
-        animate={isOpen ? 'open' : 'closed'}
-      >
-        <motion.button
-          type="button"
-          onClick={() => handleMenuItemClick(0)}
-          className={`${styles.item} ${styles.home}`}
-          variants={menuItemVariants}
-          whileTap={{ scale: 0.9 }}
-          custom={0}
-        >
-          <motion.div className={styles.title}>Home</motion.div>
-          <motion.div className={styles.number}>00</motion.div>
-        </motion.button>
-        <motion.button
-          type="button"
-          onClick={() => handleMenuItemClick(1)}
-          className={`${styles.item} ${styles.projects}`}
-          variants={menuItemVariants}
-          whileTap={{ scale: 0.9 }}
-          custom={1}
-        >
-          <motion.div className={styles.title}>Projects</motion.div>
-          <motion.div className={styles.number}>01</motion.div>
-        </motion.button>
-        <motion.button
-          type="button"
-          onClick={() => handleMenuItemClick(2)}
-          className={`${styles.item} ${styles.about}`}
-          variants={menuItemVariants}
-          whileTap={{ scale: 0.9 }}
-          custom={2}
-        >
-          <motion.div className={styles.title}>About</motion.div>
-          <motion.div className={styles.number}>02</motion.div>
-        </motion.button>
-        <motion.button
-          type="button"
-          onClick={() => handleMenuItemClick(3)}
-          className={`${styles.item} ${styles.contact}`}
-          variants={menuItemVariants}
-          whileTap={{ scale: 0.9 }}
-          custom={3}
-        >
-          <motion.div className={styles.title}>Contact</motion.div>
-          <motion.div className={styles.number}>03</motion.div>
-        </motion.button>
-      </motion.div>
+      <Menu isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   );
 };

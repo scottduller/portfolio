@@ -13,4 +13,4 @@ export const HERO_TEXT_DURATION = 1;
 export const HERO_TEXT_DELAY = NAVBAR_DELAY + NAVBAR_DURATION / 2;
 export const HERO_TEXT_STAGGER = 0.5;
 
-// Projects
+export const STAGGER_CHILDREN = 0.3;

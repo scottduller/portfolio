@@ -1,28 +1,20 @@
 .wrapper {
   composes: wrapper from global;
 
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--neutral-900);
+  hr {
+    width: calc(100% - 2rem);
+    margin-inline: 1rem;
   }
 
-  .content {
-    display: flex;
-    padding-inline: 1rem;
-    flex-direction: column;
-    gap: var(--gap);
-    width: 100%;
+  strong {
+    padding-block: 1rem 0.5rem;
+    padding-inline: 0.5rem;
+    font-size: var(--fs-xl);
+  }
 
-    strong {
-      margin-inline: -1rem;
-      box-shadow: var(--shadow);
-      padding: 1.5rem;
-      border-radius: var(--radius);
-      margin-block: 1rem;
-    }
+  p {
+    padding-inline: 1rem;
+    color: var(--neutral-900);
+    font-weight: 400;
   }
 }

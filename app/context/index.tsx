@@ -2,7 +2,7 @@
 
 import React, { createContext, useState } from 'react';
 
-type InViewType = [
+export type InViewType = [
   {
     isInView: boolean;
     scrollProgress: number;

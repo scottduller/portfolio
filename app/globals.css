@@ -44,18 +44,22 @@
   --github: hsla(210, 12%, 19%, 1);
 
   --gradient-primary: linear-gradient(to top right, var(--secondary-500), var(--primary-300));
+  --gradient-secondary: linear-gradient(to bottom left, var(--secondary-500), var(--secondary-200));
   --gradient-tertiary: linear-gradient(to top right, var(--tertiary-500), var(--tertiary-200));
 
   --fs-title: 4rem;
+  --fs-2xl: 2.5rem;
   --fs-xl: 1.5rem;
   --fs-lg: 1rem;
   --fs-md: 0.88rem;
   --fs-sm: 0.75rem;
 
   --radius: 1rem;
-  --gap: 2rem;
+  --gap: 2.5rem;
   --shadow: 0 0.25rem 1rem hsla(0, 0%, 9.8%, 0.2);
   --shadow-button: 0 0 1rem hsla(0, 0%, 9.8%, 0.2);
+
+  --wrapper-padding-inline: 2.5rem;
 
   --nav-height: 5.5rem;
   --navbar-padding: 0.75rem;
@@ -91,33 +95,59 @@ a {
 }
 
 hr {
-  border: 0.5px solid var(--neutral-900);
+  border: 1px solid var(--neutral-900);
+  width: 100%;
 }
 
 main {
   display: flex;
   flex-direction: column;
-  gap: 10svh;
+  gap: 4rem;
 }
 
 .section {
   width: 100%;
+  scroll-margin-top: var(--navbar-height);
+
+  &.about {
+    padding-block: 4rem 5rem;
+    background-color: var(--secondary-200);
+    border-radius: calc(var(--radius) * 2);
+    margin-inline: auto;
+    margin-block: 2rem;
+    box-shadow: var(--shadow);
+  }
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  & > :first-child {
+    width: 100%;
+    font-size: var(--fs-lg);
+    align-self: flex-end;
+    font-weight: 500;
+    text-align: right;
+  }
+  & > :last-child {
+    width: 100%;
+    font-size: var(--fs-2xl);
+    font-weight: 700;
+    align-self: flex-start;
+    border-block: 2px solid var(--neutral-900);
+    text-align: left;
+  }
 }
 
 .wrapper {
-  --wrapper-padding-inline: 2.5rem;
-  --wrapper-padding-block: calc(var(--navbar-height) - 3.75rem) 2.5rem;
-
   position: relative;
 
   width: 100%;
   max-width: 30rem;
-  /* min-height: 100svh; */
   margin: 0 auto;
   padding-inline: var(--wrapper-padding-inline);
-  padding-top: calc(var(--navbar-height) - 4.5rem);
-  overflow: hidden;
-
   display: flex;
   align-items: center !important;
   flex-direction: column;

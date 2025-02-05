@@ -1,6 +1,3 @@
-'use client';
-
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import React from 'react';
 import styles from './styles.module.css';
@@ -12,25 +9,9 @@ type ContactCardProps = {
   number: number;
 };
 
-const MotionLink = motion.create(Link);
-
-const linkVariants = {
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-    }
-  },
-  hidden: {
-    opacity: 0,
-    y: 10,
-  },
-};
-
 const ContactCard = ({ name, urlName, href, number }: ContactCardProps) => {
   return (
-    <MotionLink variants={linkVariants} whileTap={{ scale: 0.95 }} passHref href={href} target="_blank" rel="noopener noreferrer">
+    <Link href={href} target="_blank" rel="noopener noreferrer">
       <div className={styles.contactCardTop}>
         <strong className={styles.contactCardName}>{name}</strong>
         <p className={styles.contactCardNumber}>{number.toString().padStart(2, '0')}</p>
@@ -52,7 +33,7 @@ const ContactCard = ({ name, urlName, href, number }: ContactCardProps) => {
         </div>
       </div>
 
-    </MotionLink>
+    </Link>
   );
 };
 

@@ -3,6 +3,7 @@
 import type { Project } from '..';
 import * as motion from 'motion/react-client';
 import { useState } from 'react';
+import { contentVariants } from '../../globalVariants';
 import styles from '../styles.module.css';
 import CarouselCard from './CarouselCard';
 import CarouselContent from './CarouselContent';
@@ -27,43 +28,35 @@ const Carousel = ({ projects }: CarouselProps) => {
     setProjectIndex((prevState) => [prevState[0] + direction, direction]);
   };
 
-  const carouselVariants = {
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: 1,
-        duration: 1,
-      },
-    },
-    hidden: {
-      opacity: 0,
-      y: 30,
-    },
-  };
-
   return (
-    <motion.div variants={carouselVariants} initial="hidden" whileInView="visible" className={styles.carousel} viewport={{ once: true }}>
-      <CarouselCard
-        projects={projects}
-        projectIndex={projectIndex}
-        direction={direction}
-        paginate={paginate}
-      />
-      <CarouselSelector
-        projects={projects}
-        projectIndex={projectIndex}
-        direction={direction}
-        paginate={paginate}
-        setProjectIndex={setProjectIndex}
-      />
-      <CarouselContent
-        projects={projects}
-        projectIndex={projectIndex}
-        direction={direction}
-        paginate={paginate}
-      />
-    </motion.div>
+    <>
+      <motion.div variants={contentVariants} className={styles.carouselSectionWrapper}>
+        <CarouselCard
+          projects={projects}
+          projectIndex={projectIndex}
+          direction={direction}
+          paginate={paginate}
+        />
+      </motion.div>
+      <motion.div variants={contentVariants} className={styles.carouselSectionWrapper}>
+        <CarouselSelector
+          projects={projects}
+          projectIndex={projectIndex}
+          direction={direction}
+          paginate={paginate}
+          setProjectIndex={setProjectIndex}
+        />
+      </motion.div>
+      <motion.div variants={contentVariants} className={styles.carouselSectionWrapper}>
+        <hr />
+        <CarouselContent
+          projects={projects}
+          projectIndex={projectIndex}
+          direction={direction}
+          paginate={paginate}
+        />
+      </motion.div>
+    </>
   );
 };
 

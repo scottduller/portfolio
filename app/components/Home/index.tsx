@@ -91,6 +91,7 @@ const Home = () => {
             alt="Scott Duller"
             width={1152}
             height={1536}
+            priority
           />
         </motion.div>
       </motion.div>

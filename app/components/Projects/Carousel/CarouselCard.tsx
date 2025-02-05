@@ -84,7 +84,6 @@ const cardVariants: Variants = {
     x: direction > 0 ? '100%' : '-100%',
     opacity: 0,
   }),
-
   animate: {
     zIndex: 1,
     x: 0,
@@ -160,7 +159,8 @@ const CarouselCard = ({ projects, projectIndex, direction, paginate }: CarouselI
               <motion.button
                 ref={buttonRef}
                 type="button"
-                whileTap={{ scale: 0.8 }}
+                whileTap={{ scale: 0.9 }}
+                whileHover={{ scale: 1.1 }}
                 className={`${styles.iconButton} ${isOpen ? styles.open : ''}`}
                 onClick={() => setIsOpen((prevState) => !prevState)}
               >
@@ -220,7 +220,8 @@ const CarouselCard = ({ projects, projectIndex, direction, paginate }: CarouselI
                   <motion.div
                     variants={menuItemVariants}
                     className={`${styles.item} ${styles.github}`}
-                    whileTap={{ scale: 0.95 }}
+                    whileTap={{ scale: 0.975 }}
+                    whileHover={{ scale: 1.025 }}
                   >
                     <Link
                       href={github}
@@ -249,7 +250,8 @@ const CarouselCard = ({ projects, projectIndex, direction, paginate }: CarouselI
                   <motion.div
                     variants={menuItemVariants}
                     className={`${styles.item} ${styles.website}`}
-                    whileTap={{ scale: 0.95 }}
+                    whileTap={{ scale: 0.975 }}
+                    whileHover={{ scale: 1.025 }}
                   >
                     <Link
                       href={website}

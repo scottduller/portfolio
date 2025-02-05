@@ -17,6 +17,8 @@ const ScrollButton = ({ children, className, section }: Props) => {
   return (
     <motion.button
       type="button"
+      whileHover={{ scale: 1.0125 }}
+      whileTap={{ scale: 0.9875 }}
       className={className}
       onClick={() => ref?.current?.scrollIntoView({ behavior: 'smooth' })}
     >

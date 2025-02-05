@@ -1,156 +1,151 @@
 .wrapper {
   composes: wrapper from global;
 
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--neutral-900);
+  overflow-x: clip;
+
+  hr {
+    width: calc(100% - 2rem);
+    margin-inline: 1rem;
   }
 
-  .carousel {
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap);
+  .carouselSectionWrapper {
     width: 100%;
+  }
 
-    .carouselCard {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      background-color: var(--primary-500);
-      box-shadow: var(--shadow);
+  .carouselCard {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: var(--gradient-secondary);
+    box-shadow: var(--shadow);
 
-      border-radius: var(--radius);
+    border-radius: var(--radius);
 
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    justify-content: space-between;
+
+    .projectCardLeft {
       display: flex;
-      flex-direction: row;
-      align-items: end;
+      flex-direction: column;
+      align-items: flex-start;
       justify-content: space-between;
+      padding-left: 2.5rem;
+      padding-bottom: 2rem;
 
-      .projectCardLeft {
+      font-weight: 500;
+    }
+
+    .projectCardRight {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding-right: 2.5rem;
+      padding-bottom: 2rem;
+
+      .iconButton {
+        position: absolute;
+        right: 1.5rem;
+        top: 1.5rem;
+        overflow: hidden;
+        --button-size: 3.5rem;
+
+        width: var(--button-size);
+        height: var(--button-size);
+        background-color: var(--neutral-100);
+        border-radius: var(--radius);
+        padding: 0;
+        box-shadow: var(--shadow-button);
+
+        z-index: 5;
+
+        transition: box-shadow 0.1s ease-in-out;
+
         display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: space-between;
-        padding-left: 2.5rem;
-        padding-bottom: 2rem;
+        align-items: center;
+        justify-content: center;
 
-        font-weight: 500;
-      }
-
-      .projectCardRight {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        justify-content: space-between;
-        padding-right: 2.5rem;
-        padding-bottom: 2rem;
-
-        .iconButton {
+        .iconWrapper {
           position: absolute;
-          right: 1.5rem;
-          top: 1.5rem;
-          overflow: hidden;
-          --button-size: 3.5rem;
+          width: 2rem;
+          height: 2rem;
 
-          width: var(--button-size);
-          height: var(--button-size);
-          background-color: var(--neutral-100);
-          border-radius: var(--radius);
-          padding: 0;
-          box-shadow: var(--shadow-button);
-
-          z-index: 5;
-
-          transition: box-shadow 0.1s ease-in-out;
-
-          display: flex;
-          align-items: center;
-          justify-content: center;
-
-          .iconWrapper {
-            position: absolute;
-            width: 2rem;
-            height: 2rem;
-
-            .icon {
-              width: 100%;
-              height: 100%;
-              stroke: var(--neutral-900);
-              stroke-width: 1.5;
-            }
+          .icon {
+            width: 100%;
+            height: 100%;
+            stroke: var(--neutral-900);
+            stroke-width: 1.5;
           }
         }
+      }
 
-        .linkMenu {
-          position: absolute;
-          right: 0rem;
-          top: 0rem;
-          overflow: hidden;
-          z-index: 4;
-          width: calc(100%);
-          height: calc(100%);
-          padding: 1.5rem;
-          padding-top: 5.5rem;
-          border-radius: var(--radius);
-          box-shadow: var(--shadow);
+      .linkMenu {
+        position: absolute;
+        right: 0rem;
+        top: 0rem;
+        overflow: hidden;
+        z-index: 4;
+        width: calc(100%);
+        height: calc(100%);
+        padding: 1.5rem;
+        padding-top: 5.5rem;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
 
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 1rem;
+
+        background-color: var(--neutral-100);
+
+        .item {
           display: flex;
-          flex-direction: column;
-          justify-content: flex-end;
           align-items: center;
-          gap: 1rem;
+          width: 100%;
+          border-radius: var(--radius);
+          /* border: 2px solid var(--neutral-900); */
+          box-shadow: var(--shadow-button);
 
-          background-color: var(--neutral-100);
-
-          .item {
+          a {
             display: flex;
             align-items: center;
             width: 100%;
-            border-radius: var(--radius);
-            /* border: 2px solid var(--neutral-900); */
-            box-shadow: var(--shadow-button);
+            height: 100%;
+            padding: 1.5rem 1rem;
+          }
 
-            a {
-              display: flex;
-              align-items: center;
-              width: 100%;
-              height: 100%;
-              padding: 1.5rem 1rem;
+          span {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .icon {
+              width: 1.5rem;
+              height: 1.5rem;
+              margin-bottom: 0.1rem;
             }
+          }
 
-            span {
-              width: 100%;
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
+          &.github {
+            background-color: var(--github);
+            color: var(--neutral-100);
 
-              .icon {
-                width: 1.5rem;
-                height: 1.5rem;
-                margin-bottom: 0.1rem;
-              }
+            .icon {
+              stroke: var(--neutral-100);
             }
+          }
 
-            &.github {
-              background-color: var(--github);
-              color: var(--neutral-100);
+          &.website {
+            background-color: var(--neutral-100);
+            color: var(--neutral-900);
 
-              .icon {
-                stroke: var(--neutral-100);
-              }
-            }
-
-            &.website {
-              background-color: var(--neutral-100);
-              color: var(--neutral-900);
-
-              .icon {
-                stroke: var(--neutral-900);
-              }
+            .icon {
+              stroke: var(--neutral-900);
             }
           }
         }
@@ -201,10 +196,8 @@
   }
 
   .content {
-    border-top: 1px solid var(--neutral-900);
     padding-top: var(--gap);
     padding-inline: 1rem;
     text-align: left;
-    overflow: hidden;
   }
 }

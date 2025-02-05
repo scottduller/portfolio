@@ -1,7 +1,7 @@
 .navbar {
   height: var(--nav-height);
   width: calc(100% - var(--navbar-margin-inline) * 2);
-  max-width: 40rem;
+  max-width: 35rem;
   margin: var(--navbar-margin-block) auto;
   padding: var(--navbar-padding);
 
@@ -103,6 +103,7 @@
 
     .item {
       width: 100%;
+      max-width: calc(35rem - var(--navbar-padding) * 2);
       border-radius: var(--radius);
       display: flex;
       flex-direction: row;
@@ -112,16 +113,16 @@
       text-decoration: none !important;
       box-shadow: var(--shadow-button);
 
-      &.home {
+      &:nth-child(1) {
         background-color: var(--secondary-500);
       }
-      &.projects {
+      &:nth-child(2) {
         background-color: var(--primary-500);
       }
-      &.about {
+      &:nth-child(3) {
         background-color: var(--primary-300);
       }
-      &.contact {
+      &:nth-child(4) {
         background-color: var(--tertiary-500);
       }
 
