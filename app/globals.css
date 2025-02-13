@@ -53,7 +53,8 @@
   --gradient-secondary: linear-gradient(to bottom left, var(--secondary-500), var(--secondary-200));
   --gradient-tertiary: linear-gradient(to top right, var(--tertiary-500), var(--tertiary-200));
 
-  --fs-title: 4rem;
+  --fs-title: 5rem;
+  --fs-section: 4.5rem;
   --fs-2xl: 2.5rem;
   --fs-xl: 1.5rem;
   --fs-lg: 1rem;
@@ -162,7 +163,16 @@ main {
   margin: 0 auto;
   padding-inline: var(--wrapper-padding-inline);
   display: flex;
-  align-items: center !important;
   flex-direction: column;
   gap: var(--gap);
+
+  @media (min-width: 48rem) {
+    max-width: 48rem;
+  }
+}
+
+.vr {
+  width: 2px;
+  height: 100%;
+  background-color: var(--neutral-900);
 }

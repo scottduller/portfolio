@@ -5,26 +5,60 @@
 
   --wrapper-height: calc(100svh - var(--navbar-height));
 
+  --gap: 1rem;
+
   padding-top: var(--navbar-height);
 
   min-height: calc(750px + var(--navbar-height));
   height: var(--wrapper-height);
   width: 100%;
 
-  .content {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 100%;
+  grid-auto-rows: max-content;
+  gap: var(--gap);
+
+  .sectionNumber {
     width: 100%;
-    position: relative;
+    display: none !important;
+
+    h2 {
+      font-size: var(--fs-section) !important;
+      font-weight: 700;
+      margin: 0;
+      line-height: 1;
+    }
+  }
+
+  .title {
+    width: 100%;
 
     max-width: 30rem;
-    margin-top: 1rem;
+    margin-top: var(--gap);
 
     z-index: 1;
 
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    text-align: center;
+
+    h1 {
+      margin: 0 auto;
+    }
+  }
+
+  .text {
+    width: 100%;
+
+    max-width: 30rem;
+
+    z-index: 1;
 
     text-align: center;
+  }
+
+  .vr {
+    z-index: 2;
+    display: none;
   }
 
   .hero {
@@ -54,6 +88,97 @@
         object-fit: cover;
         object-position: 55% top;
       }
+    }
+  }
+
+  .hr {
+    display: none;
+  }
+
+  .contactLink {
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    box-shadow: var(--shadow);
+    padding: 1rem;
+    border-radius: var(--radius);
+    margin-block-end: var(--gap);
+    background: var(--neutral-100);
+
+    span {
+      &:first-child {
+        text-decoration: underline;
+        text-underline-offset: 0.25rem;
+      }
+
+      &:last-child {
+        font-weight: 700;
+      }
+    }
+  }
+
+  @media (min-width: 48rem) {
+    --gap: 2rem;
+
+    padding-block-start: calc(var(--navbar-height) + var(--gap));
+
+    grid-template-columns: 1fr min-content 2fr;
+    grid-template-rows: min-content min-content min-content 1fr min-content;
+
+    .sectionNumber {
+      display: flex !important;
+      grid-area: 1/1;
+      justify-content: flex-end !important;
+    }
+
+    .text {
+      grid-area: 2/1;
+      text-align: right;
+    }
+
+    .hr {
+      display: block;
+      grid-area: 3/1;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100%;
+      width: 100%;
+      background: var(--gradient-primary);
+      grid-area: 4 / 1 / span 2;
+
+      .image {
+        height: auto;
+        object-fit: contain;
+      }
+    }
+
+    .vr {
+      display: block;
+      grid-column: 2;
+      grid-row: 1 / span 5;
+    }
+
+    .title {
+      grid-column: 3;
+      grid-area: 4/3;
+      align-items: flex-end !important;
+      margin: 0;
+      margin-block-end: 1rem;
+
+      h1 {
+        font-size: var(--fs-title) !important;
+        text-align: left;
+        margin: 0;
+      }
+    }
+
+    .contactLink {
+      display: flex;
+      grid-column: 3;
+      grid-area: 5/3;
     }
   }
 }

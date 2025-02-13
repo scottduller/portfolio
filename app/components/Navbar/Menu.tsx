@@ -1,28 +1,9 @@
 import * as motion from 'motion/react-client';
 import MenuItem from './MenuItem';
 import styles from './styles.module.css';
+import { menuVariants } from './variants';
 
 const Menu = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
-  const menuVariants = {
-    closed: {
-      clipPath: 'circle(0% at 100% 0%)',
-      opacity: 0,
-      transition: {
-        duration: 0.5,
-      },
-    },
-    open: {
-      clipPath: 'circle(100% at 50% 50%)',
-      opacity: 1,
-      transition: {
-        duration: 0.5,
-        delayChildren: 0.4,
-        staggerChildren: 0.2,
-        staggerDirection: -1,
-      },
-    },
-  };
-
   return (
     <motion.div
       className={styles.menu}

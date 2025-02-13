@@ -1,4 +1,4 @@
-import Section from '@components/Section';
+import Section from '@/components/shared/Section';
 import About from './components/About';
 import Contact from './components/Contact';
 import Home from './components/Home';

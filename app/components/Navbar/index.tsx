@@ -1,36 +1,14 @@
-import { NAVBAR_DELAY, NAVBAR_DURATION } from '@/constants/constants';
 import Logo from '@assets/logo.svg';
 import * as motion from 'motion/react-client';
 import Hamburger from './Hamburger';
 import NavItem from './NavItem';
 import NavItems from './NavItems';
 import styles from './styles.module.css';
-
-const variants = {
-  initial: {
-    opacity: 0,
-    x: '-50%',
-    y: 'calc(-1 * var(--navbar-height))',
-    zIndex: 0,
-
-  },
-  animate: {
-    opacity: 1,
-    x: '-50%',
-    y: 0,
-    zIndex: 20,
-    transition: {
-      type: 'spring',
-      bounce: 0,
-      duration: `${NAVBAR_DURATION}`,
-      delay: NAVBAR_DELAY,
-    },
-  },
-};
+import { navbarVariants } from './variants';
 
 const Navbar = () => {
   return (
-    <motion.nav variants={variants} initial="initial" animate="animate" className={styles.navbar} viewport={{ once: true }}>
+    <motion.nav variants={navbarVariants} initial="initial" animate="animate" className={styles.navbar} viewport={{ once: true }}>
       <div className={styles.logoContainer}>
         <Logo className={styles.logo} />
       </div>

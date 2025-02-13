@@ -12,7 +12,8 @@ const NavItems = ({ children }: { children: React.ReactNode }) => {
     animate: {
       gridTemplateColumns: `${sectionSettings[0].percentVisable}fr ${sectionSettings[1].percentVisable}fr ${sectionSettings[2].percentVisable}fr ${sectionSettings[3].percentVisable}fr`,
       transition: {
-        duration: 0.25,
+        type: 'Tween',
+        duration: 0.5,
       },
     },
   };

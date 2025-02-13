@@ -15,7 +15,7 @@ const NavItem = ({ children, section }: Props) => {
   const { ref, active } = sectionSettings[section];
 
   return (
-    <motion.button className={`${styles.navItem} ${active ? styles.active : ''}`} whileTap={{ scale: 0.95 }} onClick={() => ref?.current?.scrollIntoView()}>
+    <motion.button className={`${styles.navItem} ${active ? styles.active : ''}`} whileTap={{ scale: 0.95 }} onClick={() => ref?.current?.scrollIntoView({ behavior: 'smooth' })}>
       {children}
 
     </motion.button>

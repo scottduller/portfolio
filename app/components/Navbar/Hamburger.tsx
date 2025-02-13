@@ -4,6 +4,15 @@ import { motion } from 'motion/react';
 import { useEffect, useState } from 'react';
 import Menu from './Menu';
 import styles from './styles.module.css';
+import {
+  bottomLeftVariants,
+  bottomRightVariants,
+  hamburgerVariants,
+  middleLeftVariants,
+  middleRightVariants,
+  topLeftVariants,
+  topRightVariants,
+} from './variants';
 
 const Hamburger = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,125 +21,11 @@ const Hamburger = () => {
     document.body.style.overflow = isOpen ? 'hidden' : 'auto';
   }, [isOpen]);
 
-  const hamburgerVariants = {
-    closed: {
-      backgroundColor: 'var(--tertiary-500)',
-      transition: {
-        type: 'spring',
-        duration: 0.1,
-      },
-    },
-    open: {
-      backgroundColor: 'var(--neutral-100)',
-      transition: {
-        type: 'spring',
-        duration: 0.1,
-      },
-    },
-  };
-
-  const topLeftVariants = {
-    closed: {
-      rotate: 0,
-      left: 0,
-      top: '32.5%',
-      y: '-50%',
-      backgroundColor: 'var(--neutral-100)',
-    },
-    open: {
-      rotate: 45,
-      left: '5%',
-      top: '42.5%',
-      backgroundColor: 'var(--neutral-900)',
-    },
-  };
-
-  const topRightVariants = {
-    closed: {
-      rotate: 0,
-      left: '50%',
-      top: '32.5%',
-      y: '-50%',
-      backgroundColor: 'var(--neutral-100)',
-    },
-    open: {
-      rotate: -45,
-      left: '45%',
-      top: '42.5%',
-      backgroundColor: 'var(--neutral-900)',
-    },
-  };
-
-  const middleLeftVariants = {
-    closed: {
-      left: 0,
-      top: '50%',
-      opacity: 1,
-      y: '-50%',
-      backgroundColor: 'var(--neutral-100)',
-    },
-    open: {
-      left: '-50%',
-      top: '50%',
-      opacity: 0,
-      backgroundColor: 'var(--neutral-900)',
-    },
-  };
-
-  const middleRightVariants = {
-    closed: {
-      left: '50%',
-      top: '50%',
-      opacity: 1,
-      y: '-50%',
-      backgroundColor: 'var(--neutral-100)',
-    },
-    open: {
-      left: '100%',
-      top: '50%',
-      opacity: 0,
-      backgroundColor: 'var(--neutral-900)',
-    },
-  };
-
-  const bottomLeftVariants = {
-    closed: {
-      rotate: 0,
-      left: 0,
-      top: '67.5%',
-      y: '-50%',
-      backgroundColor: 'var(--neutral-100)',
-    },
-    open: {
-      rotate: -45,
-      left: '5%',
-      top: '57.5%',
-      backgroundColor: 'var(--neutral-900)',
-    },
-  };
-
-  const bottomRightVariants = {
-    closed: {
-      rotate: 0,
-      left: '50%',
-      top: '67.5%',
-      y: '-50%',
-      backgroundColor: 'var(--neutral-100)',
-    },
-    open: {
-      rotate: 45,
-      left: '45%',
-      top: '57.5%',
-      backgroundColor: 'var(--neutral-900)',
-    },
-  };
-
   useEffect(() => {
-    // if (history.scrollRestoration && process.env.NODE_ENV === 'production') {
-    //   history.scrollRestoration = 'manual';
-    // }
-
-    history.scrollRestoration = 'manual';
+    // TODO: Remove this once we have a production build
+    if (history.scrollRestoration && process.env.NODE_ENV !== 'production') {
+      history.scrollRestoration = 'manual';
+    }
 
     window.addEventListener('popstate', (current) => {
       if (!current.state?.menuOpen) {
