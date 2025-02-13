@@ -1,61 +1,47 @@
 'use client';
 
+import { NAVITEM_WIDTH_THRESHOLD_MIN } from '@/constants/constants';
 import React, { createContext, useState } from 'react';
 
-export type InViewType = [
-  {
-    isInView: boolean;
-    scrollProgress: number;
-    ref?: React.RefObject<HTMLDivElement | null>;
-  },
-  {
-    isInView: boolean;
-    scrollProgress: number;
-    ref?: React.RefObject<HTMLDivElement | null>;
-  },
-  {
-    isInView: boolean;
-    scrollProgress: number;
-    ref?: React.RefObject<HTMLDivElement | null>;
-  },
-  {
-    isInView: boolean;
-    scrollProgress: number;
-    ref?: React.RefObject<HTMLDivElement | null>;
-  },
-];
+export type SectionSettingsList = Array<SectionSettings>;
 
-type InViewContextType = {
-  inView: InViewType;
-  setInView: React.Dispatch<React.SetStateAction<InViewType>>;
+export type SectionSettings = {
+  active: boolean;
+  percentVisable: number;
+  ref?: React.RefObject<HTMLDivElement | null>;
+};
+
+type SectionSettingsContextType = {
+  sectionSettings: SectionSettingsList;
+  setSectionSettings: React.Dispatch<React.SetStateAction<SectionSettingsList>>;
 };
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const InViewContext = createContext<InViewContextType>(
-  {} as InViewContextType
+export const SectionSettingsContext = createContext<SectionSettingsContextType>(
+  {} as SectionSettingsContextType
 );
 
-export const InViewProvider = ({ children }: { children: React.ReactNode }) => {
-  const [inView, setInView] = useState<InViewType>([
+export const SectionSettingsProvider = ({ children }: { children: React.ReactNode }) => {
+  const [sectionSettings, setSectionSettings] = useState<SectionSettingsList>([
     {
-      isInView: false,
-      scrollProgress: 0,
+      active: false,
+      percentVisable: NAVITEM_WIDTH_THRESHOLD_MIN,
     },
     {
-      isInView: false,
-      scrollProgress: 0,
+      active: false,
+      percentVisable: NAVITEM_WIDTH_THRESHOLD_MIN,
     },
     {
-      isInView: false,
-      scrollProgress: 0,
+      active: false,
+      percentVisable: NAVITEM_WIDTH_THRESHOLD_MIN,
     },
     {
-      isInView: false,
-      scrollProgress: 0,
+      active: false,
+      percentVisable: NAVITEM_WIDTH_THRESHOLD_MIN,
     },
   ]);
 
   return (
-    <InViewContext value={{ inView, setInView }}>{children}</InViewContext>
+    <SectionSettingsContext value={{ sectionSettings, setSectionSettings }}>{children}</SectionSettingsContext>
   );
 };

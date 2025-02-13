@@ -1,6 +1,12 @@
 @import './reset.css';
 
 :root {
+  --breakpoint-sm: 768px;
+  --breakpoint-md: 1024px;
+  --breakpoint-lg: 1440px;
+  --breakpoint-xl: 1920px;
+  --breakpoint-2xl: 2560px;
+
   --neutral-100: hsla(0, 0%, 98%, 1);
   --neutral-200: hsla(0, 0%, 88.2%, 1);
   --neutral-300: hsla(0, 0%, 78.4%, 1);
@@ -54,6 +60,9 @@
   --fs-md: 0.88rem;
   --fs-sm: 0.75rem;
 
+  --scroll-margin-top: 12px;
+  --section-gap: 4rem;
+
   --radius: 1rem;
   --gap: 2.5rem;
   --shadow: 0 0.25rem 1rem hsla(0, 0%, 9.8%, 0.2);
@@ -71,7 +80,8 @@
 
 h1,
 h2 {
-  font-family: var(--font-noto-sans);
+  font-family: var(--font-inter);
+  letter-spacing: -0.05em;
 }
 
 h1 {
@@ -102,21 +112,24 @@ hr {
 main {
   display: flex;
   flex-direction: column;
-  gap: 4rem;
 }
 
 .section {
   width: 100%;
-  scroll-margin-top: var(--navbar-height);
+  scroll-margin-top: var(--scroll-margin-top);
+  padding-bottom: var(--section-gap);
+}
 
-  &.about {
-    padding-block: 4rem 5rem;
-    background-color: var(--secondary-200);
-    border-radius: calc(var(--radius) * 2);
-    margin-inline: auto;
-    margin-block: 2rem;
-    box-shadow: var(--shadow);
-  }
+.section.about {
+  background-color: var(--secondary-200);
+  box-shadow: var(--shadow);
+  scroll-margin-top: calc(var(--scroll-margin-top) - var(--section-gap));
+  padding-bottom: 0;
+}
+
+.section.contact {
+  padding-top: var(--section-gap);
+  scroll-margin-top: calc(var(--scroll-margin-top) - var(--section-gap));
 }
 
 .header {

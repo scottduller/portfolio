@@ -1,19 +1,13 @@
 .wrapper {
   composes: wrapper from global;
 
-  hr {
-    width: calc(100% - 2rem);
-    margin-inline: 1rem;
-  }
+  padding-block: var(--section-gap);
 
   strong {
-    padding-block: 1rem 0.5rem;
-    padding-inline: 0.5rem;
     font-size: var(--fs-xl);
   }
 
   p {
-    padding-inline: 1rem;
     color: var(--neutral-900);
     font-weight: 400;
   }

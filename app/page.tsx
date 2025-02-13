@@ -7,16 +7,16 @@ import Projects from './components/Projects';
 const page = () => {
   return (
     <main>
-      <Section id="home" section={0}>
+      <Section className="home" section={0}>
         <Home />
       </Section>
-      <Section id="projects" section={1}>
+      <Section className="projects" section={1}>
         <Projects />
       </Section>
-      <Section id="about" section={2}>
+      <Section className="about" section={2}>
         <About />
       </Section>
-      <Section id="contact" section={3}>
+      <Section className="contact" section={3}>
         <Contact />
       </Section>
     </main>

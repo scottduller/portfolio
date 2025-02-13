@@ -1,3 +1,5 @@
+export const NUMBER_OF_SECTIONS = 4;
+
 // Home
 
 export const HERO_DURATION = 0.5;
@@ -14,3 +16,7 @@ export const HERO_TEXT_DELAY = NAVBAR_DELAY + NAVBAR_DURATION / 2;
 export const HERO_TEXT_STAGGER = 0.5;
 
 export const STAGGER_CHILDREN = 0.3;
+
+export const NAVITEM_WIDTH_THRESHOLD_MIN = 18;
+export const NAVITEM_WIDTH_THRESHOLD_MAX
+  = 100 - NAVITEM_WIDTH_THRESHOLD_MIN * (NUMBER_OF_SECTIONS - 1);

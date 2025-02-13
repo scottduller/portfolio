@@ -1,4 +1,4 @@
-import { HERO_DELAY, HERO_DURATION, HERO_IMAGE_DELAY, HERO_IMAGE_DURATION, HERO_TEXT_DELAY, HERO_TEXT_DURATION, HERO_TEXT_STAGGER } from '@/constants/animation';
+import { HERO_DELAY, HERO_DURATION, HERO_IMAGE_DELAY, HERO_IMAGE_DURATION, HERO_TEXT_DELAY, HERO_TEXT_DURATION, HERO_TEXT_STAGGER } from '@/constants/constants';
 
 import * as motion from 'motion/react-client';
 import Image from 'next/image';
@@ -86,7 +86,6 @@ const Home = () => {
 
         <motion.div variants={heroImageVariants} className={styles.image}>
           <Image
-            className={styles.image}
             src="/me.png"
             alt="Scott Duller"
             width={1152}

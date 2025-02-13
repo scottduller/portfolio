@@ -1,4 +1,4 @@
-import { STAGGER_CHILDREN } from '@/constants/animation';
+import { STAGGER_CHILDREN } from '@/constants/constants';
 
 const wrapperVariants = {
   visible: {

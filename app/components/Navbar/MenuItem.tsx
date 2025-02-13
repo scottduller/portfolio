@@ -1,13 +1,13 @@
-import { InViewContext } from '@/context';
+import { SectionSettingsContext } from '@/context';
 import * as motion from 'motion/react-client';
 import { useContext } from 'react';
 import styles from './styles.module.css';
 
 const MenuItem = ({ section, setIsOpen, title }: { section: number; setIsOpen: React.Dispatch<React.SetStateAction<boolean>>; title: string }) => {
-  const { inView } = useContext(InViewContext);
+  const { sectionSettings } = useContext(SectionSettingsContext);
 
   const handleMenuItemClick = (section: number) => {
-    const sectionRef = inView[section].ref;
+    const sectionRef = sectionSettings[section].ref;
     sectionRef?.current?.scrollIntoView({ behavior: 'smooth' });
     setIsOpen(false);
     window.history.back();
@@ -17,17 +17,17 @@ const MenuItem = ({ section, setIsOpen, title }: { section: number; setIsOpen: R
     closed: (index: number) => ({
       opacity: 0,
       x: 100,
-      flexGrow: inView[index].scrollProgress,
+      flexGrow: sectionSettings[index].active ? 1 : 0.2,
       transition: {
-        duration: 0,
+        duration: 0.25,
       },
     }),
     open: (index: number) => ({
       opacity: 1,
       x: 0,
-      flexGrow: inView[index].scrollProgress,
+      flexGrow: sectionSettings[index].active ? 1 : 0.2,
       transition: {
-        duration: 0.5,
+        duration: 0.25,
       },
     }),
   };
@@ -38,8 +38,8 @@ const MenuItem = ({ section, setIsOpen, title }: { section: number; setIsOpen: R
       onClick={() => handleMenuItemClick(section)}
       className={styles.item}
       variants={menuItemVariants}
-      whileHover={{ scale: 1.025 }}
-      whileTap={{ scale: 0.975 }}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
       custom={section}
     >
       <motion.div className={styles.title}>{title}</motion.div>

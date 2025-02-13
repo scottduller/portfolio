@@ -1,9 +1,12 @@
 .navbar {
+  --nav-item-height: 64px;
+
   height: var(--nav-height);
   width: calc(100% - var(--navbar-margin-inline) * 2);
-  max-width: 35rem;
   margin: var(--navbar-margin-block) auto;
   padding: var(--navbar-padding);
+
+  max-width: var(--breakpoint-xl);
 
   position: fixed;
   top: 0;
@@ -15,49 +18,122 @@
   box-shadow: var(--shadow);
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  align-items: center;
   gap: 0.75rem;
 
-  .navItem {
+  .logoContainer {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    text-decoration: none !important;
-    border-radius: var(--radius);
-    background-color: var(--secondary-500);
-    box-shadow: var(--shadow-button);
-    padding-inline: 1rem;
-    flex-grow: 1;
+    justify-content: center;
+    padding-block: 0.5rem;
+    margin-inline-start: 0.25rem;
+    height: 4rem;
+    min-width: 3rem;
 
-    .content {
-      display: flex;
-      gap: 1rem;
+    .logo {
+      height: 100%;
+      aspect-ratio: 1;
+      fill: var(--neutral-100);
+    }
+  }
+
+  .navItems {
+    display: grid;
+    grid-template-columns: 0.1fr 0.2fr 0.2fr 0.5fr;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .navItem {
+    &:nth-child(1) {
+      background-color: var(--secondary-500);
       align-items: center;
-      justify-content: flex-start;
-      line-height: 0;
-
-      .logo {
-        width: 2rem;
-        height: 2rem;
-        fill: var(--neutral-100);
+      justify-content: center;
+      .sectionTitle {
+        transform: translateY(0);
       }
+      grid-column: 1 / span 4;
+    }
+    &:nth-child(2) {
+      background-color: var(--secondary-500);
+      display: none;
+    }
+    &:nth-child(3) {
+      background-color: var(--primary-500);
+      display: none;
+    }
+    &:nth-child(4) {
+      background-color: var(--primary-300);
+      display: none;
+    }
+    &:nth-child(5) {
+      background-color: var(--tertiary-500);
+      display: none;
+    }
+
+    height: var(--nav-item-height);
+    padding: 0.75rem 1rem;
+    overflow: hidden;
+
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-button);
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+
+    text-decoration: none !important;
+    text-align: left;
+
+    .sectionTitle {
+      white-space: nowrap;
+      overflow: hidden;
+
+      transform: translateY(50%);
+
+      text-overflow: ellipsis;
+
+      .sectionTitleExtended {
+        display: none;
+      }
+
+      transition: transform 0.3s ease-in-out;
     }
 
     .number {
-      font-weight: bold;
+      display: none;
+      margin-left: auto;
+
+      transform: translateY(-50%);
+
+      transition: transform 0.3s ease-in-out;
+    }
+
+    &.active {
+      .sectionTitle {
+        transform: translateY(0);
+      }
+
+      .number {
+        transform: translateY(0);
+        font-weight: 700;
+      }
     }
   }
 
   .hamburger {
     z-index: 20;
-    height: 100%;
-    aspect-ratio: 1 / 1;
+    height: var(--nav-item-height);
+    width: var(--nav-item-height);
     border-radius: var(--radius);
     border: none;
     position: relative;
     padding: 0;
     overflow: hidden;
     box-shadow: var(--shadow-button);
+
+    flex: 0 0 var(--nav-item-height);
 
     cursor: pointer;
     backface-visibility: hidden;
@@ -96,14 +172,13 @@
     background-color: var(--neutral-100);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: end;
+    align-items: flex-end;
+    justify-content: flex-end;
     gap: 1rem;
     padding: var(--navbar-height) 2.25rem 3.5rem 2.25rem;
 
     .item {
       width: 100%;
-      max-width: calc(35rem - var(--navbar-padding) * 2);
       border-radius: var(--radius);
       display: flex;
       flex-direction: row;
@@ -137,6 +212,36 @@
       .number {
         font-weight: bold;
       }
+    }
+  }
+
+  @media screen and (width >= 600px) {
+    .navItem {
+      .sectionTitle {
+        .sectionTitleExtended {
+          display: inline-block;
+        }
+      }
+    }
+  }
+
+  @media screen and (width >= 1024px) {
+    .navItem {
+      &:nth-child(1) {
+        display: none;
+      }
+
+      &:nth-child(n + 2) {
+        display: flex;
+      }
+
+      .number {
+        display: inline-block;
+      }
+    }
+
+    .hamburger {
+      display: none;
     }
   }
 }

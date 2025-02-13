@@ -47,8 +47,8 @@ const Carousel = ({ projects }: CarouselProps) => {
           setProjectIndex={setProjectIndex}
         />
       </motion.div>
+      <motion.hr variants={contentVariants} />
       <motion.div variants={contentVariants} className={styles.carouselSectionWrapper}>
-        <hr />
         <CarouselContent
           projects={projects}
           projectIndex={projectIndex}

@@ -13,22 +13,18 @@ const CarouselContent = ({ projects, projectIndex }: CarouselItemProps) => {
   };
 
   return (
-    <motion.div
-      className={styles.content}
-    >
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.p
-          key={`${name}-description`}
-          className={styles.description}
-          variants={descriptionVariants}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-        >
-          {description}
-        </motion.p>
-      </AnimatePresence>
-    </motion.div>
+    <AnimatePresence mode="wait" initial={false}>
+      <motion.p
+        key={`${name}-description`}
+        className={styles.description}
+        variants={descriptionVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+      >
+        {description}
+      </motion.p>
+    </AnimatePresence>
   );
 };
 

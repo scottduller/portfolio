@@ -1,7 +1,7 @@
 'use client';
 
 import type { MotionProps } from 'motion/react';
-import { InViewContext } from '@/context';
+import { SectionSettingsContext } from '@/context';
 import * as motion from 'motion/react-client';
 import React, { useContext } from 'react';
 
@@ -12,13 +12,13 @@ type Props = {
 } & MotionProps;
 
 const ScrollButton = ({ children, className, section }: Props) => {
-  const { inView } = useContext(InViewContext);
-  const { ref } = inView[section];
+  const { sectionSettings } = useContext(SectionSettingsContext);
+  const { ref } = sectionSettings[section];
   return (
     <motion.button
       type="button"
-      whileHover={{ scale: 1.0125 }}
-      whileTap={{ scale: 0.9875 }}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
       className={className}
       onClick={() => ref?.current?.scrollIntoView({ behavior: 'smooth' })}
     >

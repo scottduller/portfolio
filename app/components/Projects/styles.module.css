@@ -3,10 +3,14 @@
 
   overflow-x: clip;
 
-  hr {
+  & > * {
+    width: 100%;
+  }
+
+  /* hr {
     width: calc(100% - 2rem);
     margin-inline: 1rem;
-  }
+  } */
 
   .carouselSectionWrapper {
     width: 100%;
@@ -196,8 +200,6 @@
   }
 
   .content {
-    padding-top: var(--gap);
     padding-inline: 1rem;
-    text-align: left;
   }
 }

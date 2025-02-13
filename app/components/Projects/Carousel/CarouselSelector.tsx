@@ -11,7 +11,7 @@ const CarouselSelector = ({
   const wrappedProjectIndex = wrap(0, projects.length, projectIndex);
 
   return (
-    <div className={styles.carouselSelector}>
+    <motion.div className={styles.carouselSelector}>
       <motion.button whileTap={{ scale: 0.9 }} whileHover={{ scale: 1.1 }} type="button" onClick={() => paginate(-1)} className={styles.chevron}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -63,7 +63,7 @@ const CarouselSelector = ({
           />
         </svg>
       </motion.button>
-    </div>
+    </motion.div>
   );
 };
 

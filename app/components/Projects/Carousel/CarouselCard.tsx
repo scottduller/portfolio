@@ -131,74 +131,107 @@ const CarouselCard = ({ projects, projectIndex, direction, paginate }: CarouselI
   };
 
   return (
-    <AnimatePresence initial={false} mode="wait" custom={direction}>
-      <motion.div
-        key={`${name}-card`}
-        className={styles.carouselCard}
-        variants={cardVariants}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        custom={direction}
-        transition={{
-          x: { type: 'spring', duration: 0.4, bounce: 0 },
-          opacity: { duration: 0.2 },
-        }}
-        drag="x"
-        dragConstraints={{ left: 0, right: 0 }}
-        dragElastic={1}
-        dragMomentum={false}
-        onDragEnd={onDragEnd}
-      >
-        <div className={styles.projectCardLeft}>
-          <p>{name}</p>
-        </div>
-        <div className={styles.projectCardRight}>
-          { (github || website) && (
-            <>
-              <motion.button
-                ref={buttonRef}
-                type="button"
-                whileTap={{ scale: 0.9 }}
-                whileHover={{ scale: 1.1 }}
-                className={`${styles.iconButton} ${isOpen ? styles.open : ''}`}
-                onClick={() => setIsOpen((prevState) => !prevState)}
-              >
-                <AnimatePresence initial={false}>
-                  {isOpen
-                    ? (
-                        <motion.div
-                          className={styles.iconWrapper}
-                          variants={buttonVariants}
-                          initial="initial"
-                          animate="animate"
-                          exit="exit"
-                          key="open"
-                          transition={{ type: 'spring', bounce: 0, duration: 0.3 }}
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className={styles.icon}
+    <div className={styles.carouselSectionWrapper}>
+
+      <AnimatePresence initial={false} mode="wait" custom={direction}>
+        <motion.div
+          key={`${name}-card`}
+          className={styles.carouselCard}
+          variants={cardVariants}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          custom={direction}
+          transition={{
+            x: { type: 'spring', duration: 0.4, bounce: 0 },
+            opacity: { duration: 0.2 },
+          }}
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={1}
+          dragMomentum={false}
+          onDragEnd={onDragEnd}
+        >
+          <div className={styles.projectCardLeft}>
+            <p>{name}</p>
+          </div>
+          <div className={styles.projectCardRight}>
+            { (github || website) && (
+              <>
+                <motion.button
+                  ref={buttonRef}
+                  type="button"
+                  whileTap={{ scale: 0.9 }}
+                  whileHover={{ scale: 1.1 }}
+                  className={`${styles.iconButton} ${isOpen ? styles.open : ''}`}
+                  onClick={() => setIsOpen((prevState) => !prevState)}
+                >
+                  <AnimatePresence initial={false}>
+                    {isOpen
+                      ? (
+                          <motion.div
+                            className={styles.iconWrapper}
+                            variants={buttonVariants}
+                            initial="initial"
+                            animate="animate"
+                            exit="exit"
+                            key="open"
+                            transition={{ type: 'spring', bounce: 0, duration: 0.3 }}
                           >
-                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                          </svg>
-                        </motion.div>
-                      )
-                    : (
-                        <motion.div
-                          className={styles.iconWrapper}
-                          variants={buttonVariants}
-                          initial="initial"
-                          animate="animate"
-                          exit="exit"
-                          key="closed"
-                          transition={{ type: 'spring', bounce: 0, duration: 0.3 }}
-                        >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth={1.5}
+                              stroke="currentColor"
+                              className={styles.icon}
+                            >
+                              <line x1="18" y1="6" x2="6" y2="18"></line>
+                              <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                          </motion.div>
+                        )
+                      : (
+                          <motion.div
+                            className={styles.iconWrapper}
+                            variants={buttonVariants}
+                            initial="initial"
+                            animate="animate"
+                            exit="exit"
+                            key="closed"
+                            transition={{ type: 'spring', bounce: 0, duration: 0.3 }}
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth={1.5}
+                              stroke="currentColor"
+                              className={styles.icon}
+                            >
+                              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                              <polyline points="15 3 21 3 21 9"></polyline>
+                              <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
+                          </motion.div>
+                        )}
+                  </AnimatePresence>
+                </motion.button>
+                <motion.div className={styles.linkMenu} ref={menuRef} variants={menuVariants} initial="closed" animate={isOpen ? 'open' : 'closed'}>
+                  {github && (
+                    <motion.div
+                      variants={menuItemVariants}
+                      className={`${styles.item} ${styles.github}`}
+                      whileTap={{ scale: 0.975 }}
+                      whileHover={{ scale: 1.025 }}
+                    >
+                      <Link
+                        href={github}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        <motion.span>
+                          Github
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -211,78 +244,48 @@ const CarouselCard = ({ projects, projectIndex, direction, paginate }: CarouselI
                             <polyline points="15 3 21 3 21 9"></polyline>
                             <line x1="10" y1="14" x2="21" y2="3"></line>
                           </svg>
-                        </motion.div>
-                      )}
-                </AnimatePresence>
-              </motion.button>
-              <motion.div className={styles.linkMenu} ref={menuRef} variants={menuVariants} initial="closed" animate={isOpen ? 'open' : 'closed'}>
-                {github && (
-                  <motion.div
-                    variants={menuItemVariants}
-                    className={`${styles.item} ${styles.github}`}
-                    whileTap={{ scale: 0.975 }}
-                    whileHover={{ scale: 1.025 }}
-                  >
-                    <Link
-                      href={github}
-                      rel="noopener noreferrer"
-                      target="_blank"
+                        </motion.span>
+                      </Link>
+                    </motion.div>
+                  )}
+                  {website && (
+                    <motion.div
+                      variants={menuItemVariants}
+                      className={`${styles.item} ${styles.website}`}
+                      whileTap={{ scale: 0.975 }}
+                      whileHover={{ scale: 1.025 }}
                     >
-                      <motion.span>
-                        Github
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className={styles.icon}
-                        >
-                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                          <polyline points="15 3 21 3 21 9"></polyline>
-                          <line x1="10" y1="14" x2="21" y2="3"></line>
-                        </svg>
-                      </motion.span>
-                    </Link>
-                  </motion.div>
-                )}
-                {website && (
-                  <motion.div
-                    variants={menuItemVariants}
-                    className={`${styles.item} ${styles.website}`}
-                    whileTap={{ scale: 0.975 }}
-                    whileHover={{ scale: 1.025 }}
-                  >
-                    <Link
-                      href={website}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      <motion.span>
-                        Website
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className={styles.icon}
-                        >
-                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                          <polyline points="15 3 21 3 21 9"></polyline>
-                          <line x1="10" y1="14" x2="21" y2="3"></line>
-                        </svg>
-                      </motion.span>
-                    </Link>
-                  </motion.div>
-                )}
-              </motion.div>
-            </>
-          )}
-          <p className={styles.number}>{wrappedProjectIndex.toString().padStart(2, '0')}</p>
-        </div>
-      </motion.div>
-    </AnimatePresence>
+                      <Link
+                        href={website}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        <motion.span>
+                          Website
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className={styles.icon}
+                          >
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                          </svg>
+                        </motion.span>
+                      </Link>
+                    </motion.div>
+                  )}
+                </motion.div>
+              </>
+            )}
+            <p className={styles.number}>{wrappedProjectIndex.toString().padStart(2, '0')}</p>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+    </div>
   );
 };
 
