@@ -1,5 +1,6 @@
 import type { PanInfo, Variants } from 'framer-motion';
 import type { CarouselItemProps } from '.';
+import { CloseIcon, ExternalLinkIcon } from '@/components/shared/Icons';
 import { AnimatePresence, motion, wrap } from 'framer-motion';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
@@ -178,17 +179,7 @@ const CarouselCard = ({ projects, projectIndex, direction, paginate }: CarouselI
                             key="open"
                             transition={{ type: 'spring', bounce: 0, duration: 0.3 }}
                           >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              strokeWidth={1.5}
-                              stroke="currentColor"
-                              className={styles.icon}
-                            >
-                              <line x1="18" y1="6" x2="6" y2="18"></line>
-                              <line x1="6" y1="6" x2="18" y2="18"></line>
-                            </svg>
+                            <CloseIcon className={styles.icon} />
                           </motion.div>
                         )
                       : (
@@ -201,18 +192,7 @@ const CarouselCard = ({ projects, projectIndex, direction, paginate }: CarouselI
                             key="closed"
                             transition={{ type: 'spring', bounce: 0, duration: 0.3 }}
                           >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              strokeWidth={1.5}
-                              stroke="currentColor"
-                              className={styles.icon}
-                            >
-                              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                              <polyline points="15 3 21 3 21 9"></polyline>
-                              <line x1="10" y1="14" x2="21" y2="3"></line>
-                            </svg>
+                            <ExternalLinkIcon className={styles.icon} />
                           </motion.div>
                         )}
                   </AnimatePresence>
@@ -232,18 +212,7 @@ const CarouselCard = ({ projects, projectIndex, direction, paginate }: CarouselI
                       >
                         <motion.span>
                           Github
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className={styles.icon}
-                          >
-                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                            <polyline points="15 3 21 3 21 9"></polyline>
-                            <line x1="10" y1="14" x2="21" y2="3"></line>
-                          </svg>
+                          <ExternalLinkIcon className={styles.icon} />
                         </motion.span>
                       </Link>
                     </motion.div>
@@ -262,18 +231,7 @@ const CarouselCard = ({ projects, projectIndex, direction, paginate }: CarouselI
                       >
                         <motion.span>
                           Website
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className={styles.icon}
-                          >
-                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                            <polyline points="15 3 21 3 21 9"></polyline>
-                            <line x1="10" y1="14" x2="21" y2="3"></line>
-                          </svg>
+                          <ExternalLinkIcon className={styles.icon} />
                         </motion.span>
                       </Link>
                     </motion.div>

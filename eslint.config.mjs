@@ -48,6 +48,7 @@ export default antfu(
       'test/prefer-lowercase-title': 'off', // Allow using uppercase titles in test titles
       'style/arrow-parens': 'off',
       'style/comma-dangle': 'off',
+      'no-warning-comments': 'error'
     },
   }
 );

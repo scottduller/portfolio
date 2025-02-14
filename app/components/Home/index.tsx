@@ -1,8 +1,10 @@
 import * as motion from 'motion/react-client';
 import Image from 'next/image';
+import { ExternalLinkIcon } from '../shared/Icons';
 import ScrollButton from '../shared/ScrollButton';
 import TextResizer from '../shared/TextResizer';
 import Vr from '../shared/Vr';
+import ScrollDownButton from './ScrollDownButton';
 import styles from './styles.module.css';
 import { heroImageVariants, heroVariants, textVariants, wrapperVariants } from './variants';
 
@@ -10,16 +12,6 @@ const Wrapper = ({ children }: { children: React.ReactNode }) => {
   return (
     <motion.div variants={wrapperVariants} initial="initial" animate="animate" className={styles.wrapper}>
       {children}
-    </motion.div>
-  );
-};
-
-const SectionNumber = () => {
-  return (
-    <motion.div variants={textVariants} className={styles.sectionNumber}>
-      <TextResizer as="h2" mode="oneline">
-        00
-      </TextResizer>
     </motion.div>
   );
 };
@@ -36,12 +28,50 @@ const Title = () => {
   );
 };
 
+const SectionNumber = () => {
+  return (
+    <motion.div variants={textVariants} className={styles.sectionNumber}>
+      <TextResizer as="h2" mode="oneline">
+        00
+      </TextResizer>
+    </motion.div>
+  );
+};
+
 const Text = () => {
   return (
     <motion.p variants={textVariants} className={styles.text}>
       Crafting seamless web experiences with dynamic designs and robust
       solutions, I build user-focused applications that bring ideas to life.
     </motion.p>
+  );
+};
+
+const SectionText = () => {
+  return (
+    <div className={styles.sectionText}>
+      <SectionNumber />
+      <Text />
+    </div>
+  );
+};
+
+const SocialLink = ({ href, title }: { href: string; title: string }) => {
+  return (
+    <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href={href} className={styles.socialLink} target="_blank" rel="noopener noreferrer">
+      {title}
+      <ExternalLinkIcon className={styles.icon} />
+    </motion.a>
+  );
+};
+
+const SocialLinks = () => {
+  return (
+    <div className={styles.socialLinks}>
+      <SocialLink href="mailto:s.o.duller@gmail.com" title="Email" />
+      <SocialLink href="https://github.com/scottduller" title="GitHub" />
+      <SocialLink href="https://www.linkedin.com/in/scottduller/" title="LinkedIn" />
+    </div>
   );
 };
 
@@ -70,16 +100,26 @@ const ContactLink = () => {
   );
 };
 
+const Buttons = () => {
+  return (
+    <div className={styles.buttons}>
+      <ContactLink />
+      <ScrollDownButton />
+    </div>
+  );
+};
+
 const Home = () => {
   return (
     <Wrapper>
-      <SectionNumber />
+      <SocialLinks />
       <Title />
-      <Text />
-      <Hero />
+      <Buttons />
+      <SectionText />
       <hr className={styles.hr} />
-      <Vr className={styles.vr} />
-      <ContactLink />
+      <Hero />
+      <Vr className={`${styles.vr} ${styles.left}`} />
+      <Vr className={`${styles.vr} ${styles.right}`} />
     </Wrapper>
   );
 };

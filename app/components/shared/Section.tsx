@@ -29,7 +29,7 @@ const Section = ({ children, section, className }: Props) => {
   const { setSectionSettings } = useContext(SectionSettingsContext);
 
   const [active, setActive] = useState(false);
-  const [activeDebounced] = useDebounce(active, 200);
+  const [activeDebounced] = useDebounce(active, 350);
 
   useEffect(() => {
     setSectionSettings((prevState) => {

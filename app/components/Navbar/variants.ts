@@ -137,6 +137,7 @@ const menuVariants = {
   },
 };
 
+// Navbar variants (NavItems variants are in NavItems.tsx)
 const navbarVariants = {
   initial: {
     opacity: 0,
@@ -157,8 +158,6 @@ const navbarVariants = {
     },
   },
 };
-
-// Navbar variants (NavItems variants are in NavItems.tsx)
 
 export {
   bottomLeftVariants,

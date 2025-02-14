@@ -42,6 +42,7 @@
     grid-template-columns: 0.1fr 0.2fr 0.2fr 0.5fr;
     gap: 0.5rem;
     width: 100%;
+    height: 100%;
   }
 
   .navItem {
@@ -71,7 +72,7 @@
       display: none;
     }
 
-    height: var(--nav-item-height);
+    height: 100%;
     padding: 0.75rem 1rem;
     overflow: hidden;
 
@@ -215,7 +216,7 @@
     }
   }
 
-  @media screen and (width >= 600px) {
+  @media screen and (min-width: 37.5rem) {
     .navItem {
       .sectionTitle {
         .sectionTitleExtended {
@@ -225,7 +226,9 @@
     }
   }
 
-  @media screen and (width >= 1024px) {
+  @media screen and (min-width: 64rem) {
+    max-width: 64rem;
+
     .navItem {
       &:nth-child(1) {
         display: none;
@@ -243,5 +246,13 @@
     .hamburger {
       display: none;
     }
+  }
+
+  @media screen and (min-width: 90rem) {
+    max-width: 90rem;
+  }
+
+  @media screen and (min-width: 120rem) {
+    max-width: 120rem;
   }
 }

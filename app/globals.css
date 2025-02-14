@@ -53,16 +53,22 @@
   --gradient-secondary: linear-gradient(to bottom left, var(--secondary-500), var(--secondary-200));
   --gradient-tertiary: linear-gradient(to top right, var(--tertiary-500), var(--tertiary-200));
 
-  --fs-title: 5rem;
-  --fs-section: 4.5rem;
+  /* --fs-title: clamp(5rem, 4.166666666666667rem + 1.3020833333333333vw, 6.25rem);
+  --fs-section: 4rem;
   --fs-2xl: 2.5rem;
   --fs-xl: 1.5rem;
-  --fs-lg: 1rem;
+  --fs-lg: clamp(1rem, 0.8333333333333334rem + 0.26041666666666663vw, 1.25rem);
   --fs-md: 0.88rem;
-  --fs-sm: 0.75rem;
+  --fs-sm: 0.75rem; */
+
+  --fs-sm: clamp(0.8333rem, 0.6991rem + 0.1491vw, 0.9377rem);
+  --fs-md: clamp(1rem, 0.6786rem + 0.3571vw, 1.25rem);
+  --fs-lg: clamp(2.4883rem, 0.783rem + 1.8948vw, 3.8147rem);
+  --fs-section: 4.5rem;
+  --fs-title: 5.5rem;
 
   --scroll-margin-top: 12px;
-  --section-gap: 4rem;
+  --section-gap: 2rem;
 
   --radius: 1rem;
   --gap: 2.5rem;
@@ -71,12 +77,75 @@
 
   --wrapper-padding-inline: 2.5rem;
 
-  --nav-height: 5.5rem;
+  /* --nav-height: 5.5rem; */
+  --nav-height: clamp(5.5rem, 4.833333333333333rem + 1.0416666666666665vw, 6.5rem);
+
   --navbar-padding: 0.75rem;
   --navbar-margin-block: 1rem;
   --navbar-margin-inline: 1.5rem;
 
   --navbar-height: calc(var(--nav-height) + var(--navbar-margin-block) * 2);
+}
+
+@media screen and (min-width: 48rem) {
+  :root {
+    --fs-section: 4rem;
+    --fs-title: 5rem;
+  }
+}
+
+@media screen and (min-width: 64rem) {
+  :root {
+    --fs-section: 4rem;
+    --fs-title: 5rem;
+    --navbar-margin-block: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 90rem) {
+  :root {
+    --fs-section: 4.5rem;
+    --fs-title: 5.5rem;
+  }
+}
+
+@media screen and (min-width: 120rem) {
+  :root {
+    --fs-section: 5rem;
+    --fs-title: 6rem;
+  }
+}
+
+.wrapper {
+  position: relative;
+
+  width: 100%;
+  max-width: 30rem;
+  margin: 0 auto;
+  padding-inline: var(--wrapper-padding-inline);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+
+  @media screen and (min-width: 48rem) {
+    max-width: 48rem;
+  }
+
+  @media screen and (min-width: 64rem) {
+    max-width: 64rem;
+  }
+
+  @media screen and (min-width: 90rem) {
+    max-width: 90rem;
+  }
+
+  @media screen and (min-width: 120rem) {
+    max-width: 120rem;
+  }
+}
+
+body {
+  font-size: var(--fs-md);
 }
 
 h1,
@@ -113,6 +182,10 @@ hr {
 main {
   display: flex;
   flex-direction: column;
+}
+
+svg {
+  stroke: var(--neutral-900);
 }
 
 .section {
@@ -152,22 +225,6 @@ main {
     align-self: flex-start;
     border-block: 2px solid var(--neutral-900);
     text-align: left;
-  }
-}
-
-.wrapper {
-  position: relative;
-
-  width: 100%;
-  max-width: 30rem;
-  margin: 0 auto;
-  padding-inline: var(--wrapper-padding-inline);
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap);
-
-  @media (min-width: 48rem) {
-    max-width: 48rem;
   }
 }
 

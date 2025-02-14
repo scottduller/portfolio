@@ -67,4 +67,34 @@ const heroImageVariants = {
   },
 };
 
-export { heroImageVariants, heroVariants, textVariants, wrapperVariants };
+const scrollDownIconVariants = {
+  initial: {
+    y: '0',
+  },
+  animate: {
+    y: ['10%', '-10%'],
+    transition: {
+      duration: 0.5,
+      repeat: Infinity,
+      repeatType: 'mirror',
+      type: 'spring',
+    },
+  },
+  hover: {
+    y: ['-100%', '100%'],
+    transition: {
+      duration: 0.5,
+      repeat: Infinity,
+      repeatType: 'loop',
+      ease: 'linear',
+    },
+  },
+};
+
+export {
+  heroImageVariants,
+  heroVariants,
+  scrollDownIconVariants,
+  textVariants,
+  wrapperVariants,
+};

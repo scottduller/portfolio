@@ -1,4 +1,5 @@
 import type { CarouselItemProps } from '.';
+import { ChevroLeftIcon, ChevroRightIcon } from '@/components/shared/Icons';
 import { motion, wrap } from 'framer-motion';
 import styles from '../styles.module.css';
 
@@ -13,20 +14,7 @@ const CarouselSelector = ({
   return (
     <motion.div className={styles.carouselSelector}>
       <motion.button whileTap={{ scale: 0.9 }} whileHover={{ scale: 1.1 }} type="button" onClick={() => paginate(-1)} className={styles.chevron}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M15.75 19.5L8.25 12l7.5-7.5"
-          />
-        </svg>
+        <ChevroLeftIcon />
       </motion.button>
 
       <div className={styles.dots}>
@@ -49,19 +37,7 @@ const CarouselSelector = ({
       </div>
 
       <motion.button whileTap={{ scale: 0.9 }} whileHover={{ scale: 1.1 }} type="button" onClick={() => paginate(1)} className={styles.chevron}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M8.25 4.5l7.5 7.5-7.5 7.5"
-          />
-        </svg>
+        <ChevroRightIcon />
       </motion.button>
     </motion.div>
   );

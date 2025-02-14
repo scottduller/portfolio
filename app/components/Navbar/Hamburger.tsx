@@ -22,8 +22,7 @@ const Hamburger = () => {
   }, [isOpen]);
 
   useEffect(() => {
-    // TODO: Remove this once we have a production build
-    if (history.scrollRestoration && process.env.NODE_ENV !== 'production') {
+    if (history.scrollRestoration && process.env.NODE_ENV === 'production') {
       history.scrollRestoration = 'manual';
     }
 
